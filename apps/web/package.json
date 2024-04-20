@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
+    "@tanstack/react-query": "^5.29.2",
+    "kyz-editor": "^0.1.1",
     "kyz-toast": "^0.2.0",
     "next": "^14.1.1",
     "react": "^18.2.0",
