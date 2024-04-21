@@ -9,20 +9,15 @@ function Placeholder() {
 }
 
 export default function Page(): JSX.Element {
+  const [editorState, setEditorState] = useState<string>(initialState);
+  function onChange(editorState: EditorState) {
+    const editorStateJSON = editorState.toJSON();
+    setEditorState(JSON.stringify(editorStateJSON));
+  }
+
   return (
     <main className={styles.main}>
-      <table>
-        <thead>
-          <tr>
-            <td>no</td><td>title</td><td>name</td><td>date</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td><td>testtest</td><td>admin</td><td>2024.04.21</td>
-          </tr>
-        </tbody>
-      </table>
+      <Editor placeholder={<Placeholder />} onChange={onChange} initialEditorState={editorState} />
     </main>
   );
 }
