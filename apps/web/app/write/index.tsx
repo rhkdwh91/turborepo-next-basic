@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Editor, initialState, EditorState } from "kyz-editor";
@@ -17,7 +17,11 @@ export default function Page(): JSX.Element {
 
   return (
     <main className={styles.main}>
-      <Editor placeholder={<Placeholder />} onChange={onChange} initialEditorState={editorState} />
+      <Editor
+        placeholder={<Placeholder />}
+        onChange={onChange}
+        initialEditorState={editorState}
+      />
     </main>
   );
 }
