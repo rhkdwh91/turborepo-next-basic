@@ -204,21 +204,21 @@ const users = [
   },
 ];
 
-type User = (typeof users)[number];
-
 export default function Page() {
   return (
     <div className="p-6">
       <table>
         <thead>
-          <th>id</th>
-          <th>name</th>
-          <th>role</th>
-          <th>team</th>
-          <th>status</th>
-          <th>age</th>
-          <th>avatar</th>
-          <th>email</th>
+          <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>role</th>
+            <th>team</th>
+            <th>status</th>
+            <th>age</th>
+            <th>avatar</th>
+            <th>email</th>
+          </tr>
         </thead>
         <tbody>
           {users.map((user) => (
