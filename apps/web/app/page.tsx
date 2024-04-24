@@ -1,15 +1,6 @@
 /* eslint-disable jsx-a11y/no-onchange */
 "use client";
 
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@nextui-org/react";
-
 const users = [
   {
     id: 1,
@@ -218,43 +209,32 @@ type User = (typeof users)[number];
 export default function Page() {
   return (
     <div className="p-6">
-      <Table
-        isCompact
-        removeWrapper
-        aria-label="Example table with custom cells, pagination and sorting"
-        bottomContentPlacement="outside"
-        checkboxesProps={{
-          classNames: {
-            wrapper:
-              "after:bg-foreground after:text-background text-background",
-          },
-        }}
-      >
-        <TableHeader>
-          <TableColumn>id</TableColumn>
-          <TableColumn>name</TableColumn>
-          <TableColumn>role</TableColumn>
-          <TableColumn>team</TableColumn>
-          <TableColumn>status</TableColumn>
-          <TableColumn>age</TableColumn>
-          <TableColumn>avatar</TableColumn>
-          <TableColumn>email</TableColumn>
-        </TableHeader>
-        <TableBody emptyContent={"No users found"}>
+      <table>
+        <thead>
+          <th>id</th>
+          <th>name</th>
+          <th>role</th>
+          <th>team</th>
+          <th>status</th>
+          <th>age</th>
+          <th>avatar</th>
+          <th>email</th>
+        </thead>
+        <tbody>
           {users.map((user) => (
-            <TableRow>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.id}</TableCell>
-            </TableRow>
+            <tr>
+              <td>{user.id}</td>
+              <td>{user.id}</td>
+              <td>{user.id}</td>
+              <td>{user.id}</td>
+              <td>{user.id}</td>
+              <td>{user.id}</td>
+              <td>{user.id}</td>
+              <td>{user.id}</td>
+            </tr>
           ))}
-        </TableBody>
-      </Table>
+        </tbody>
+      </table>
     </div>
   );
 }
