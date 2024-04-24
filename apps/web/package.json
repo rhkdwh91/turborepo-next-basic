@@ -9,8 +9,12 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@repo/ui": "workspace:^",
     "@tanstack/react-query": "^5.29.2",
+    "framer-motion": "^11.1.7",
     "kyz-editor": "^0.1.1",
     "kyz-toast": "^0.2.0",
     "lodash": "^4.17.21",

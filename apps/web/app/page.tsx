@@ -1,6 +1,17 @@
 /* eslint-disable jsx-a11y/no-onchange */
 "use client";
 
+import {
+  Card,
+  Image,
+  CardHeader,
+  Stack,
+  Heading,
+  CardBody,
+  Text,
+  CardFooter,
+} from "@chakra-ui/react";
+
 const users = [
   {
     id: 1,
@@ -206,35 +217,23 @@ const users = [
 
 export default function Page() {
   return (
-    <div className="p-6">
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>role</th>
-            <th>team</th>
-            <th>status</th>
-            <th>age</th>
-            <th>avatar</th>
-            <th>email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr>
-              <td>{user.id}</td>
-              <td>{user.id}</td>
-              <td>{user.id}</td>
-              <td>{user.id}</td>
-              <td>{user.id}</td>
-              <td>{user.id}</td>
-              <td>{user.id}</td>
-              <td>{user.id}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      {users.map((user) => (
+        <Card>
+          <CardBody>
+            <Image src={user.avatar} alt="use avatar" />
+            <Stack>
+              <Heading>{user.id}</Heading>
+              <Text>{user.name}</Text>
+              <Text>{user.role}</Text>
+              <Text>{user.team}</Text>
+              <Text>{user.status}</Text>
+              <Text>{user.age}</Text>
+              <Text>{user.email}</Text>
+            </Stack>
+          </CardBody>
+        </Card>
+      ))}
     </div>
   );
 }
