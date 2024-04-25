@@ -4,6 +4,7 @@
 import {
   Card,
   Image,
+  Flex,
   CardHeader,
   Stack,
   Heading,
@@ -217,11 +218,21 @@ const users = [
 
 export default function Page() {
   return (
-    <div>
+    <Flex
+      gap="20px"
+      alignItems="center"
+      justifyContent="flex-start"
+      flexWrap="wrap"
+    >
       {users.map((user) => (
-        <Card>
+        <Card key={user.id} w="300px">
           <CardBody>
-            <Image src={user.avatar} alt="use avatar" />
+            <Image
+              src={user.avatar}
+              alt="use avatar"
+              width="100"
+              height="100"
+            />
             <Stack>
               <Heading>{user.id}</Heading>
               <Text>{user.name}</Text>
@@ -234,6 +245,6 @@ export default function Page() {
           </CardBody>
         </Card>
       ))}
-    </div>
+    </Flex>
   );
 }
