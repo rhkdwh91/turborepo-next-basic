@@ -1,0 +1,11 @@
+-- CreateTable
+CREATE TABLE `Post` (
+    `uid` INTEGER NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(191) NULL,
+    `content` VARCHAR(191) NULL,
+    `user` VARCHAR(191) NULL,
+    `createAt` DATETIME NOT NULL DEFAULT NOW(),
+    `updateAt` DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+
+    PRIMARY KEY (`uid`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

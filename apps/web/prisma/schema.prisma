@@ -1,0 +1,15 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+generator client {
+  provider = "prisma-client-js"
+}
+model Post {
+  uid    Int     @id @default(autoincrement())
+  title String?
+  content String?
+  user String?
+  createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
+  updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
+}
