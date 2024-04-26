@@ -1,7 +1,8 @@
-import "./styles/globals.css";
+import "../styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Providers from "./providers";
+import ChakraUiProvider from "components/providers/ChakraUiProvider";
+import ReactQueryProvider from "components/providers/ReactQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html className="dark">
+    <html>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <ReactQueryProvider>
+          <ChakraUiProvider>{children}</ChakraUiProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

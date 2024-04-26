@@ -8,8 +8,9 @@ generator client {
 model Post {
   uid    Int     @id @default(autoincrement())
   title String?
-  content String?
-  user String?
+  content String? @db.LongText
+  userName String?
+  tag String?
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
 }

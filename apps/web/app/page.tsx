@@ -1,15 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getQueryClient, queryKeys } from "queryKeys";
 import View from "./view";
 
-const prisma = new PrismaClient();
-
 export default async function Page() {
-  console.log(
-    await prisma.post.findMany({
-      orderBy: {
-        createAt: "asc",
-      },
-    }),
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(queryKeys.posts.list());
+  const dehydratedState = dehydrate(queryClient);
+  return (
+    <HydrationBoundary state={dehydratedState}>
+      <View />
+    </HydrationBoundary>
   );
-  return <View />;
 }

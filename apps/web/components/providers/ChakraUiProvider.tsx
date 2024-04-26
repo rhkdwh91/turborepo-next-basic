@@ -2,6 +2,10 @@
 
 import { ChakraProvider } from "@chakra-ui/react";
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function ChakraUiProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <ChakraProvider cssVarsRoot="body">{children}</ChakraProvider>;
 }
