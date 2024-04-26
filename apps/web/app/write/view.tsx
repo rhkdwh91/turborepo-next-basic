@@ -47,6 +47,7 @@ export default function Page(): JSX.Element {
         placeholder={<Placeholder />}
         onChange={handleChange}
         initialEditorState={content}
+        editable
       />
       <Button onClick={handleSubmit}>저장</Button>
     </main>
