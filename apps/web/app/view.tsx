@@ -27,12 +27,7 @@ export default function View() {
               <Stack>
                 <Heading>{post.title}</Heading>
                 <Text>{post.userName}</Text>
-                <Editor
-                  placeholder={<></>}
-                  editable={false}
-                  onChange={() => null}
-                  initialEditorState={post.content}
-                ></Editor>
+                <Editor initialEditorState={post.content} editable={false} />
                 <Text>{post.createAt}</Text>
               </Stack>
             </CardBody>
