@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "../queryKeys";
 import Link from "next/link";
 import { Post } from "../types/post";
+import styles from "./page.module.css";
+import useUserInfo from "../hooks/useUserInfo";
 
 interface PostCardProps {
   post: Post;
@@ -39,19 +41,38 @@ function PostCard({ post }: PostCardProps) {
 
 export default function View() {
   const { data } = useQuery(queryKeys.posts.list());
+  const { isLogin, userInfo } = useUserInfo();
   return (
-    <main>
-      <Link href={"/post/write"} color="blue">
-        Write
-      </Link>
-      <Flex
-        gap="20px"
-        alignItems="center"
-        justifyContent="flex-start"
-        flexWrap="wrap"
-      >
-        {data?.map((post) => <PostCard post={post} key={post.uid} />)}
-      </Flex>
+    <main className={styles.main}>
+      <div className={styles.layout}>
+        <Flex
+          gap="20px"
+          alignItems="center"
+          justifyContent="flex-start"
+          flexWrap="wrap"
+        >
+          {isLogin ? (
+            <Link href={"/post/write"} className={styles.link}>
+              Write
+            </Link>
+          ) : (
+            <Link href={"/sign-in"} className={styles.link}>
+              SignIn
+            </Link>
+          )}
+          {userInfo && (
+            <Text textColor="white">Hello, {userInfo.username}!</Text>
+          )}
+        </Flex>
+        <Flex
+          gap="20px"
+          alignItems="center"
+          justifyContent="flex-start"
+          flexWrap="wrap"
+        >
+          {data?.map((post) => <PostCard post={post} key={post.uid} />)}
+        </Flex>
+      </div>
     </main>
   );
 }

@@ -1,0 +1,15 @@
+.main {
+    background-color: #000000;
+    height: 100vh;
+}
+
+.layout {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.link {
+    color: aqua;
+    padding: 10px;
+    text-decoration: underline;
+}
