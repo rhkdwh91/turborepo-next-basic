@@ -1,42 +1,12 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { verifyJWT } from "utils/signJWT";
-import prisma from "prisma/client";
-
-const COOKIES = {
-  accessToken: "accessToken",
-  refreshToken: "refreshToken",
-};
+import authCheck from "utils/authCheck";
 
 export async function GET(req: NextRequest) {
-  const accessToken = req.cookies.get(COOKIES.accessToken);
-  if (!accessToken) {
-    return NextResponse.json(
-      { message: "No username found." },
-      { status: 401 },
-    );
-  }
-  const decode = await verifyJWT(accessToken.value);
-  if (!decode.payload?.username) {
-    return NextResponse.json(
-      { message: "No username found." },
-      {
-        status: 401,
-        headers: {
-          "Set-Cookie": `accessToken=;Path=/;HttpOnly;Max-Age=0;`,
-        },
-      },
-    );
-  }
-  const user = await prisma.user.findUnique({
-    where: {
-      username: String(decode.payload?.username),
-    },
-  });
-
+  const user = await authCheck(req);
   if (!user) {
     return NextResponse.json(
-      { message: "No username found." },
+      { message: "No user found." },
       {
         status: 401,
         headers: {

@@ -19,25 +19,6 @@ export async function middleware(req: NextRequest) {
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
-  const response = await fetch(
-    process.env.NODE_ENV === "production"
-      ? "https://turborepo-next-basic-alpha-sooty.vercel.app"
-      : "http://localhost:3000" +
-          "/api/user/user-check?username=" +
-          decode.payload.username,
-    {
-      headers: {
-        Accept: "application / json",
-      },
-      method: "GET",
-    },
-  );
-  const data = await response.json();
-  if (!data) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/";
-    return NextResponse.redirect(url);
-  }
 }
 
 export const config = {
