@@ -9,7 +9,8 @@ const usePostMutation = () => {
 
   const createPostMutation = useMutation({
     mutationFn: async (form: PostForm) => {
-      await axiosInstance.post("/api/posts", form);
+      const { data } = await axiosInstance.post("/api/posts", form);
+      return data;
     },
     onSuccess: () => {
       toast("Successfully created post!", {
@@ -18,10 +19,31 @@ const usePostMutation = () => {
       });
       router.push("/");
     },
+    onError: (error) => {
+      toast("some Error", {
+        backgroundColor: "#8329C5",
+        color: "#ffffff",
+      });
+      console.error(error);
+    },
+  });
+
+  const deletePostMutation = useMutation({
+    mutationFn: async (uid: number) => {
+      const { data } = await axiosInstance.delete("/api/posts/" + uid);
+      return data;
+    },
+    onSuccess: () => {
+      toast("Successfully delete post!", {
+        backgroundColor: "#8329C5",
+        color: "#ffffff",
+      });
+    },
   });
 
   return {
     createPostMutation,
+    deletePostMutation,
   };
 };
 
