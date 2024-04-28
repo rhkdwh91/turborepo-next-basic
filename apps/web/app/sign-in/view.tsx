@@ -13,6 +13,7 @@ import useUserMutation from "hooks/mutation/useUserMutation";
 
 import styles from "./page.module.css";
 import { UserForm } from "../../types/user";
+import { toast } from "kyz-toast";
 
 export default function View() {
   const [show, setShow] = useState(false);
@@ -30,13 +31,19 @@ export default function View() {
     if (form.username.length > 4 && form.password.length > 6) {
       return signInUserMutation.mutate(form);
     }
-    alert("Invalid Value");
+    toast("Invalid Value!", {
+      backgroundColor: "#E53E3E",
+      color: "#ffffff",
+    });
   };
   const handleClickSignUp = () => {
     if (form.username.length > 4 && form.password.length > 6) {
       return createUserMutation.mutate(form);
     }
-    alert("Invalid Value");
+    toast("Invalid Value!", {
+      backgroundColor: "#E53E3E",
+      color: "#ffffff",
+    });
   };
 
   return (
