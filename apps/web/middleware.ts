@@ -35,9 +35,6 @@ export async function middleware(req: NextRequest) {
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
-  const url = req.nextUrl.clone();
-  url.pathname = "/";
-  return NextResponse.redirect(url);
 }
 
 export const config = {
