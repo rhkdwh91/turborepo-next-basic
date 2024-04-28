@@ -68,7 +68,12 @@ export default function View({ uid }: ViewProps) {
           initialEditorState={content}
           editable
         />
-        <Button onClick={handleSubmit}>수정</Button>
+        <Button
+          onClick={handleSubmit}
+          isDisabled={modifyPostMutation.isPending}
+        >
+          수정
+        </Button>
       </div>
     </main>
   );

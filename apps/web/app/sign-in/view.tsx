@@ -78,8 +78,18 @@ export default function View() {
           </InputGroup>
         </FormLabel>
         <Flex gap={2} marginY={4} justifyContent="flex-end">
-          <Button onClick={handleClickSignIn}>SignIn</Button>
-          <Button onClick={handleClickSignUp}>SignUp</Button>
+          <Button
+            onClick={handleClickSignIn}
+            isDisabled={signInUserMutation.isPending}
+          >
+            SignIn
+          </Button>
+          <Button
+            onClick={handleClickSignUp}
+            isDisabled={createUserMutation.isPending}
+          >
+            SignUp
+          </Button>
         </Flex>
       </div>
     </main>

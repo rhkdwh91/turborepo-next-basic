@@ -52,7 +52,12 @@ export default function Page(): JSX.Element {
           initialEditorState={content}
           editable
         />
-        <Button onClick={handleSubmit}>저장</Button>
+        <Button
+          onClick={handleSubmit}
+          isDisabled={createPostMutation.isPending}
+        >
+          저장
+        </Button>
       </div>
     </main>
   );
