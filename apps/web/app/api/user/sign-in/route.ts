@@ -1,3 +1,4 @@
+import { serialize } from "cookie";
 import { signJWT } from "utils/signJWT";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "prisma/client";
@@ -36,12 +37,19 @@ export async function POST(req: NextRequest) {
 
     const token = await signJWT({ username: user.username });
 
+    const cookie = serialize("session", token.accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 60 * 60 * 24 * 7, // One week
+      path: "/",
+    });
+
     return NextResponse.json(
       { username: user.username, email: user.email },
       {
         status: 201,
         headers: {
-          "Set-Cookie": `accessToken=${token.accessToken};Path=/;HttpOnly;Max-Age=604800;`,
+          "Set-Cookie": cookie,
         },
       },
     );
