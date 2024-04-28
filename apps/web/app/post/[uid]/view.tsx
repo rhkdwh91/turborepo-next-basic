@@ -11,9 +11,9 @@ import {
   Text,
   Heading,
   Stack,
-  Skeleton,
   Button,
   Flex,
+  CircularProgress,
 } from "@chakra-ui/react";
 import styles from "./page.module.css";
 import useUserInfo from "hooks/useUserInfo";
@@ -44,29 +44,40 @@ function View({ uid }: ViewProps) {
 
   return (
     <main className={styles.layout}>
-      <Skeleton isLoaded={!isLoading}>
-        {data && (
-          <Box position="relative" paddingY="10">
-            <Stack paddingY="2">
-              <Heading fontSize="3xl" padding="2">
-                {data.title}
-              </Heading>
-              <Text paddingX="2">{data.tag}</Text>
-              <Text paddingX="2">{data.userName}</Text>
-              <Text paddingX="2">{data.updateAt}</Text>
-              <Divider padding={2} borderColor={"black"} />
-            </Stack>
+      {isLoading && (
+        <Flex justifyContent="center" height="100vh" width="100%">
+          <CircularProgress
+            isIndeterminate
+            color="blue"
+            thickness="12px"
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform={`translate(-50%, -50%)`}
+          />
+        </Flex>
+      )}
+      {data && (
+        <Box position="relative" paddingY="10">
+          <Stack paddingY="2">
+            <Heading fontSize="3xl" padding="2">
+              {data.title}
+            </Heading>
+            <Text paddingX="2">{data.tag}</Text>
+            <Text paddingX="2">{data.userName}</Text>
+            <Text paddingX="2">{data.updateAt}</Text>
+            <Divider padding={2} borderColor={"black"} />
+          </Stack>
 
-            <Editor editable={false} initialEditorState={data.content} />
-          </Box>
-        )}
-        {isLogin && (
-          <Flex gap={2}>
-            <Button onClick={handleClickModify}>Modify</Button>
-            <Button onClick={handleClickDeleteButton}>Delete</Button>
-          </Flex>
-        )}
-      </Skeleton>
+          <Editor editable={false} initialEditorState={data.content} />
+        </Box>
+      )}
+      {isLogin && (
+        <Flex gap={2}>
+          <Button onClick={handleClickModify}>Modify</Button>
+          <Button onClick={handleClickDeleteButton}>Delete</Button>
+        </Flex>
+      )}
     </main>
   );
 }

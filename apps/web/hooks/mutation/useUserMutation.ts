@@ -15,10 +15,16 @@ const useUserMutation = () => {
     },
     onSuccess: () => {
       toast("Successfully created user!", {
-        backgroundColor: "#8329C5",
+        backgroundColor: "#3182CE",
         color: "#ffffff",
       });
       router.push("/");
+    },
+    onError: () => {
+      toast("Failed created user!", {
+        backgroundColor: "#E53E3E",
+        color: "#ffffff",
+      });
     },
   });
 
@@ -29,11 +35,17 @@ const useUserMutation = () => {
     },
     onSuccess: (userInfo: User) => {
       toast("Successfully login user!", {
-        backgroundColor: "#8329C5",
+        backgroundColor: "#3182CE",
         color: "#ffffff",
       });
       setUserInfo({ username: userInfo.username, email: userInfo.email });
       router.push("/");
+    },
+    onError: () => {
+      toast("Failed login user!", {
+        backgroundColor: "#E53E3E",
+        color: "#ffffff",
+      });
     },
   });
 
@@ -43,11 +55,17 @@ const useUserMutation = () => {
     },
     onSuccess: () => {
       toast("Successfully logout user!", {
-        backgroundColor: "#8329C5",
+        backgroundColor: "#3182CE",
         color: "#ffffff",
       });
       deleteUserInfo();
       router.push("/");
+    },
+    onError: () => {
+      toast("Failed logout user!", {
+        backgroundColor: "#E53E3E",
+        color: "#ffffff",
+      });
     },
   });
 
