@@ -1,6 +1,6 @@
 "use client";
+
 import { ChangeEvent, useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   FormLabel,
   Input,
@@ -42,7 +42,7 @@ export default function View() {
   return (
     <main className={styles.main}>
       <div className={styles.layout}>
-        <FormLabel marginY={2} textColor="white">
+        <FormLabel marginY={2}>
           username
           <Input
             pr="4.5rem"
@@ -52,7 +52,7 @@ export default function View() {
             value={form.username}
           />
         </FormLabel>
-        <FormLabel marginY={2} textColor="white">
+        <FormLabel marginY={2}>
           password
           <InputGroup size="md">
             <Input
@@ -70,7 +70,7 @@ export default function View() {
             </InputRightElement>
           </InputGroup>
         </FormLabel>
-        <Flex gap="20px" marginY={4} justifyContent="flex-end">
+        <Flex gap={2} marginY={4} justifyContent="flex-end">
           <Button onClick={handleClickSignIn}>SignIn</Button>
           <Button onClick={handleClickSignUp}>SignUp</Button>
         </Flex>

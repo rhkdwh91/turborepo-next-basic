@@ -4,7 +4,7 @@ import { Post } from "types/post";
 
 const postsKeys = createQueryKeys("posts", {
   detail: (uid: number) => ({
-    queryKey: ["detail", uid],
+    queryKey: [uid],
     queryFn: async (): Promise<Post> => {
       const { data } = await axiosInstance.get(`/api/posts/${uid}`);
       return data;

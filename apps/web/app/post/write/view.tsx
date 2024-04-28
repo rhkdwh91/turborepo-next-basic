@@ -43,7 +43,6 @@ export default function Page(): JSX.Element {
           placeholder="title"
           size="lg"
           marginY={4}
-          textColor="white"
           value={title}
           onChange={handleChangeTitle}
         />

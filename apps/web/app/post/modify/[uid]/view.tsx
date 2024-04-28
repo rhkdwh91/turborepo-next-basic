@@ -1,19 +1,34 @@
 "use client";
 
 import { useState, MouseEvent, ChangeEvent } from "react";
-import { Editor, initialState, EditorState } from "kyz-editor";
+import { Editor, EditorState } from "kyz-editor";
 import { Input, Button } from "@chakra-ui/react";
 import usePostMutation from "hooks/mutation/usePostMutation";
 import styles from "./page.module.css";
+import { useQueryClient } from "@tanstack/react-query";
+import { queryKeys } from "queryKeys";
+import { Post } from "types/post";
+import { redirect } from "next/navigation";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
 
-export default function Page(): JSX.Element {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState<string>(initialState);
-  const { createPostMutation } = usePostMutation();
+interface ViewProps {
+  uid: number;
+}
+
+export default function View({ uid }: ViewProps) {
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData<Post>(
+    queryKeys.posts.detail(uid).queryKey,
+  );
+  if (!data) {
+    redirect("/");
+  }
+  const [title, setTitle] = useState(data.title);
+  const [content, setContent] = useState<string>(data.content);
+  const { modifyPostMutation } = usePostMutation();
 
   const handleChange = (editorState: EditorState) => {
     const editorStateJSON = editorState.toJSON();
@@ -26,8 +41,9 @@ export default function Page(): JSX.Element {
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!createPostMutation.isPending) {
-      createPostMutation.mutate({
+    if (!modifyPostMutation.isPending) {
+      modifyPostMutation.mutate({
+        uid,
         title,
         content,
         tag: "",
@@ -43,7 +59,6 @@ export default function Page(): JSX.Element {
           placeholder="title"
           size="lg"
           marginY={4}
-          textColor="white"
           value={title}
           onChange={handleChangeTitle}
         />
@@ -53,7 +68,7 @@ export default function Page(): JSX.Element {
           initialEditorState={content}
           editable
         />
-        <Button onClick={handleSubmit}>저장</Button>
+        <Button onClick={handleSubmit}>수정</Button>
       </div>
     </main>
   );
