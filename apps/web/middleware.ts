@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest) {
   }
   const response = await fetch(
     process.env.NODE_ENV === "production"
-      ? "https://turborepo-next-basic-alpha-sooty.vercel.app/"
+      ? "https://turborepo-next-basic-alpha-sooty.vercel.app"
       : "http://localhost:3000" +
           "/api/user/user-check?username=" +
           decode.payload.username,
