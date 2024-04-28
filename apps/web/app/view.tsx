@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Post } from "../types/post";
 import styles from "./page.module.css";
 import useUserInfo from "../hooks/useUserInfo";
+import LogoutButton from "../components/ui/atom/LogoutButton";
 
 interface PostCardProps {
   post: Post;
@@ -50,18 +51,23 @@ export default function View() {
           alignItems="center"
           justifyContent="flex-start"
           flexWrap="wrap"
+          paddingY={4}
         >
           {isLogin ? (
-            <Link href={"/post/write"} className={styles.link}>
-              Write
-            </Link>
+            <>
+              <Link href={"/post/write"} className={styles.link}>
+                Write
+              </Link>
+              <Text textColor="white">Hello, {userInfo.username}!</Text>
+              <LogoutButton />
+            </>
           ) : (
-            <Link href={"/sign-in"} className={styles.link}>
-              SignIn
-            </Link>
-          )}
-          {userInfo && (
-            <Text textColor="white">Hello, {userInfo.username}!</Text>
+            <>
+              <Link href={"/sign-in"} className={styles.link}>
+                SignIn
+              </Link>
+              <Text textColor="white">Hello, guest!</Text>
+            </>
           )}
         </Flex>
         <Flex

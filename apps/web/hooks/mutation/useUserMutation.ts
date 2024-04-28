@@ -6,7 +6,7 @@ import useUserInfo from "hooks/useUserInfo";
 
 const useUserMutation = () => {
   const router = useRouter();
-  const { setUserInfo } = useUserInfo();
+  const { setUserInfo, deleteUserInfo } = useUserInfo();
 
   const createUserMutation = useMutation({
     mutationFn: async (form: UserForm) => {
@@ -30,9 +30,21 @@ const useUserMutation = () => {
     },
   });
 
+  const signOutUserMutation = useMutation({
+    mutationFn: async () => {
+      await axiosInstance.post("/api/user/sign-out");
+    },
+    onSuccess: () => {
+      alert("Sign out Successfully!");
+      deleteUserInfo();
+      router.push("/");
+    },
+  });
+
   return {
     createUserMutation,
     signInUserMutation,
+    signOutUserMutation,
   };
 };
 

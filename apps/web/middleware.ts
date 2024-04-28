@@ -9,11 +9,15 @@ const COOKIES = {
 export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get(COOKIES.accessToken);
   if (!accessToken) {
-    return NextResponse.redirect("/");
+    const url = req.nextUrl.clone();
+    url.pathname = "/";
+    return NextResponse.redirect(url);
   }
   const decode = await verifyJWT(accessToken.value);
   if (!decode.payload?.username) {
-    return NextResponse.redirect("/");
+    const url = req.nextUrl.clone();
+    url.pathname = "/";
+    return NextResponse.redirect(url);
   }
   const response = await fetch(
     "http://localhost:3000/api/user/user-check?username=" +
@@ -21,8 +25,9 @@ export async function middleware(req: NextRequest) {
   );
   const data = await response.json();
   if (!data) {
-    const clonedUrl = req.nextUrl.clone();
-    return NextResponse.redirect(clonedUrl.href);
+    const url = req.nextUrl.clone();
+    url.pathname = "/";
+    return NextResponse.redirect(url);
   }
 }
 
