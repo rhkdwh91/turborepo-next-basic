@@ -6,8 +6,12 @@ const useUserVerifyCheck = () => {
   const { setUserInfo } = useUserInfo();
 
   const userCheck = async () => {
-    const { data } = await axiosInstance.get("/api/user/verify-check");
-    setUserInfo(data);
+    try {
+      const { data } = await axiosInstance.get("/api/user/verify-check");
+      setUserInfo(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

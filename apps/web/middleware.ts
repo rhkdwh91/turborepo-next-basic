@@ -9,13 +9,11 @@ const COOKIES = {
 export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get(COOKIES.accessToken);
   if (!accessToken) {
-    const clonedUrl = req.nextUrl.clone();
-    return NextResponse.redirect(clonedUrl.href);
+    return NextResponse.redirect("/");
   }
   const decode = await verifyJWT(accessToken.value);
   if (!decode.payload?.username) {
-    const clonedUrl = req.nextUrl.clone();
-    return NextResponse.redirect(clonedUrl.href);
+    return NextResponse.redirect("/");
   }
   const response = await fetch(
     "http://localhost:3000/api/user/user-check?username=" +
@@ -29,29 +27,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    {
-      source: "/((?!api|_next/static|_next/image|favicon.ico).*)",
-      missing: [
-        { type: "header", key: "next-router-prefetch" },
-        { type: "header", key: "purpose", value: "prefetch" },
-      ],
-    },
-
-    {
-      source: "/((?!api|_next/static|_next/image|favicon.ico).*)",
-      has: [
-        { type: "header", key: "next-router-prefetch" },
-        { type: "header", key: "purpose", value: "prefetch" },
-      ],
-    },
-
-    {
-      source: "/((?!api|_next/static|_next/image|favicon.ico).*)",
-      has: [{ type: "header", key: "x-present" }],
-      missing: [{ type: "header", key: "x-missing", value: "prefetch" }],
-    },
-    "/post/write",
-    "/post/modify",
-  ],
+  matcher: ["/post/write", "/post/modify"],
 };
