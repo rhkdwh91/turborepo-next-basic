@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     const token = await signJWT({ username: user.username });
 
-    const cookie = serialize("session", token.accessToken, {
+    const cookie = serialize("accessToken", token.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24 * 7, // One week

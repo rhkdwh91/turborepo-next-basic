@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { verifyJWT } from "../../../../utils/signJWT";
-import prisma from "../../../../prisma/client";
+import { verifyJWT } from "utils/signJWT";
+import prisma from "prisma/client";
 
 const COOKIES = {
   accessToken: "accessToken",

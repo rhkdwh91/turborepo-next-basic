@@ -35,21 +35,24 @@ export default function Page(): JSX.Element {
   };
 
   return (
-    <main className={styles.layout}>
-      <Input
-        placeholder="title"
-        size="lg"
-        marginY={4}
-        value={title}
-        onChange={handleChangeTitle}
-      />
-      <Editor
-        placeholder={<Placeholder />}
-        onChange={handleChange}
-        initialEditorState={content}
-        editable
-      />
-      <Button onClick={handleSubmit}>저장</Button>
+    <main className={styles.main}>
+      <div className={styles.layout}>
+        <Input
+          placeholder="title"
+          size="lg"
+          marginY={4}
+          textColor="white"
+          value={title}
+          onChange={handleChangeTitle}
+        />
+        <Editor
+          placeholder={<Placeholder />}
+          onChange={handleChange}
+          initialEditorState={content}
+          editable
+        />
+        <Button onClick={handleSubmit}>저장</Button>
+      </div>
     </main>
   );
 }
