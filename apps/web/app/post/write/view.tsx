@@ -26,12 +26,14 @@ export default function Page(): JSX.Element {
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    createPostMutation.mutate({
-      title,
-      content,
-      tag: "",
-      userName: "admin",
-    });
+    if (!createPostMutation.isPending) {
+      createPostMutation.mutate({
+        title,
+        content,
+        tag: "",
+        userName: "admin",
+      });
+    }
   };
 
   return (

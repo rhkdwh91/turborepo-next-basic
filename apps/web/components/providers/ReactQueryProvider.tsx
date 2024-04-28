@@ -9,6 +9,7 @@ function ReactQueryProvider({ children }: PropsWithChildren) {
       defaultOptions: {
         queries: {
           refetchOnWindowFocus: false,
+          retry: 0,
         },
       },
     }),
