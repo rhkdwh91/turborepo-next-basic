@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     },
   });
   if (user) {
-    return NextResponse.json(user);
+    return NextResponse.json({ message: "User already exists" });
   }
   return NextResponse.json({ message: "No username found." }, { status: 401 });
 }
