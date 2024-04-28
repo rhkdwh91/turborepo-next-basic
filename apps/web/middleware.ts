@@ -19,23 +19,25 @@ export async function middleware(req: NextRequest) {
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
-  try {
-    const response = await fetch(
-      "http://localhost:3000/api/user/user-check?username=" +
-        decode.payload.username,
-    );
-    const data = await response.json();
-    if (!data) {
-      const url = req.nextUrl.clone();
-      url.pathname = "/";
-      return NextResponse.redirect(url);
-    }
-  } catch (error) {
-    console.error(error);
+  const response = await fetch(
+    "http://localhost:3000/api/user/user-check?username=" +
+      decode.payload.username,
+    {
+      headers: {
+        Accept: "application / json",
+      },
+      method: "GET",
+    },
+  );
+  const data = await response.json();
+  if (!data) {
     const url = req.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
+  const url = req.nextUrl.clone();
+  url.pathname = "/";
+  return NextResponse.redirect(url);
 }
 
 export const config = {
