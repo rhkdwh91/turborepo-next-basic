@@ -106,8 +106,8 @@ importers:
         specifier: ^5.2.4
         version: 5.2.4
       kyz-editor:
-        specifier: ^0.1.7
-        version: 0.1.7(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.15)
+        specifier: ^0.1.8
+        version: 0.1.8(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.15)
       kyz-toast:
         specifier: ^0.2.0
         version: 0.2.0(react-dom@18.2.0)(react@18.2.0)
@@ -5099,8 +5099,8 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
-  /kyz-editor@0.1.7(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.15):
-    resolution: {integrity: sha512-7DzEpfVIXB6tnPVW8ST2nihKks8wIGGElxSYhgXb9e0jtn8utcw1YcGs00vXPG+PgoXl2NvUtuufO+XkjMKglA==}
+  /kyz-editor@0.1.8(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.15):
+    resolution: {integrity: sha512-slUe2XwXdcW02J4+7hCe9dnB3d32k9wi9duEDp2ltkJiNTObNmUSNuZWwUMRqxdQd2rLyuUbUGj/6itz+RBcsQ==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
