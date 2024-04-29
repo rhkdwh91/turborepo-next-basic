@@ -10,13 +10,19 @@ model User {
   username String @unique
   email String? @unique
   password String
+  level Int?
 }
 model Post {
   uid    Int     @id @default(autoincrement())
   title String?
   content String? @db.LongText
-  userName String?
+  username String?
   tag String?
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
+}
+model Tag {
+  uid Int @id @default(autoincrement())
+  name String @unique
+  value String
 }

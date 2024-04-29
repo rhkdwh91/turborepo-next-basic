@@ -13,17 +13,11 @@ const usePostMutation = () => {
       return data;
     },
     onSuccess: () => {
-      toast("Successfully created post!", {
-        backgroundColor: "#3182CE",
-        color: "#ffffff",
-      });
+      toast.success("Successfully created post!");
       router.push("/");
     },
     onError: (error) => {
-      toast("some Error", {
-        backgroundColor: "#E53E3E",
-        color: "#ffffff",
-      });
+      toast.error("Failed create post");
       console.error(error);
     },
   });
@@ -34,17 +28,11 @@ const usePostMutation = () => {
       return data;
     },
     onSuccess: () => {
-      toast("Successfully modify post!", {
-        backgroundColor: "#3182CE",
-        color: "#ffffff",
-      });
+      toast.success("Successfully modify post!");
       router.push("/");
     },
     onError: (error) => {
-      toast("some Error", {
-        backgroundColor: "#E53E3E",
-        color: "#ffffff",
-      });
+      toast.error("Failed modify post");
       console.error(error);
     },
   });
@@ -55,10 +43,7 @@ const usePostMutation = () => {
       return data;
     },
     onSuccess: () => {
-      toast("Successfully delete post!", {
-        backgroundColor: "#3182CE",
-        color: "#ffffff",
-      });
+      toast.success("Successfully delete post!");
       router.push("/");
     },
   });

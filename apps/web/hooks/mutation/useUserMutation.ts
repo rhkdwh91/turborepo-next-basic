@@ -14,17 +14,11 @@ const useUserMutation = () => {
       await axiosInstance.post("/api/user/sign-up", form);
     },
     onSuccess: () => {
-      toast("Successfully created user!", {
-        backgroundColor: "#3182CE",
-        color: "#ffffff",
-      });
+      toast.success("Successfully created user!");
       router.push("/");
     },
     onError: () => {
-      toast("Failed created user!", {
-        backgroundColor: "#E53E3E",
-        color: "#ffffff",
-      });
+      toast.error("Failed created user!");
     },
   });
 
@@ -34,18 +28,12 @@ const useUserMutation = () => {
       return data;
     },
     onSuccess: (userInfo: User) => {
-      toast("Successfully login user!", {
-        backgroundColor: "#3182CE",
-        color: "#ffffff",
-      });
+      toast.success("Successfully login user!");
       setUserInfo({ username: userInfo.username, email: userInfo.email });
       router.push("/");
     },
     onError: () => {
-      toast("Failed login user!", {
-        backgroundColor: "#E53E3E",
-        color: "#ffffff",
-      });
+      toast.error("Failed login user!");
     },
   });
 
@@ -54,18 +42,12 @@ const useUserMutation = () => {
       await axiosInstance.post("/api/user/sign-out");
     },
     onSuccess: () => {
-      toast("Successfully logout user!", {
-        backgroundColor: "#3182CE",
-        color: "#ffffff",
-      });
+      toast.success("Successfully logout user!");
       deleteUserInfo();
       router.push("/");
     },
     onError: () => {
-      toast("Failed logout user!", {
-        backgroundColor: "#E53E3E",
-        color: "#ffffff",
-      });
+      toast.error("Failed logout user!");
     },
   });
 

@@ -1,7 +1,15 @@
 "use client";
 
 import { useMemo } from "react";
-import { Card, Flex, Stack, Heading, CardBody, Text } from "@chakra-ui/react";
+import {
+  Card,
+  Flex,
+  Stack,
+  Heading,
+  CardBody,
+  Text,
+  Box,
+} from "@chakra-ui/react";
 
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
@@ -24,15 +32,31 @@ function PostCard({ post }: PostCardProps) {
     }
     return "";
   }, [post]);
+
+  const createAt = useMemo(() => {
+    return post.createAt.split("T")[0];
+  }, [post]);
   return (
     <Link href={`/post/${post.uid}`}>
-      <Card key={post.uid} w="300px">
+      <Card
+        key={post.uid}
+        w={{
+          base: "100%",
+          md: "100%",
+          xl: "300px",
+        }}
+        marginY={{
+          base: 4,
+          md: 4,
+          xl: 0,
+        }}
+      >
         <CardBody>
           <Stack>
             <Heading fontSize="2xl">{post.title}</Heading>
             <Text>{post.userName}</Text>
             <Text>{content}</Text>
-            <Text>{post.createAt}</Text>
+            <Text>createdAt {createAt}</Text>
           </Stack>
         </CardBody>
       </Card>
@@ -71,14 +95,9 @@ export default function View() {
             </>
           )}
         </Flex>
-        <Flex
-          gap="20px"
-          alignItems="center"
-          justifyContent="flex-start"
-          flexWrap="wrap"
-        >
+        <Box display={{ md: "block", xl: "flex" }} flexWrap={"wrap"} gap={4}>
           {data?.map((post) => <PostCard post={post} key={post.uid} />)}
-        </Flex>
+        </Box>
       </div>
     </main>
   );

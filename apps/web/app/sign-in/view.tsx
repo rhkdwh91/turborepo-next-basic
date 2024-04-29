@@ -21,7 +21,7 @@ export default function View() {
     username: "",
     password: "",
   });
-  const { signInUserMutation, createUserMutation } = useUserMutation();
+  const { signInUserMutation } = useUserMutation();
 
   const handleClickPasswordShow = () => setShow(!show);
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,20 +31,15 @@ export default function View() {
     if (form.username.length > 4 && form.password.length > 6) {
       return signInUserMutation.mutate(form);
     }
-    toast("Invalid Value!", {
-      backgroundColor: "#E53E3E",
-      color: "#ffffff",
-    });
+    toast.error("Invalid Value!");
   };
+  /*
   const handleClickSignUp = () => {
     if (form.username.length > 4 && form.password.length > 6) {
       return createUserMutation.mutate(form);
     }
-    toast("Invalid Value!", {
-      backgroundColor: "#E53E3E",
-      color: "#ffffff",
-    });
-  };
+    toast.error("Invalid Value!");
+  };*/
 
   return (
     <main className={styles.main}>
@@ -84,12 +79,13 @@ export default function View() {
           >
             SignIn
           </Button>
+          {/**
           <Button
             onClick={handleClickSignUp}
             isDisabled={createUserMutation.isPending}
           >
             SignUp
-          </Button>
+          </Button>**/}
         </Flex>
       </div>
     </main>
