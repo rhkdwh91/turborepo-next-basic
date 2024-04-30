@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import ChakraUiProvider from "components/providers/ChakraUiProvider";
 import ReactQueryProvider from "components/providers/ReactQueryProvider";
 import VerifyCheckProvider from "components/providers/VerifyCheckProvider";
@@ -28,6 +29,7 @@ export default function RootLayout({
             </ChakraUiProvider>
           </ReactQueryProvider>
         </VerifyCheckProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
