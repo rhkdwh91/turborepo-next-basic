@@ -80,7 +80,7 @@ importers:
         version: 11.11.5(@emotion/react@11.11.4)(@types/react@18.2.79)(react@18.2.0)
       '@lukemorales/query-key-factory':
         specifier: ^1.3.4
-        version: 1.3.4(@tanstack/query-core@5.32.0)(@tanstack/react-query@5.32.0)
+        version: 1.3.4(@tanstack/query-core@5.32.1)(@tanstack/react-query@5.32.0)
       '@prisma/client':
         specifier: 5.13.0
         version: 5.13.0(prisma@5.13.0)
@@ -109,8 +109,8 @@ importers:
         specifier: ^5.2.4
         version: 5.2.4
       kyz-editor:
-        specifier: ^0.2.0
-        version: 0.2.0(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.15)
+        specifier: ^0.2.1
+        version: 0.2.1(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.15)
       kyz-toast:
         specifier: ^0.2.0
         version: 0.2.0(react-dom@18.2.0)(react@18.2.0)
@@ -1997,14 +1997,14 @@ packages:
       yjs: 13.6.15
     dev: false
 
-  /@lukemorales/query-key-factory@1.3.4(@tanstack/query-core@5.32.0)(@tanstack/react-query@5.32.0):
+  /@lukemorales/query-key-factory@1.3.4(@tanstack/query-core@5.32.1)(@tanstack/react-query@5.32.0):
     resolution: {integrity: sha512-A3frRDdkmaNNQi6mxIshsDk4chRXWoXa05US8fBo4kci/H+lVmujS6QrwQLLGIkNIRFGjMqp2uKjC4XsLdydRw==}
     engines: {node: '>=14'}
     peerDependencies:
       '@tanstack/query-core': '>= 4.0.0'
       '@tanstack/react-query': '>= 4.0.0'
     dependencies:
-      '@tanstack/query-core': 5.32.0
+      '@tanstack/query-core': 5.32.1
       '@tanstack/react-query': 5.32.0(react@18.2.0)
     dev: false
 
@@ -2212,6 +2212,10 @@ packages:
 
   /@tanstack/query-core@5.32.0:
     resolution: {integrity: sha512-Z3flEgCat55DRXU5UMwYU1U+DgFZKA3iufyOKs+II7iRAo0uXkeU7PH5e6sOH1CGEag0IpKmZxlUFpCg6roSKw==}
+    dev: false
+
+  /@tanstack/query-core@5.32.1:
+    resolution: {integrity: sha512-mCWa1wdGb1jiny4+qYegbSeadcFj+Nq65KFSs4A1DRveoIq7SrTwUhqu7hrB6d54cQH5x59DfJvxusn3w1Cj/g==}
     dev: false
 
   /@tanstack/react-query@5.32.0(react@18.2.0):
@@ -5137,8 +5141,8 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
-  /kyz-editor@0.2.0(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.15):
-    resolution: {integrity: sha512-NoJjD7aASMo2o3fxm+t8WQB4xHwbJlGYYmDBQcrBdl6aXSV8QzFCcb2/12fzNf37SYIQHOyK+d+CPZLQFIDkaA==}
+  /kyz-editor@0.2.1(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.15):
+    resolution: {integrity: sha512-pZUqxPkjKolbn1l71R2DBdbirBbAcrxuChp26l4J4NDThlcE9wC9xKMmsXeY7IK0s1CSKGlZEXLH7EeMtAKBag==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
