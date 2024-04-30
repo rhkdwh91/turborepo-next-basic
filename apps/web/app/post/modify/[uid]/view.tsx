@@ -47,7 +47,6 @@ export default function View({ uid }: ViewProps) {
         title,
         content,
         tag: "",
-        userName: "admin",
       });
     }
   };

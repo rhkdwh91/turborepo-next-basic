@@ -31,7 +31,6 @@ export default function Page(): JSX.Element {
         title,
         content,
         tag: "",
-        userName: "admin",
       });
     }
   };

@@ -12,6 +12,5 @@ export interface PostForm {
   uid?: number;
   title: string;
   content: string;
-  userName: string;
   tag: string;
 }
