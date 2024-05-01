@@ -23,7 +23,9 @@ export default function Header() {
         boxSize={"border-box"}
         padding={4}
       >
-        <Image width={120} height={30} src={"/logo.png"} alt={"logo"} />
+        <Link href={"/"}>
+          <Image width={120} height={30} src={"/logo.png"} alt={"logo"} />
+        </Link>
         <Flex alignItems={"center"} gap={"4"}>
           {isLogin ? (
             <>
