@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Button } from "@chakra-ui/react";
-import useUserMutation from "../../../../hooks/mutation/useUserMutation";
+import useUserMutation from "hooks/mutation/useUserMutation";
 
 export default function LogoutButton() {
   const { signOutUserMutation } = useUserMutation();

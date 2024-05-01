@@ -7,6 +7,7 @@ import ChakraUiProvider from "components/providers/ChakraUiProvider";
 import ReactQueryProvider from "components/providers/ReactQueryProvider";
 import VerifyCheckProvider from "components/providers/VerifyCheckProvider";
 import ToastProvider from "components/providers/ToastProvider";
+import Header from "components/ui/organism/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <VerifyCheckProvider>
           <ReactQueryProvider>
             <ChakraUiProvider>
-              <ToastProvider>{children}</ToastProvider>
+              <ToastProvider>
+                <Header />
+                {children}
+              </ToastProvider>
             </ChakraUiProvider>
           </ReactQueryProvider>
         </VerifyCheckProvider>
