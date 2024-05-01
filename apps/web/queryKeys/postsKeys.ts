@@ -2,7 +2,7 @@ import { createQueryKeys } from "@lukemorales/query-key-factory";
 import axiosInstance from "axiosInstance";
 import { Post } from "types/post";
 
-const postsKeys: ReturnType<typeof createQueryKeys> = createQueryKeys("posts", {
+const postsKeys = createQueryKeys("posts", {
   detail: (uid: number) => ({
     queryKey: [uid],
     queryFn: async (): Promise<Post> => {
