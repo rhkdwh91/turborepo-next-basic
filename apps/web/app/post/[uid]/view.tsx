@@ -64,7 +64,7 @@ function View({ uid }: ViewProps) {
               {data.title}
             </Heading>
             <Text paddingX="2">{data.tag}</Text>
-            <Text paddingX="2">{data.userName}</Text>
+            <Text paddingX="2">{data.username}</Text>
             <Text paddingX="2">{data.updateAt}</Text>
             <Divider padding={2} borderColor={"black"} width="inherit" />
           </Stack>
