@@ -43,7 +43,7 @@ function PostCard({ post }: PostCardProps) {
         <CardBody>
           <Stack>
             <Heading fontSize="2xl">{post.title}</Heading>
-            <Text>{post.userName}</Text>
+            <Text>{post.username}</Text>
             <Text>{content}</Text>
             <Text>createdAt {createAt}</Text>
           </Stack>
