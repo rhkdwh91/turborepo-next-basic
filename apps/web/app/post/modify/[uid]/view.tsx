@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import { Post } from "types/post";
 import { redirect } from "next/navigation";
+import useS3ImageEditor from "../../../../hooks/useS3ImageEditor";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -29,6 +30,7 @@ export default function View({ uid }: ViewProps) {
   const [title, setTitle] = useState(data.title);
   const [content, setContent] = useState<string>(data.content);
   const { modifyPostMutation } = usePostMutation();
+  const { fileRef, handleImage, insertImageEditor } = useS3ImageEditor();
 
   const handleChange = (editorState: EditorState) => {
     const editorStateJSON = editorState.toJSON();
@@ -54,6 +56,14 @@ export default function View({ uid }: ViewProps) {
   return (
     <main className={styles.main}>
       <div className={styles.layout}>
+        <input
+          ref={fileRef}
+          type="file"
+          name="user_file"
+          accept="image/*"
+          onChange={handleImage}
+          style={{ display: "none" }}
+        />
         <Input
           placeholder="title"
           size="lg"
@@ -65,6 +75,7 @@ export default function View({ uid }: ViewProps) {
           placeholder={<Placeholder />}
           onChange={handleChange}
           initialEditorState={content}
+          insertImage={insertImageEditor}
           editable
         />
         <Button

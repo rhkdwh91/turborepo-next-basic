@@ -17,7 +17,7 @@ const useS3ImageEditor = () => {
     if (fileRef.current && e.target.files?.[0]) {
       const file = e.target.files[0];
       const formData = new FormData();
-      formData.append("images", file);
+      formData.append(file.name, file);
       try {
         const result = await axiosInstance.post(`/api/upload`, formData, {
           headers: {
