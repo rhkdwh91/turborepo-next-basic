@@ -2,13 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import authCheck from "utils/authCheck";
 import { fileRenamer, uploadS3 } from "utils/s3-uploader";
 
-export const config = {
-  api: {
-    //next에서는 기본으로 bodyParser가 작동되므로 false로 해준다.
-    bodyParser: false,
-  },
-};
-
 export async function POST(req: NextRequest) {
   try {
     const user = await authCheck(req);
