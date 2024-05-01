@@ -4,6 +4,7 @@ import { useState, MouseEvent, ChangeEvent } from "react";
 import { Editor, initialState, EditorState } from "kyz-editor";
 import { Input, Button } from "@chakra-ui/react";
 import usePostMutation from "hooks/mutation/usePostMutation";
+import useS3ImageEditor from "hooks/useS3ImageEditor";
 import styles from "./page.module.css";
 
 function Placeholder() {
@@ -14,6 +15,7 @@ export default function Page(): JSX.Element {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState<string>(initialState);
   const { createPostMutation } = usePostMutation();
+  const { fileRef, handleImage, insertImageEditor } = useS3ImageEditor();
 
   const handleChange = (editorState: EditorState) => {
     const editorStateJSON = editorState.toJSON();
@@ -38,6 +40,14 @@ export default function Page(): JSX.Element {
   return (
     <main className={styles.main}>
       <div className={styles.layout}>
+        <input
+          ref={fileRef}
+          type="file"
+          name="user_file"
+          accept="image/*"
+          onChange={handleImage}
+          style={{ display: "none" }}
+        />
         <Input
           placeholder="title"
           size="lg"
@@ -49,6 +59,7 @@ export default function Page(): JSX.Element {
           placeholder={<Placeholder />}
           onChange={handleChange}
           initialEditorState={content}
+          insertImage={insertImageEditor}
           editable
         />
         <Button
