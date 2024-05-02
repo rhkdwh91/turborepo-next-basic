@@ -22,5 +22,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/post/write", "/post/modify/:path*"],
+  matcher: ["/post/write", "/post/modify/:path*", "/my"],
 };

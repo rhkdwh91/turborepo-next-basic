@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.css";
@@ -8,7 +8,7 @@ import LogoutButton from "components/ui/atom/LogoutButton";
 import useUserInfo from "hooks/useUserInfo";
 
 export default function Header() {
-  const { isLogin, userInfo } = useUserInfo();
+  const { isLogin } = useUserInfo();
   return (
     <Box bg="black">
       <Box
@@ -32,7 +32,9 @@ export default function Header() {
               <Link href={"/post/write"} className={styles.link}>
                 Write
               </Link>
-              <Text>Hello, {userInfo.username}!</Text>
+              <Link href={"/my"} className={styles.link}>
+                My
+              </Link>
               <LogoutButton />
             </>
           ) : (
@@ -40,7 +42,6 @@ export default function Header() {
               <Link href={"/sign-in"} className={styles.link}>
                 SignIn
               </Link>
-              <Text>Hello, guest!</Text>
             </>
           )}
         </Flex>
