@@ -16,7 +16,12 @@ export async function GET(req: NextRequest) {
     );
   }
   return NextResponse.json(
-    { username: user.username, email: user.email },
+    {
+      username: user.username,
+      email: user.email,
+      level: user.level,
+      profileImage: user.profileImage,
+    },
     {
       status: 200,
     },

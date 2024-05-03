@@ -12,7 +12,24 @@ export default function View() {
       <div className={styles.layout}>
         <Box>
           {userInfo.profileImage && (
-            <img src={userInfo.profileImage} alt="profile image" />
+            <Box
+              borderRadius="100%"
+              border="solid 1px #000"
+              width={100}
+              height={100}
+              overflow={"hidden"}
+              margin={"0 auto 20px auto"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <img
+                src={userInfo.profileImage}
+                alt="profile image"
+                width={50}
+                height={50}
+              />
+            </Box>
           )}
           <Text>
             level: {userInfo.level === 0 && "최고 관리자"}{" "}
