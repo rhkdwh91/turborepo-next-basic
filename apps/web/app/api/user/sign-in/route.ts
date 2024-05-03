@@ -10,8 +10,6 @@ export async function POST(req: NextRequest) {
     if (!requestData.username && !requestData.password) {
       return NextResponse.json({ message: "Invalid Value" }, { status: 400 });
     }
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(requestData.password, salt);
 
     const user = await prisma.user.findUnique({
       where: {
@@ -45,7 +43,12 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(
-      { username: user.username, email: user.email },
+      {
+        username: user.username,
+        email: user.email,
+        level: user.level,
+        profileImage: user.profileImage,
+      },
       {
         status: 201,
         headers: {
