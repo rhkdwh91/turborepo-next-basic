@@ -1,12 +1,12 @@
+"use client";
+
 import { useCallback } from "react";
 import { Button } from "@chakra-ui/react";
-import useUserMutation from "hooks/mutation/useUserMutation";
+import { signOut } from "next-auth/react";
 
 export default function LogoutButton() {
-  const { signOutUserMutation } = useUserMutation();
-
   const handleClickLogout = useCallback(() => {
-    signOutUserMutation.mutate();
+    signOut();
   }, []);
 
   return <Button onClick={handleClickLogout}>Logout</Button>;

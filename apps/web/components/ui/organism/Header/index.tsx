@@ -1,14 +1,13 @@
-"use client";
-
 import { Box, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import LogoutButton from "components/ui/atom/LogoutButton";
-import useUserInfo from "hooks/useUserInfo";
+import { getServerSession } from "next-auth";
+import { authOptions } from "app/api/auth/[...nextauth]/route";
 
-export default function Header() {
-  const { isLogin } = useUserInfo();
+export default async function Header() {
+  const session = await getServerSession(authOptions);
   return (
     <Box bg="black">
       <Box
@@ -27,7 +26,7 @@ export default function Header() {
           <Image width={120} height={30} src={"/logo.png"} alt={"logo"} />
         </Link>
         <Flex alignItems={"center"} gap={"4"}>
-          {isLogin ? (
+          {session ? (
             <>
               <Link href={"/post/write"} className={styles.link}>
                 Write

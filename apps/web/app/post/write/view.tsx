@@ -6,12 +6,14 @@ import { Input, Button } from "@chakra-ui/react";
 import usePostMutation from "hooks/mutation/usePostMutation";
 import useS3ImageEditor from "hooks/useS3ImageEditor";
 import styles from "./page.module.css";
+import { useSession } from "next-auth/react";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
 
 export default function Page(): JSX.Element {
+  const { data: session } = useSession();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState<string>(initialState);
   const { createPostMutation } = usePostMutation();
@@ -28,11 +30,12 @@ export default function Page(): JSX.Element {
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!createPostMutation.isPending) {
+    if (!createPostMutation.isPending && session?.user) {
       createPostMutation.mutate({
         title,
         content,
         tags: "",
+        username: session.user.username,
       });
     }
   };

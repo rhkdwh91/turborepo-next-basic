@@ -9,6 +9,7 @@ import {
   Button,
   Flex,
 } from "@chakra-ui/react";
+import { signIn } from "next-auth/react";
 import useUserMutation from "hooks/mutation/useUserMutation";
 
 import styles from "./page.module.css";
@@ -27,9 +28,14 @@ export default function View() {
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  const handleClickSignIn = () => {
+  const handleClickSignIn = async () => {
     if (form.username.length > 4 && form.password.length > 6) {
-      return signInUserMutation.mutate(form);
+      await signIn("credentials", {
+        ...form,
+        redirect: true,
+        callbackUrl: "/",
+      });
+      return;
     }
     toast.error("Invalid Value!");
   };
