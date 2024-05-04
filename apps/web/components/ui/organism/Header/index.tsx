@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import LogoutButton from "components/ui/atom/LogoutButton";
 import { getServerSession } from "next-auth";
-import { authOptions } from "app/api/auth/[...nextauth]/route";
+import authOptions from "auth.config";
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
