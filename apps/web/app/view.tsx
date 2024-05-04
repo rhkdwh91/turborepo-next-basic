@@ -1,7 +1,16 @@
 "use client";
 
 import { useMemo } from "react";
-import { Card, Stack, Heading, CardBody, Text, Box } from "@chakra-ui/react";
+import {
+  Card,
+  Stack,
+  Heading,
+  CardBody,
+  Text,
+  Box,
+  Tag,
+  Divider,
+} from "@chakra-ui/react";
 
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
@@ -43,9 +52,16 @@ function PostCard({ post }: PostCardProps) {
         <CardBody>
           <Stack>
             <Heading fontSize="2xl">{post.title}</Heading>
-            <Text>{post.username}</Text>
-            <Text>{content}</Text>
-            <Text>createdAt {createAt}</Text>
+            <Divider marginY={2} />
+            <Text>{content}...</Text>
+            <Divider marginY={2} />
+            <Text fontSize={13}>Writer {post.username}</Text>
+            <Text fontSize={13}>
+              {post.tags.split(",").map((tag) => (
+                <Tag>{tag}</Tag>
+              ))}
+            </Text>
+            <Text fontSize={13}>createdAt {createAt}</Text>
           </Stack>
         </CardBody>
       </Card>

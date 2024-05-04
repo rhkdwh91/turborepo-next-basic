@@ -3,7 +3,7 @@ export interface Post {
   title: string;
   content: string;
   username: string;
-  tag: string;
+  tags: string;
   createAt: string;
   updateAt: string;
 }
@@ -12,5 +12,5 @@ export interface PostForm {
   uid?: number;
   title: string;
   content: string;
-  tag: string;
+  tags: string;
 }

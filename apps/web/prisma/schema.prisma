@@ -12,13 +12,15 @@ model User {
   password String
   level Int?
   profileImage String?
+  createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
+  updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
 }
 model Post {
   uid    Int     @id @default(autoincrement())
   title String?
   content String? @db.LongText
   username String?
-  tag String?
+  tags String?
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
 }
@@ -26,4 +28,6 @@ model Tag {
   uid Int @id @default(autoincrement())
   name String @unique
   value String
+  createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
+  updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
 }
