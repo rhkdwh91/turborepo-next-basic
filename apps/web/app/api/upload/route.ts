@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import authCheck from "utils/authCheck";
 import { fileRenamer, uploadS3 } from "utils/s3-uploader";
+import { getServerSession } from "next-auth";
+import authOptions from "auth.config";
 
 export async function POST(req: NextRequest) {
   try {
-    const user = await authCheck(req);
-    if (!user) {
+    const session = await getServerSession(authOptions);
+    if (!session) {
       return NextResponse.json(
         { message: "No user found." },
         {
