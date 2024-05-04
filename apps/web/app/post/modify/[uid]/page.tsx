@@ -11,7 +11,10 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
   const uid = Number(params.uid);
   const queryClient = getQueryClient();
-  await queryClient.prefetchQuery(queryKeys.posts.detail(uid));
+  await Promise.all([
+    queryClient.prefetchQuery(queryKeys.posts.detail(uid)),
+    queryClient.prefetchQuery(queryKeys.tags.list()),
+  ]);
   const dehydratedState = dehydrate(queryClient);
   return (
     <HydrationBoundary state={dehydratedState}>

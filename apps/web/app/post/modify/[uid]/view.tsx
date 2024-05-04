@@ -2,7 +2,7 @@
 
 import { useState, MouseEvent, ChangeEvent } from "react";
 import { Editor, EditorState } from "kyz-editor";
-import { Input, Button } from "@chakra-ui/react";
+import { Input, Button, Tag, Box } from "@chakra-ui/react";
 import usePostMutation from "hooks/mutation/usePostMutation";
 import styles from "./page.module.css";
 import { useQueryClient } from "@tanstack/react-query";
@@ -11,6 +11,8 @@ import { Post } from "types/post";
 import { redirect } from "next/navigation";
 import useS3ImageEditor from "../../../../hooks/useS3ImageEditor";
 import { useSession } from "next-auth/react";
+import { Tag as ITag } from "../../../../types/tag";
+import { cloneDeep } from "lodash";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -26,6 +28,7 @@ export default function View({ uid }: ViewProps) {
   const data = queryClient.getQueryData<Post>(
     queryKeys.posts.detail(uid).queryKey,
   );
+  const tags = queryClient.getQueryData<ITag[]>(queryKeys.tags.list().queryKey);
   if (!data) {
     redirect("/");
   }
@@ -33,6 +36,7 @@ export default function View({ uid }: ViewProps) {
   const [content, setContent] = useState<string>(data.content);
   const { modifyPostMutation } = usePostMutation();
   const { fileRef, handleImage, insertImageEditor } = useS3ImageEditor();
+  const [tagNames, setTagNames] = useState<string[]>([...data.tags.split(",")]);
 
   const handleChange = (editorState: EditorState) => {
     const editorStateJSON = editorState.toJSON();
@@ -43,6 +47,17 @@ export default function View({ uid }: ViewProps) {
     setTitle(e.target.value);
   };
 
+  const handleClickTag = (tag: ITag) => {
+    const newFormTags = cloneDeep(tagNames);
+    if (tagNames.includes(tag.name)) {
+      return setTagNames(
+        cloneDeep(newFormTags.filter((tagName) => tagName !== tag.name)),
+      );
+    }
+    newFormTags.push(tag.name);
+    setTagNames(newFormTags);
+  };
+
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!modifyPostMutation.isPending && session?.user) {
@@ -50,7 +65,7 @@ export default function View({ uid }: ViewProps) {
         uid,
         title,
         content,
-        tags: "",
+        tags: tagNames.join(","),
         username: session.user.username,
       });
     }
@@ -74,6 +89,24 @@ export default function View({ uid }: ViewProps) {
           value={title}
           onChange={handleChangeTitle}
         />
+        <Box
+          display="flex"
+          justifyContent="flex-start"
+          alignItems="center"
+          flexWrap="wrap"
+          gap={2}
+        >
+          {tags?.map((tag) => (
+            <Tag
+              key={tag.name}
+              cursor="pointer"
+              colorScheme={tagNames.includes(tag.name) ? "teal" : "gray"}
+              onClick={() => handleClickTag(tag)}
+            >
+              {tag.value}
+            </Tag>
+          ))}
+        </Box>
         <Editor
           placeholder={<Placeholder />}
           onChange={handleChange}

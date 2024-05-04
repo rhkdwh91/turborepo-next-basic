@@ -56,11 +56,16 @@ function PostCard({ post }: PostCardProps) {
             <Text>{content}...</Text>
             <Divider marginY={2} />
             <Text fontSize={13}>Writer {post.username}</Text>
-            <Text fontSize={13}>
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+              flexWrap="wrap"
+              gap={2}
+            >
               {post.tags.split(",").map((tag) => (
                 <Tag key={tag}>{tag}</Tag>
               ))}
-            </Text>
+            </Box>
             <Text fontSize={13}>createdAt {createAt}</Text>
           </Stack>
         </CardBody>

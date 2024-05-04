@@ -64,11 +64,17 @@ function View({ uid }: ViewProps) {
             <Heading fontSize="3xl" padding="2">
               {data.title}
             </Heading>
-            <Text paddingX="2">
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="center"
+              flexWrap="wrap"
+              gap={2}
+            >
               {data.tags.split(",").map((tag) => (
                 <Tag key="tag">{tag}</Tag>
               ))}
-            </Text>
+            </Box>
             <Text paddingX="2">{data.username}</Text>
             <Text paddingX="2">{data.updateAt}</Text>
             <Divider padding={2} borderColor={"black"} width="inherit" />

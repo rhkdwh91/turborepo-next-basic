@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     const form = cloneDeep(requestData);
     await prisma.tag.create({ data: form });
     return NextResponse.json(
-      { message: "tag updated successful!" },
+      { message: "tags updated successful!" },
       { status: 201 },
     );
   } catch (error) {
