@@ -32,7 +32,7 @@ export default function Page(): JSX.Element {
       createPostMutation.mutate({
         title,
         content,
-        tag: "",
+        tags: "",
       });
     }
   };

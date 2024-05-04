@@ -14,6 +14,7 @@ import {
   Button,
   Flex,
   CircularProgress,
+  Tag,
 } from "@chakra-ui/react";
 import styles from "./page.module.css";
 import useUserInfo from "hooks/useUserInfo";
@@ -63,7 +64,11 @@ function View({ uid }: ViewProps) {
             <Heading fontSize="3xl" padding="2">
               {data.title}
             </Heading>
-            <Text paddingX="2">{data.tag}</Text>
+            <Text paddingX="2">
+              {data.tags.split(",").map((tag) => (
+                <Tag key="tag">{tag}</Tag>
+              ))}
+            </Text>
             <Text paddingX="2">{data.username}</Text>
             <Text paddingX="2">{data.updateAt}</Text>
             <Divider padding={2} borderColor={"black"} width="inherit" />

@@ -48,7 +48,7 @@ export default function View({ uid }: ViewProps) {
         uid,
         title,
         content,
-        tag: "",
+        tags: "",
       });
     }
   };
