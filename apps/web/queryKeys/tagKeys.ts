@@ -5,7 +5,7 @@ import { Tag } from "types/tag";
 const tagsKeys = createQueryKeys("tags", {
   list: () => ({
     queryKey: ["list"],
-    queryFn: async (): Promise<Tag> => {
+    queryFn: async (): Promise<Tag[]> => {
       const { data } = await axiosInstance.get(`/api/tags`);
       return data;
     },

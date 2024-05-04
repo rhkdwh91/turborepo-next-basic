@@ -7,7 +7,7 @@ import usePostMutation from "hooks/mutation/usePostMutation";
 import useS3ImageEditor from "hooks/useS3ImageEditor";
 import styles from "./page.module.css";
 import { useSession } from "next-auth/react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import { Tag as ITag } from "types/tag";
 import { cloneDeep } from "lodash";
@@ -21,8 +21,7 @@ export default function Page(): JSX.Element {
   const [title, setTitle] = useState("");
   const [tagNames, setTagNames] = useState<string[]>([]);
   const [content, setContent] = useState<string>(initialState);
-  const queryClient = useQueryClient();
-  const tags = queryClient.getQueryData<ITag[]>(queryKeys.tags.list().queryKey);
+  const { data: tags } = useQuery(queryKeys.tags.list());
   const { createPostMutation } = usePostMutation();
   const { fileRef, handleImage, insertImageEditor } = useS3ImageEditor();
 
