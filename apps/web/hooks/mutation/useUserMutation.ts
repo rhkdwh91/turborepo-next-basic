@@ -2,12 +2,10 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "axiosInstance";
 import { User, UserForm } from "types/user";
-import useUserInfo from "hooks/useUserInfo";
 import { toast } from "kyz-toast";
 
 const useUserMutation = () => {
   const router = useRouter();
-  const { setUserInfo, deleteUserInfo } = useUserInfo();
 
   const createUserMutation = useMutation({
     mutationFn: async (form: UserForm) => {
@@ -27,9 +25,8 @@ const useUserMutation = () => {
       const { data } = await axiosInstance.post("/api/user/sign-in", form);
       return data;
     },
-    onSuccess: (userInfo: User) => {
+    onSuccess: () => {
       toast.success("Successfully login user!");
-      setUserInfo({ username: userInfo.username, email: userInfo.email });
       router.push("/");
     },
     onError: () => {
@@ -37,24 +34,9 @@ const useUserMutation = () => {
     },
   });
 
-  const signOutUserMutation = useMutation({
-    mutationFn: async () => {
-      await axiosInstance.post("/api/user/sign-out");
-    },
-    onSuccess: () => {
-      toast.success("Successfully logout user!");
-      deleteUserInfo();
-      router.push("/");
-    },
-    onError: () => {
-      toast.error("Failed logout user!");
-    },
-  });
-
   return {
     createUserMutation,
     signInUserMutation,
-    signOutUserMutation,
   };
 };
 

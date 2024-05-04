@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ChakraUiProvider from "components/providers/ChakraUiProvider";
 import ReactQueryProvider from "components/providers/ReactQueryProvider";
-import VerifyCheckProvider from "components/providers/VerifyCheckProvider";
+import SessionProvider from "components/providers/SessionProvider";
 import ToastProvider from "components/providers/ToastProvider";
 import Header from "components/ui/organism/Header";
 import Footer from "components/ui/organism/Footer";
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html>
       <body className={inter.className}>
-        <VerifyCheckProvider>
+        <SessionProvider>
           <ReactQueryProvider>
             <ChakraUiProvider>
               <ToastProvider>
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </ToastProvider>
             </ChakraUiProvider>
           </ReactQueryProvider>
-        </VerifyCheckProvider>
+        </SessionProvider>
         <SpeedInsights />
       </body>
     </html>

@@ -58,7 +58,7 @@ function PostCard({ post }: PostCardProps) {
             <Text fontSize={13}>Writer {post.username}</Text>
             <Text fontSize={13}>
               {post.tags.split(",").map((tag) => (
-                <Tag>{tag}</Tag>
+                <Tag key={tag}>{tag}</Tag>
               ))}
             </Text>
             <Text fontSize={13}>createdAt {createAt}</Text>

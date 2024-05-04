@@ -10,6 +10,7 @@ import { queryKeys } from "queryKeys";
 import { Post } from "types/post";
 import { redirect } from "next/navigation";
 import useS3ImageEditor from "../../../../hooks/useS3ImageEditor";
+import { useSession } from "next-auth/react";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -20,6 +21,7 @@ interface ViewProps {
 }
 
 export default function View({ uid }: ViewProps) {
+  const { data: session } = useSession();
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<Post>(
     queryKeys.posts.detail(uid).queryKey,
@@ -43,12 +45,13 @@ export default function View({ uid }: ViewProps) {
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!modifyPostMutation.isPending) {
+    if (!modifyPostMutation.isPending && session?.user) {
       modifyPostMutation.mutate({
         uid,
         title,
         content,
         tags: "",
+        username: session.user.username,
       });
     }
   };

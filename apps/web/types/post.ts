@@ -13,4 +13,5 @@ export interface PostForm {
   title: string;
   content: string;
   tags: string;
+  username: string;
 }

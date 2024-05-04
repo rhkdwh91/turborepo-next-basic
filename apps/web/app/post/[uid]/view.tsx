@@ -17,8 +17,8 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import styles from "./page.module.css";
-import useUserInfo from "hooks/useUserInfo";
 import usePostMutation from "hooks/mutation/usePostMutation";
+import { useSession } from "next-auth/react";
 
 interface ViewProps {
   uid: number;
@@ -26,7 +26,7 @@ interface ViewProps {
 
 function View({ uid }: ViewProps) {
   const router = useRouter();
-  const { isLogin } = useUserInfo();
+  const { data: session } = useSession();
   const { data, isLoading } = useQuery(queryKeys.posts.detail(uid));
   const { deletePostMutation } = usePostMutation();
 
@@ -77,7 +77,7 @@ function View({ uid }: ViewProps) {
           <Editor editable={false} initialEditorState={data.content} />
         </Box>
       )}
-      {isLogin && (
+      {session && (
         <Flex gap={2}>
           <Button onClick={handleClickModify}>Modify</Button>
           <Button onClick={handleClickDeleteButton}>Delete</Button>

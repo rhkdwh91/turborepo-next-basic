@@ -1,8 +1,9 @@
 export interface User {
-  email?: string;
-  profileImage?: string;
+  email: string;
+  profileImage: string;
   username: string;
-  level?: number;
+  level: number;
+  accessToken: string;
 }
 
 export interface UserForm {
