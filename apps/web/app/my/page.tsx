@@ -1,6 +1,6 @@
 import View from "./view";
 import { getServerSession } from "next-auth";
-import { authOptions } from "app/api/auth/[...nextauth]/route";
+import authOptions from "auth.config";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
