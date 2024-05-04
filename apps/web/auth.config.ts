@@ -35,12 +35,13 @@ const authOptions = {
             }),
           },
         );
-        const user = await res.json();
+        const result = await res.json();
 
-        if (user.username) {
+        if (result.username) {
           // Any object returned will be saved in `user` property of the JWT
-          return user;
+          return result;
         } else {
+          console.error(result);
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
 
