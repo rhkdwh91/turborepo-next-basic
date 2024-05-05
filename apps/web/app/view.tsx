@@ -11,6 +11,7 @@ import {
   Tag,
   Divider,
 } from "@chakra-ui/react";
+import { RepeatIcon } from "@chakra-ui/icons";
 
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -100,6 +101,12 @@ export default function View() {
     router.push("?" + params.toString());
   };
 
+  const handleClickReset = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("tag");
+    router.push("?" + params.toString());
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.layout}>
@@ -110,11 +117,16 @@ export default function View() {
           flexWrap="wrap"
           marginBottom={10}
         >
+          <Tag cursor="pointer" variant="outline" onClick={handleClickReset}>
+            <RepeatIcon />
+          </Tag>
           {tags?.map((tag) => (
             <Tag
               key={tag.name}
               cursor="pointer"
-              colorScheme={searchTags.includes(tag.name) ? "teal" : "gray"}
+              size={"lg"}
+              colorScheme={"teal"}
+              variant={searchTags.includes(tag.name) ? "solid" : "outline"}
               onClick={() => handleClickTag(tag.name)}
             >
               {tag.value}
