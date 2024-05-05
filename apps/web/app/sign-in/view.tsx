@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   FormLabel,
   Input,
@@ -17,6 +18,7 @@ import { UserForm } from "../../types/user";
 import { toast } from "kyz-toast";
 
 export default function View() {
+  const router = useRouter();
   const [show, setShow] = useState(false);
   const [form, setForm] = useState<UserForm>({
     username: "",
@@ -29,15 +31,18 @@ export default function View() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
   const handleClickSignIn = async () => {
-    if (form.username.length > 4 && form.password.length > 6) {
-      await signIn("credentials", {
-        ...form,
-        redirect: true,
-        callbackUrl: "/",
-      });
-      return;
+    if (form.username.length < 5 || form.password.length < 6) {
+      return toast.error("Invalid Value!");
     }
-    toast.error("Invalid Value!");
+    const res = await signIn("credentials", {
+      ...form,
+      redirect: false,
+    });
+    if (res?.status === 401 || !res) {
+      return toast.error("Failed login user!");
+    }
+    toast.success("login success");
+    router.push("/");
   };
   /*
   const handleClickSignUp = () => {
