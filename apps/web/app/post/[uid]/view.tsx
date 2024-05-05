@@ -61,7 +61,7 @@ function View({ uid }: ViewProps) {
       {data && (
         <Box position="relative" paddingY="10">
           <Stack paddingY="2">
-            <Heading fontSize="3xl" padding="2">
+            <Heading fontSize="3xl" paddingY="2">
               {data.title}
             </Heading>
             <Box
