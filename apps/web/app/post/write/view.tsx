@@ -16,10 +16,10 @@ function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
 
-export default function Page(): JSX.Element {
+export default function Page() {
   const { data: session } = useSession();
   const [title, setTitle] = useState("");
-  const [tagNames, setTagNames] = useState<string[]>([]);
+  const [formTags, setFormTags] = useState<ITag[]>([]);
   const [content, setContent] = useState<string>(initialState);
   const { data: tags } = useQuery(queryKeys.tags.list());
   const { createPostMutation } = usePostMutation();
@@ -35,14 +35,14 @@ export default function Page(): JSX.Element {
   };
 
   const handleClickTag = (tag: ITag) => {
-    const newFormTags = cloneDeep(tagNames);
-    if (tagNames.includes(tag.name)) {
-      return setTagNames(
-        cloneDeep(newFormTags.filter((tagName) => tagName !== tag.name)),
+    const newFormTags = cloneDeep(formTags);
+    if (formTags.find((formTags) => formTags.name === tag.name)) {
+      return setFormTags(
+        cloneDeep(newFormTags.filter((formTags) => formTags.name !== tag.name)),
       );
     }
-    newFormTags.push(tag.name);
-    setTagNames(newFormTags);
+    newFormTags.push(tag);
+    setFormTags(newFormTags);
   };
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
@@ -51,7 +51,7 @@ export default function Page(): JSX.Element {
       createPostMutation.mutate({
         title,
         content,
-        tags: tagNames.join(","),
+        tags: formTags,
         username: session.user.username,
       });
     }
@@ -86,7 +86,11 @@ export default function Page(): JSX.Element {
             <Tag
               key={tag.name}
               cursor="pointer"
-              colorScheme={tagNames.includes(tag.name) ? "teal" : "gray"}
+              colorScheme={
+                formTags.find((formTags) => formTags.name === tag.name)
+                  ? "teal"
+                  : "gray"
+              }
               onClick={() => handleClickTag(tag)}
             >
               {tag.value}

@@ -13,10 +13,12 @@ import {
 } from "@chakra-ui/react";
 
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams, useRouter } from "next/navigation";
 import { queryKeys } from "queryKeys";
 import Link from "next/link";
 import { Post } from "types/post";
 import styles from "./page.module.css";
+
 interface PostCardProps {
   post: Post;
 }
@@ -41,7 +43,7 @@ function PostCard({ post }: PostCardProps) {
         w={{
           base: "100%",
           md: "100%",
-          xl: "300px",
+          xl: "275px",
         }}
         marginY={{
           base: 4,
@@ -62,9 +64,7 @@ function PostCard({ post }: PostCardProps) {
               flexWrap="wrap"
               gap={2}
             >
-              {post.tags.split(",").map((tag) => (
-                <Tag key={tag}>{tag}</Tag>
-              ))}
+              {post.tags?.map((tag) => <Tag key={tag.name}>{tag.value}</Tag>)}
             </Box>
             <Text fontSize={13}>createdAt {createAt}</Text>
           </Stack>
@@ -75,11 +75,52 @@ function PostCard({ post }: PostCardProps) {
 }
 
 export default function View() {
-  const { data } = useQuery(queryKeys.posts.list());
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const searchTags = searchParams.getAll("tag");
+  const { data } = useQuery(
+    queryKeys.posts.list({
+      tag: Array.isArray(searchTags)
+        ? [...searchTags]
+        : searchTags
+          ? [searchTags]
+          : [],
+    }),
+  );
+  const { data: tags } = useQuery(queryKeys.tags.list());
+
+  const handleClickTag = (tagName: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (searchTags.includes(tagName)) {
+      params.delete("tag", tagName);
+      router.push("?" + params.toString());
+      return;
+    }
+    params.append("tag", tagName);
+    router.push("?" + params.toString());
+  };
 
   return (
     <main className={styles.main}>
       <div className={styles.layout}>
+        <Box
+          display={"flex"}
+          justifyContent={"flex-start"}
+          gap={2}
+          flexWrap="wrap"
+          marginBottom={10}
+        >
+          {tags?.map((tag) => (
+            <Tag
+              key={tag.name}
+              cursor="pointer"
+              colorScheme={searchTags.includes(tag.name) ? "teal" : "gray"}
+              onClick={() => handleClickTag(tag.name)}
+            >
+              {tag.value}
+            </Tag>
+          ))}
+        </Box>
         <Box display={{ md: "block", xl: "flex" }} flexWrap={"wrap"} gap={4}>
           {data?.map((post) => <PostCard post={post} key={post.uid} />)}
         </Box>

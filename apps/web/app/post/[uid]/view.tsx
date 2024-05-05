@@ -71,9 +71,7 @@ function View({ uid }: ViewProps) {
               flexWrap="wrap"
               gap={2}
             >
-              {data.tags.split(",").map((tag) => (
-                <Tag key="tag">{tag}</Tag>
-              ))}
+              {data.tags?.map((tag) => <Tag key={tag.name}>{tag.value}</Tag>)}
             </Box>
             <Text paddingX="2">{data.username}</Text>
             <Text paddingX="2">{data.updateAt}</Text>

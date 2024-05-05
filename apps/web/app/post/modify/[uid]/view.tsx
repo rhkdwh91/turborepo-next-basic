@@ -9,9 +9,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import { Post } from "types/post";
 import { redirect } from "next/navigation";
-import useS3ImageEditor from "../../../../hooks/useS3ImageEditor";
+import useS3ImageEditor from "hooks/useS3ImageEditor";
 import { useSession } from "next-auth/react";
-import { Tag as ITag } from "../../../../types/tag";
+import { Tag as ITag } from "types/tag";
 import { cloneDeep } from "lodash";
 
 function Placeholder() {
@@ -36,7 +36,7 @@ export default function View({ uid }: ViewProps) {
   const [content, setContent] = useState<string>(data.content);
   const { modifyPostMutation } = usePostMutation();
   const { fileRef, handleImage, insertImageEditor } = useS3ImageEditor();
-  const [tagNames, setTagNames] = useState<string[]>([...data.tags.split(",")]);
+  const [formTags, setFormTags] = useState<ITag[]>(data.tags ?? []);
 
   const handleChange = (editorState: EditorState) => {
     const editorStateJSON = editorState.toJSON();
@@ -48,14 +48,14 @@ export default function View({ uid }: ViewProps) {
   };
 
   const handleClickTag = (tag: ITag) => {
-    const newFormTags = cloneDeep(tagNames);
-    if (tagNames.includes(tag.name)) {
-      return setTagNames(
-        cloneDeep(newFormTags.filter((tagName) => tagName !== tag.name)),
+    const newFormTags = cloneDeep(formTags);
+    if (formTags.find((formTags) => formTags.name === tag.name)) {
+      return setFormTags(
+        cloneDeep(newFormTags.filter((formTags) => formTags.name !== tag.name)),
       );
     }
-    newFormTags.push(tag.name);
-    setTagNames(newFormTags);
+    newFormTags.push(tag);
+    setFormTags(newFormTags);
   };
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
@@ -65,7 +65,7 @@ export default function View({ uid }: ViewProps) {
         uid,
         title,
         content,
-        tags: tagNames.join(","),
+        tags: formTags,
         username: session.user.username,
       });
     }
@@ -100,7 +100,11 @@ export default function View({ uid }: ViewProps) {
             <Tag
               key={tag.name}
               cursor="pointer"
-              colorScheme={tagNames.includes(tag.name) ? "teal" : "gray"}
+              colorScheme={
+                formTags.find((formTags) => formTags.name === tag.name)
+                  ? "teal"
+                  : "gray"
+              }
               onClick={() => handleClickTag(tag)}
             >
               {tag.value}

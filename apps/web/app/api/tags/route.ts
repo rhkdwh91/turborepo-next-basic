@@ -12,7 +12,10 @@ export async function GET() {
         createAt: "desc",
       },
     });
-    return NextResponse.json(tags, { status: 200 });
+    return NextResponse.json(
+      tags.map((tag) => ({ name: tag.name, value: tag.value })),
+      { status: 200 },
+    );
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: error }, { status: 500 });

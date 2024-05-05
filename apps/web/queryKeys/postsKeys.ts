@@ -1,6 +1,7 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 import axiosInstance from "axiosInstance";
 import { Post } from "types/post";
+import qs from "qs";
 
 const postsKeys = createQueryKeys("posts", {
   detail: (uid: number) => ({
@@ -10,10 +11,15 @@ const postsKeys = createQueryKeys("posts", {
       return data;
     },
   }),
-  list: () => ({
-    queryKey: ["list"],
+  list: (params: { tag: string[] }) => ({
+    queryKey: ["list", params],
     queryFn: async (): Promise<Post[]> => {
-      const { data } = await axiosInstance.get("/api/posts");
+      const { data } = await axiosInstance.get("/api/posts", {
+        params,
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { arrayFormat: "repeat" });
+        },
+      });
       return data;
     },
   }),

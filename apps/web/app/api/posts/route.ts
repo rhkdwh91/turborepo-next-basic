@@ -3,12 +3,26 @@ import type { NextRequest } from "next/server";
 import prisma from "prisma/client";
 import { cloneDeep } from "lodash";
 import { getServerSession } from "next-auth";
-import authOptions from "../../../auth.config";
+import authOptions from "auth.config";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const searchParams = req.nextUrl.searchParams;
+    const tags = searchParams.getAll("tag");
     const posts = await prisma.post.findMany({
-      take: 10,
+      take: 20,
+      skip: 0,
+      where:
+        tags.length > 0
+          ? {
+              OR: tags.map((tag) => ({
+                tags: {
+                  path: "$[*].name",
+                  array_contains: tag,
+                },
+              })),
+            }
+          : undefined,
       orderBy: {
         createAt: "desc",
       },

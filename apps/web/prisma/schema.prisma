@@ -20,7 +20,7 @@ model Post {
   title String?
   content String? @db.LongText
   username String?
-  tags String?
+  tags Json?
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
 }
