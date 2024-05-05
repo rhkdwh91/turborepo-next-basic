@@ -7,7 +7,7 @@ import usePostMutation from "hooks/mutation/usePostMutation";
 import useS3ImageEditor from "hooks/useS3ImageEditor";
 import styles from "./page.module.css";
 import { useSession } from "next-auth/react";
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import { Tag as ITag } from "types/tag";
 import { cloneDeep } from "lodash";
@@ -17,11 +17,12 @@ function Placeholder() {
 }
 
 export default function Page() {
+  const queryClient = useQueryClient();
   const { data: session } = useSession();
   const [title, setTitle] = useState("");
   const [formTags, setFormTags] = useState<ITag[]>([]);
   const [content, setContent] = useState<string>(initialState);
-  const { data: tags } = useQuery(queryKeys.tags.list());
+  const tags = queryClient.getQueryData<ITag[]>(queryKeys.tags.list().queryKey);
   const { createPostMutation } = usePostMutation();
   const { fileRef, handleImage, insertImageEditor } = useS3ImageEditor();
 

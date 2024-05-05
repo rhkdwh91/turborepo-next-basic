@@ -5,7 +5,7 @@ import { Editor, EditorState } from "kyz-editor";
 import { Input, Button, Tag, Box } from "@chakra-ui/react";
 import usePostMutation from "hooks/mutation/usePostMutation";
 import styles from "./page.module.css";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import { Post } from "types/post";
 import { redirect } from "next/navigation";
@@ -28,7 +28,7 @@ export default function View({ uid }: ViewProps) {
   const data = queryClient.getQueryData<Post>(
     queryKeys.posts.detail(uid).queryKey,
   );
-  const { data: tags } = useQuery(queryKeys.tags.list());
+  const tags = queryClient.getQueryData<ITag[]>(queryKeys.tags.list().queryKey);
   if (!data) {
     redirect("/");
   }
