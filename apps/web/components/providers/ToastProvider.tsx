@@ -10,7 +10,7 @@ export default function ToastProvider({
   return (
     <>
       {children}
-      <ToastContainer />
+      <ToastContainer delay={2000} />
     </>
   );
 }
