@@ -4,8 +4,8 @@ import { useMemo } from "react";
 import {
   Card,
   Stack,
-  Heading,
   CardBody,
+  Heading,
   Text,
   Box,
   Tag,
@@ -27,7 +27,10 @@ interface PostCardProps {
 function PostCard({ post }: PostCardProps) {
   const content = useMemo(() => {
     const parseContent = JSON.parse(post.content);
-    const rootChildrenText = parseContent.root.children[0]?.children[0]?.text;
+    const rootChildrenText =
+      parseContent.root.children[0]?.children[0]?.text ??
+      "" + parseContent.root.children[1]?.children[0]?.text ??
+      "";
     if (rootChildrenText) {
       return String(rootChildrenText);
     }
@@ -51,14 +54,26 @@ function PostCard({ post }: PostCardProps) {
           md: 4,
           xl: 0,
         }}
+        height={{
+          xl: "100%",
+        }}
       >
         <CardBody>
           <Stack>
-            <Heading fontSize="2xl">{post.title}</Heading>
+            <Heading
+              fontSize="2xl"
+              className={styles.title_line_clamp}
+              minHeight="60px"
+              maxHeight="60px"
+              fontWeight={600}
+            >
+              {post.title}
+            </Heading>
             <Divider marginY={2} />
-            <Text>{content}...</Text>
+            <Text className={styles.line_clamp} minHeight={70} maxHeight={70}>
+              {content}...
+            </Text>
             <Divider marginY={2} />
-            <Text fontSize={13}>Writer {post.username}</Text>
             <Box
               display="flex"
               justifyContent="flex-start"
@@ -67,6 +82,7 @@ function PostCard({ post }: PostCardProps) {
             >
               {post.tags?.map((tag) => <Tag key={tag.name}>{tag.value}</Tag>)}
             </Box>
+            <Text fontSize={13}>{post.username}</Text>
             <Text fontSize={13}>createdAt {createAt}</Text>
           </Stack>
         </CardBody>
