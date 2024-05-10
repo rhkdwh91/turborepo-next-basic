@@ -15,5 +15,5 @@ export async function verifyUser() {
       },
     );
   }
-  return null;
+  return session.user?.username;
 }

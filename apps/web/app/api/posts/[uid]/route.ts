@@ -14,6 +14,9 @@ export async function GET(
       where: {
         uid: Number(params.uid),
       },
+      include: {
+        comments: true,
+      },
     });
     return NextResponse.json(post, { status: 200 });
   } catch (error) {

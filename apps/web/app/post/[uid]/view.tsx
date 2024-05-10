@@ -19,6 +19,7 @@ import {
 import styles from "./page.module.css";
 import usePostMutation from "hooks/mutation/usePostMutation";
 import { useSession } from "next-auth/react";
+import CommentGroup from "../../../components/ui/organism/CommentGroup";
 
 interface ViewProps {
   uid: number;
@@ -81,6 +82,20 @@ function View({ uid }: ViewProps) {
           <Editor editable={false} initialEditorState={data.content} />
         </Box>
       )}
+      <CommentGroup>
+        <CommentGroup.CommentTextButton />
+        {data && data.comments.length > 0 ? (
+          data.comments.map((comment) => (
+            <CommentGroup.CommentItem key={comment.uid}>
+              {comment.content}
+            </CommentGroup.CommentItem>
+          ))
+        ) : (
+          <CommentGroup.CommentItem>
+            There are no comments yet.
+          </CommentGroup.CommentItem>
+        )}
+      </CommentGroup>
       {session && (
         <Flex gap={2}>
           <Button onClick={handleClickModify}>Modify</Button>

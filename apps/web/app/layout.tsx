@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import ChakraUiProvider from "components/providers/ChakraUiProvider";
-import ReactQueryProvider from "components/providers/ReactQueryProvider";
-import SessionProvider from "components/providers/SessionProvider";
-import ToastProvider from "components/providers/ToastProvider";
+import ChakraUiProvider from "providers/ChakraUiProvider";
+import ReactQueryProvider from "providers/ReactQueryProvider";
+import SessionProvider from "providers/SessionProvider";
+import ToastProvider from "providers/ToastProvider";
 import Header from "components/ui/organism/Header";
 import Footer from "components/ui/organism/Footer";
 

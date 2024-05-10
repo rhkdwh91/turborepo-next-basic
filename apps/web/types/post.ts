@@ -1,4 +1,5 @@
 import { Tag } from "./tag";
+import { Comment } from "./comment";
 
 export interface Post {
   uid: number;
@@ -6,6 +7,7 @@ export interface Post {
   content: string;
   username: string;
   tags: Tag[];
+  comments: Comment[];
   createAt: string;
   updateAt: string;
 }
