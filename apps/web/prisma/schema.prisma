@@ -23,6 +23,16 @@ model Post {
   tags Json?
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
+  comments Comment[]
+}
+model Comment {
+  uid Int @id @default(autoincrement())
+  content String?
+  user String?
+  post Post @relation(fields: [postUid], references: [uid])
+  postUid Int @unique
+  createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
+  updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
 }
 model Tag {
   uid Int @id @default(autoincrement())
