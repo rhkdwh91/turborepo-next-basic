@@ -12,6 +12,8 @@ model User {
   password String
   level Int?
   profileImage String?
+  comments Comment[]
+  posts Post[]
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
 }
@@ -20,6 +22,8 @@ model Post {
   title String?
   content String? @db.LongText
   username String?
+  user User? @relation(fields: [userUid], references: [uid])
+  userUid Int? @unique
   tags Json?
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
@@ -28,8 +32,9 @@ model Post {
 model Comment {
   uid Int @id @default(autoincrement())
   content String?
-  user String?
+  user User @relation(fields: [userUid], references: [uid])
   post Post @relation(fields: [postUid], references: [uid])
+  userUid Int @unique
   postUid Int @unique
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt

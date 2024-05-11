@@ -1,9 +1,7 @@
-import { getServerSession } from "next-auth";
-import authOptions from "../auth.config";
 import { NextResponse } from "next/server";
+import { Session } from "next-auth";
 
-export async function verifyUser() {
-  const session = await getServerSession(authOptions);
+export async function verifyUser(session: Session | null) {
   if (!session) {
     return NextResponse.json(
       { message: "No user found." },
@@ -15,5 +13,5 @@ export async function verifyUser() {
       },
     );
   }
-  return session.user?.username;
+  return null;
 }

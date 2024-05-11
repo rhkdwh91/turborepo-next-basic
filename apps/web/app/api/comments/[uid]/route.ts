@@ -3,6 +3,8 @@ import type { NextRequest } from "next/server";
 import prisma from "prisma/client";
 import { cloneDeep } from "lodash";
 import { verifyUser } from "utils/verifyUser";
+import { getServerSession } from "next-auth";
+import authOptions from "../../../../auth.config";
 
 export async function GET(
   req: NextRequest,
@@ -25,7 +27,8 @@ export async function PUT(
   { params }: { params: { uid: string } },
 ) {
   try {
-    const userVerification = await verifyUser();
+    const session = await getServerSession(authOptions);
+    const userVerification = await verifyUser(session);
     if (userVerification) return userVerification;
 
     const requestData = await req.json();
@@ -50,7 +53,8 @@ export async function DELETE(
   { params }: { params: { uid: string } },
 ) {
   try {
-    const userVerification = await verifyUser();
+    const session = await getServerSession(authOptions);
+    const userVerification = await verifyUser(session);
     if (userVerification) return userVerification;
 
     await prisma.comment.delete({
