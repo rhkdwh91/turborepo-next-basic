@@ -55,7 +55,6 @@ export default function Page() {
         title,
         content,
         tags: formTags,
-        username: session.user.username,
       });
     }
   };

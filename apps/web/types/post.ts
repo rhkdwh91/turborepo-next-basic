@@ -20,5 +20,4 @@ export interface PostForm {
   title: string;
   content: string;
   tags: Tag[];
-  username: string;
 }
