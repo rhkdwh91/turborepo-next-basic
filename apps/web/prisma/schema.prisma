@@ -31,8 +31,6 @@ model Post {
   userUid  Int
   comments Comment[]
   user     User      @relation(fields: [userUid], references: [uid])
-
-  @@index([userUid], map: "Post_userUid_fkey")
 }
 
 model Comment {
@@ -44,9 +42,6 @@ model Comment {
   userUid  Int
   post     Post     @relation(fields: [postUid], references: [uid])
   user     User     @relation(fields: [userUid], references: [uid])
-
-  @@index([postUid], map: "Comment_postUid_fkey")
-  @@index([userUid], map: "Comment_userUid_fkey")
 }
 
 model Tag {

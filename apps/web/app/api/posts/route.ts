@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
             }
           : undefined,
       orderBy: {
-        createAt: "desc",
+        uid: "desc",
       },
     });
     return NextResponse.json(posts, { status: 200 });
@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
     const requestData = await req.json();
     const form = cloneDeep(requestData);
     form.userUid = session.user.uid;
+    console.log(session.user.uid);
     await prisma.post.create({ data: form });
     return NextResponse.json({ message: "ok" }, { status: 201 });
   } catch (error) {
