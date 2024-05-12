@@ -66,7 +66,6 @@ export default function View({ uid }: ViewProps) {
         title,
         content,
         tags: formTags,
-        username: session.user.username,
       });
     }
   };
