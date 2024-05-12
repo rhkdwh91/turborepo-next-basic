@@ -82,7 +82,7 @@ function PostCard({ post }: PostCardProps) {
             >
               {post.tags?.map((tag) => <Tag key={tag.name}>{tag.value}</Tag>)}
             </Box>
-            <Text fontSize={13}>{post.username}</Text>
+            <Text fontSize={13}>{post.user?.username}</Text>
             <Text fontSize={13}>createdAt {createAt}</Text>
           </Stack>
         </CardBody>

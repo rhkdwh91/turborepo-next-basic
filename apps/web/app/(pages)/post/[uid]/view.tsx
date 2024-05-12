@@ -103,7 +103,7 @@ function View({ uid }: ViewProps) {
                   <span>{comment.user?.username}</span>
                 </div>
                 <span>{comment.content}</span>
-                <span>{comment.createAt}</span>
+                <span>{comment.createAt.split("T")[0]}</span>
               </CommentGroup.CommentList.Item>
             ))
           ) : (

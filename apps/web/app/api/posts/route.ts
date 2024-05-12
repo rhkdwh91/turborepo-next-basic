@@ -12,6 +12,9 @@ export async function GET(req: NextRequest) {
     const posts = await prisma.post.findMany({
       take: 20,
       skip: 0,
+      include: {
+        user: true,
+      },
       where:
         tags.length > 0
           ? {
