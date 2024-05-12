@@ -15,7 +15,12 @@ export async function GET(
         uid: Number(params.uid),
       },
       include: {
-        comments: true,
+        comments: {
+          include: {
+            user: true,
+          },
+        },
+        user: true,
       },
     });
     return NextResponse.json(post, { status: 200 });

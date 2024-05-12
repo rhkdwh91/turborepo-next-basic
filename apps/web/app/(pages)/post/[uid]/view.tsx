@@ -88,7 +88,22 @@ function View({ uid }: ViewProps) {
           {data && data.comments.length > 0 ? (
             data.comments.map((comment) => (
               <CommentGroup.CommentList.Item key={comment.uid}>
-                {comment.content}
+                <div>
+                  {comment.user?.profileImage && (
+                    <span>
+                      <img
+                        src={comment.user?.profileImage}
+                        alt="profile-image"
+                        width={25}
+                        height={25}
+                        style={{ borderRadius: 25 }}
+                      />
+                    </span>
+                  )}
+                  <span>{comment.user?.username}</span>
+                </div>
+                <span>{comment.content}</span>
+                <span>{comment.createAt}</span>
               </CommentGroup.CommentList.Item>
             ))
           ) : (

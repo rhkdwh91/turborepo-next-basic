@@ -6,7 +6,18 @@ interface CommentItemProps {
 }
 
 function Item({ children }: CommentItemProps) {
-  return <Text>{children}</Text>;
+  return (
+    <Text
+      display="flex"
+      flexWrap={"wrap"}
+      justifyContent="space-between"
+      alignItems="center"
+      borderBottom="solid 1px #ddd"
+      padding="20px 0"
+    >
+      {children}
+    </Text>
+  );
 }
 
 interface CommentListProps {
@@ -14,7 +25,11 @@ interface CommentListProps {
 }
 
 function CommentList({ children }: CommentListProps) {
-  return <Box>{children}</Box>;
+  return (
+    <Box borderTop="solid 1px #ddd" marginY={10}>
+      {children}
+    </Box>
+  );
 }
 
 export default Object.assign(CommentList, {
