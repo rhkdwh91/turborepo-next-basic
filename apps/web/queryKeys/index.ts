@@ -13,6 +13,8 @@ export const getQueryClient = cache(
         queries: {
           refetchOnWindowFocus: false,
           retry: 0,
+          staleTime: Infinity,
+          gcTime: Infinity,
         },
       },
     }),

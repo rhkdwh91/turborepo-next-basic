@@ -2,6 +2,7 @@ import { Post } from "./post";
 import { Comment } from "./comment";
 
 export interface User {
+  uid: number;
   email: string;
   profileImage: string;
   username: string;

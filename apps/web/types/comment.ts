@@ -13,5 +13,5 @@ export interface CommentForm {
   uid?: number;
   postUid: number;
   content: string;
-  userUid: number;
+  userUid?: number;
 }

@@ -1,5 +1,5 @@
 import View from "./view";
-import { getQueryClient, queryKeys } from "../../../queryKeys";
+import { getQueryClient, queryKeys } from "queryKeys";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 interface PageProps {

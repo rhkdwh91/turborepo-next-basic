@@ -23,7 +23,7 @@ model Post {
   content String? @db.LongText
   username String?
   user User? @relation(fields: [userUid], references: [uid])
-  userUid Int? @unique
+  userUid Int?
   tags Json?
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
@@ -34,8 +34,8 @@ model Comment {
   content String?
   user User @relation(fields: [userUid], references: [uid])
   post Post @relation(fields: [postUid], references: [uid])
-  userUid Int @unique
-  postUid Int @unique
+  userUid Int
+  postUid Int
   createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
   updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
 }
