@@ -18,7 +18,7 @@ export default function Footer() {
         padding={"100px 20px 70px 20px"}
         position="relative"
       >
-        <span className={styles.footer_text}>All right reserved. 조광연.</span>
+        <span className={styles.footer_text}>All right reserved. cho.</span>
       </Box>
     </footer>
   );
