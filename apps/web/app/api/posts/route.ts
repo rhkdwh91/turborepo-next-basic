@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     }
     const requestData = await req.json();
     const form = cloneDeep(requestData);
-    form.username = session.user.username;
+    form.userUid = session.user.uid;
     await prisma.post.create({ data: form });
     return NextResponse.json({ message: "ok" }, { status: 201 });
   } catch (error) {

@@ -30,7 +30,7 @@ export async function PUT(
 ) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session) {
+    if (!session?.user) {
       return NextResponse.json(
         { message: "No user found." },
         {
@@ -43,6 +43,7 @@ export async function PUT(
     }
     const requestData = await req.json();
     const form = cloneDeep(requestData);
+    form.userUid = session.user.uid;
     await prisma.post.update({
       data: form,
       where: {
