@@ -32,6 +32,8 @@ export default function Page() {
   };
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     setTitle(e.target.value);
   };
 
