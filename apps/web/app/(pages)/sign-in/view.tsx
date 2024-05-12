@@ -14,7 +14,7 @@ import { signIn } from "next-auth/react";
 import useUserMutation from "hooks/mutation/useUserMutation";
 
 import styles from "./page.module.css";
-import { UserForm } from "../../types/user";
+import { UserForm } from "types/user";
 import { toast } from "kyz-toast";
 
 export default function View() {
@@ -24,7 +24,7 @@ export default function View() {
     username: "",
     password: "",
   });
-  const { signInUserMutation } = useUserMutation();
+  const { signInUserMutation, createUserMutation } = useUserMutation();
 
   const handleClickPasswordShow = () => setShow(!show);
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,13 +44,12 @@ export default function View() {
     toast.success("login success");
     router.push("/");
   };
-  /*
   const handleClickSignUp = () => {
     if (form.username.length > 4 && form.password.length > 6) {
       return createUserMutation.mutate(form);
     }
     toast.error("Invalid Value!");
-  };*/
+  };
 
   return (
     <main className={styles.main}>
@@ -90,13 +89,12 @@ export default function View() {
           >
             SignIn
           </Button>
-          {/**
           <Button
             onClick={handleClickSignUp}
             isDisabled={createUserMutation.isPending}
           >
             SignUp
-          </Button>**/}
+          </Button>
         </Flex>
       </div>
     </main>
