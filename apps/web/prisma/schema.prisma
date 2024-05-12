@@ -1,48 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-generator client {
-  provider = "prisma-client-js"
-}
+
 model User {
-  uid Int @id @default(autoincrement())
-  username String @unique
-  email String? @unique
-  password String
-  level Int?
+  uid          Int       @id @default(autoincrement())
+  username     String    @unique
+  email        String?   @unique
+  password     String
+  level        Int?
   profileImage String?
-  comments Comment[]
-  posts Post[]
-  createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
-  updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
+  createAt     DateTime  @default(now()) @db.DateTime(0)
+  updateAt     DateTime  @default(now()) @db.DateTime(0)
+  comments     Comment[]
+  posts        Post[]
 }
+
 model Post {
-  uid    Int     @id @default(autoincrement())
-  title String?
-  content String? @db.LongText
+  uid      Int       @id @default(autoincrement())
+  title    String?
+  content  String?   @db.LongText
+  createAt DateTime  @default(now()) @db.DateTime(0)
+  updateAt DateTime  @default(now()) @db.DateTime(0)
   username String?
-  user User? @relation(fields: [userUid], references: [uid])
-  userUid Int?
-  tags Json?
-  createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
-  updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
+  tags     String?   @db.LongText
+  userUid  Int
   comments Comment[]
+  user     User      @relation(fields: [userUid], references: [uid])
+
+  @@index([userUid], map: "Post_userUid_fkey")
 }
+
 model Comment {
-  uid Int @id @default(autoincrement())
-  content String?
-  user User @relation(fields: [userUid], references: [uid])
-  post Post @relation(fields: [postUid], references: [uid])
-  userUid Int
-  postUid Int
-  createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
-  updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
+  uid      Int      @id @default(autoincrement())
+  content  String?
+  postUid  Int
+  createAt DateTime @default(now()) @db.DateTime(0)
+  updateAt DateTime @default(now()) @db.DateTime(0)
+  userUid  Int
+  post     Post     @relation(fields: [postUid], references: [uid])
+  user     User     @relation(fields: [userUid], references: [uid])
+
+  @@index([postUid], map: "Comment_postUid_fkey")
+  @@index([userUid], map: "Comment_userUid_fkey")
 }
+
 model Tag {
-  uid Int @id @default(autoincrement())
-  name String @unique
-  value String
-  createAt DateTime @default(dbgenerated("NOW()")) @db.DateTime //@default(now())
-  updateAt DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.DateTime //@updatedAt
+  uid      Int      @id @default(autoincrement())
+  name     String   @unique
+  value    String
+  createAt DateTime @default(now()) @db.DateTime(0)
+  updateAt DateTime @default(now()) @db.DateTime(0)
 }
