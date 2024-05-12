@@ -31,7 +31,7 @@ export default function View() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
   const handleClickSignIn = async () => {
-    if (form.username.length < 5 || form.password.length < 6) {
+    if (form.username.length < 3 || form.password.length < 6) {
       return toast.error("Invalid Value!");
     }
     const res = await signIn("credentials", {
