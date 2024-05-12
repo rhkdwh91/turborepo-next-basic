@@ -27,7 +27,7 @@ model Post {
   createAt DateTime  @default(now()) @db.DateTime(0)
   updateAt DateTime  @default(now()) @db.DateTime(0)
   username String?
-  tags     String?   @db.LongText
+  tags     Json?
   userUid  Int
   comments Comment[]
   user     User      @relation(fields: [userUid], references: [uid])
