@@ -1,4 +1,5 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 import axiosInstance from "axiosInstance";
 import { toast } from "kyz-toast";
 import { CommentForm } from "types/comment";
@@ -6,15 +7,17 @@ import { queryKeys } from "queryKeys";
 
 const useCommentMutation = () => {
   const queryClient = useQueryClient();
+  const { uid } = useParams();
+
   const createCommentMutation = useMutation({
     mutationFn: async (form: CommentForm) => {
       const { data } = await axiosInstance.post("/api/comments", form);
       return data;
     },
-    onSuccess: (_, variables) => {
+    onSuccess: () => {
       toast.success("Successfully created comment!");
       queryClient.refetchQueries({
-        queryKey: queryKeys.posts.detail(variables.postUid).queryKey,
+        queryKey: queryKeys.posts.detail(Number(uid)).queryKey,
         type: "active",
       });
     },
@@ -34,6 +37,10 @@ const useCommentMutation = () => {
     },
     onSuccess: () => {
       toast.success("Successfully modify comment!");
+      queryClient.refetchQueries({
+        queryKey: queryKeys.posts.detail(Number(uid)).queryKey,
+        type: "active",
+      });
     },
     onError: (error) => {
       toast.error("Failed modify post");
@@ -48,6 +55,10 @@ const useCommentMutation = () => {
     },
     onSuccess: () => {
       toast.success("Successfully delete comment!");
+      queryClient.refetchQueries({
+        queryKey: queryKeys.posts.detail(Number(uid)).queryKey,
+        type: "active",
+      });
     },
   });
 

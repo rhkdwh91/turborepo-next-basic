@@ -20,6 +20,7 @@ import styles from "./page.module.css";
 import usePostMutation from "hooks/mutation/usePostMutation";
 import { useSession } from "next-auth/react";
 import CommentGroup from "components/ui/organism/CommentGroup";
+import useCommentMutation from "../../../../hooks/mutation/useCommentMutation";
 
 interface ViewProps {
   uid: number;
@@ -29,11 +30,24 @@ function View({ uid }: ViewProps) {
   const router = useRouter();
   const { data: session } = useSession();
   const { data, isLoading } = useQuery(queryKeys.posts.detail(uid));
+  const { deleteCommentMutation } = useCommentMutation();
   const { deletePostMutation } = usePostMutation();
 
   const handleClickModify = useCallback(() => {
     router.push(`/post/modify/${uid}`);
   }, []);
+
+  const handleClickDeleteComment = useCallback(
+    (commentNumber: number) => {
+      if (
+        !deleteCommentMutation.isPending &&
+        confirm("Are you sure you want to delete this comment?")
+      ) {
+        deleteCommentMutation.mutate(commentNumber);
+      }
+    },
+    [deleteCommentMutation.isPending],
+  );
 
   const handleClickDeleteButton = useCallback(() => {
     if (
@@ -42,7 +56,7 @@ function View({ uid }: ViewProps) {
     ) {
       deletePostMutation.mutate(uid);
     }
-  }, []);
+  }, [deletePostMutation.isPending]);
 
   return (
     <main className={styles.layout}>
@@ -104,6 +118,11 @@ function View({ uid }: ViewProps) {
                 </div>
                 <span>{comment.content}</span>
                 <span>{comment.createAt.split("T")[0]}</span>
+                {comment.user?.username === session?.user?.username && (
+                  <button onClick={() => handleClickDeleteComment(comment.uid)}>
+                    delete
+                  </button>
+                )}
               </CommentGroup.CommentList.Item>
             ))
           ) : (
