@@ -63,7 +63,7 @@ interface HeaderProps {
 
 function Header({ children }: HeaderProps) {
   return (
-    <Box>
+    <Box paddingBottom={4}>
       <Text fontSize={20} fontWeight="bold">
         {children}
       </Text>
@@ -77,7 +77,7 @@ interface ContentProps {
 
 function Content({ children }: ContentProps) {
   return (
-    <Box paddingY={3} whiteSpace="pre-wrap">
+    <Box padding={3} whiteSpace="pre-wrap">
       {children}
     </Box>
   );
