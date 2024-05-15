@@ -26,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <ToastProvider>
                 <Header />
                 {children}
+                <div id={"modal-root"} />
                 <Footer />
               </ToastProvider>
             </ChakraUiProvider>

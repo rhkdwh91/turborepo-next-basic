@@ -3,10 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./button": "./src/button.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx",
-    "./organism/*": "./src/components/*/index.tsx"
+    "./components/organism/*": "./src/components/organism/*/index.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -25,6 +22,10 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "react-hook-form": "^7.51.4"
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "react-hook-form": "^7.51.4",
+    "zustand": "^4.5.2"
   }
 }

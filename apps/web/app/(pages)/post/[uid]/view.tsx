@@ -20,7 +20,11 @@ import styles from "./page.module.css";
 import usePostMutation from "hooks/mutation/usePostMutation";
 import { useSession } from "next-auth/react";
 import CommentGroup from "components/ui/organism/CommentGroup";
-import useCommentMutation from "../../../../hooks/mutation/useCommentMutation";
+import useCommentMutation from "hooks/mutation/useCommentMutation";
+
+import ConfirmModal, {
+  confirm,
+} from "@repo/ui/components/organism/ConfirmModal";
 
 interface ViewProps {
   uid: number;
@@ -39,23 +43,27 @@ function View({ uid }: ViewProps) {
 
   const handleClickDeleteComment = useCallback(
     (commentNumber: number) => {
-      if (
-        !deleteCommentMutation.isPending &&
-        confirm("Are you sure you want to delete this comment?")
-      ) {
-        deleteCommentMutation.mutate(commentNumber);
-      }
+      confirm.open({
+        message: "Are you sure you want to delete this comment?",
+        onClickConfirm: () => {
+          if (!deleteCommentMutation.isPending) {
+            deleteCommentMutation.mutate(commentNumber);
+          }
+        },
+      });
     },
     [deleteCommentMutation.isPending],
   );
 
   const handleClickDeleteButton = useCallback(() => {
-    if (
-      !deletePostMutation.isPending &&
-      confirm("Are you sure you want to delete this post?")
-    ) {
-      deletePostMutation.mutate(uid);
-    }
+    confirm.open({
+      message: "Are you sure you want to delete this post?",
+      onClickConfirm: () => {
+        if (!deletePostMutation.isPending) {
+          deletePostMutation.mutate(uid);
+        }
+      },
+    });
   }, [deletePostMutation.isPending]);
 
   return (
@@ -138,6 +146,7 @@ function View({ uid }: ViewProps) {
           <Button onClick={handleClickDeleteButton}>Delete</Button>
         </Flex>
       )}
+      <ConfirmModal />
     </main>
   );
 }
