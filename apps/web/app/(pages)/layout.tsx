@@ -8,7 +8,6 @@ import SessionProvider from "providers/SessionProvider";
 import ToastProvider from "providers/ToastProvider";
 import Header from "components/ui/organism/Header";
 import Footer from "components/ui/organism/Footer";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -26,13 +25,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <ToastProvider>
                 <Header />
                 {children}
-                <div id={"modal-root"} />
                 <Footer />
               </ToastProvider>
             </ChakraUiProvider>
           </ReactQueryProvider>
         </SessionProvider>
         <SpeedInsights />
+        <div id={"modal-root"} />
       </body>
     </html>
   );

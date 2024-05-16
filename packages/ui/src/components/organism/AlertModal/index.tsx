@@ -12,9 +12,8 @@ interface IState {
 }
 
 const Action = {
-  OPEN: "openConfirm",
-  CLOSE: "closeConfirm",
-  CONFIRM: "onClickConfirm",
+  OPEN: "openAlert",
+  CLOSE: "closeAlert",
 } as const;
 
 type TAction = (typeof Action)[keyof typeof Action];
@@ -24,7 +23,7 @@ interface IAction {
   message: string;
 }
 
-const confirmReducer = (state: IState, action: IAction) => {
+const alertReducer = (state: IState, action: IAction) => {
   if (action.type === Action.OPEN) {
     return {
       isOpen: true,
@@ -42,47 +41,34 @@ const confirmReducer = (state: IState, action: IAction) => {
 
 interface ConfirmModalParams {
   message: string;
-  onClickConfirm: () => void;
 }
 
-export const confirmModal = {
-  open: ({ message, onClickConfirm }: ConfirmModalParams) => {
-    emitter.emit(Action.OPEN, { message, onClickConfirm });
+export const alertModal = {
+  open: ({ message }: ConfirmModalParams) => {
+    emitter.emit(Action.OPEN, { message });
   },
 };
 
-export default function ConfirmModal() {
-  const [state, dispatch] = useReducer(confirmReducer, {
+export default function AlertModal() {
+  const [state, dispatch] = useReducer(alertReducer, {
     isOpen: false,
     message: "",
   });
 
-  const openConfirmModal = ({
-    message,
-    onClickConfirm,
-  }: ConfirmModalParams) => {
-    emitter.removeAllListeners(Action.CONFIRM);
-    emitter.once(Action.CONFIRM, onClickConfirm);
+  const openConfirmModal = ({ message }: ConfirmModalParams) => {
     dispatch({ type: Action.OPEN, message });
   };
-  const handleClickConfirm = () => {
-    emitter.emit(Action.CONFIRM);
-    emitter.removeAllListeners(Action.CONFIRM);
-    dispatch({ type: Action.CLOSE, message: "" });
-  };
-  const handleClickCancel = () => {
-    emitter.removeAllListeners(Action.CONFIRM);
+  const handleClickButton = () => {
     dispatch({ type: Action.CLOSE, message: "" });
   };
 
   useEffect(() => {
     emitter.on(Action.OPEN, openConfirmModal);
-    emitter.on(Action.CLOSE, handleClickCancel);
+    emitter.on(Action.CLOSE, handleClickButton);
     return () => {
       dispatch({ type: Action.CLOSE, message: "" });
       emitter.removeAllListeners(Action.OPEN);
       emitter.removeAllListeners(Action.CLOSE);
-      emitter.removeAllListeners(Action.CONFIRM);
     };
   }, []);
 
@@ -90,14 +76,11 @@ export default function ConfirmModal() {
     const el = document.getElementById("modal-root") as HTMLElement;
     return ReactDom.createPortal(
       <Modal.Container>
-        <Modal.Header>Confirm</Modal.Header>
+        <Modal.Header>Alert</Modal.Header>
         <Modal.Content>{state.message}</Modal.Content>
         <Modal.Footer>
-          <Button variant="ghost" onClick={handleClickConfirm}>
+          <Button colorScheme="blue" mr={3} onClick={handleClickButton}>
             확인
-          </Button>
-          <Button colorScheme="blue" mr={3} onClick={handleClickCancel}>
-            취소
           </Button>
         </Modal.Footer>
       </Modal.Container>,

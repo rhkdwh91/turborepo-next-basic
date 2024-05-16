@@ -1,13 +1,34 @@
-import React, { ReactNode, useEffect, useCallback } from "react";
+"use client";
+
+import React, { ReactNode, useEffect, useCallback, useReducer } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import ReactDom from "react-dom";
 import emitter from "../../../utils/emitter";
-import useModal from "../../../hooks/useModal";
+
+interface IState {
+  isOpen: boolean;
+}
 
 const Action = {
-  OPEN: "open",
-  CLOSE: "close",
+  OPEN: "modal_open",
+  CLOSE: "modal_close",
 } as const;
+
+type TAction = (typeof Action)[keyof typeof Action];
+
+const modalReducer = (state: IState, action: TAction) => {
+  if (action === Action.OPEN) {
+    return {
+      isOpen: true,
+    };
+  }
+  if (action === Action.CLOSE) {
+    return {
+      isOpen: false,
+    };
+  }
+  return state;
+};
 
 export const modal = {
   open: () => {
@@ -100,27 +121,27 @@ interface ModalProps {
 }
 
 function Portal({ children }: ModalProps) {
-  const { isOpen, open, close } = useModal();
+  const [state, dispatch] = useReducer(modalReducer, { isOpen: false });
 
   const openModal = useCallback(() => {
-    open();
+    dispatch(Action.OPEN);
   }, []);
 
   const closeModal = useCallback(() => {
-    close();
+    dispatch(Action.CLOSE);
   }, []);
 
   useEffect(() => {
     emitter.on(Action.OPEN, openModal);
     emitter.on(Action.CLOSE, closeModal);
     return () => {
-      close();
+      dispatch(Action.CLOSE);
       emitter.removeListener(Action.OPEN, openModal);
       emitter.removeListener(Action.CLOSE, closeModal);
     };
   }, []);
 
-  if (document && isOpen) {
+  if (document && state.isOpen) {
     const el = document.getElementById("modal-root") as HTMLElement;
     return ReactDom.createPortal(children, el);
   }

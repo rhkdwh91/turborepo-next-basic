@@ -22,9 +22,7 @@ import { useSession } from "next-auth/react";
 import CommentGroup from "components/ui/organism/CommentGroup";
 import useCommentMutation from "hooks/mutation/useCommentMutation";
 
-import ConfirmModal, {
-  confirm,
-} from "@repo/ui/components/organism/ConfirmModal";
+import { confirmModal } from "@repo/ui/components/organism/ConfirmModal";
 
 interface ViewProps {
   uid: number;
@@ -43,7 +41,7 @@ function View({ uid }: ViewProps) {
 
   const handleClickDeleteComment = useCallback(
     (commentNumber: number) => {
-      confirm.open({
+      confirmModal.open({
         message: "Are you sure you want to delete this comment?",
         onClickConfirm: () => {
           if (!deleteCommentMutation.isPending) {
@@ -56,7 +54,7 @@ function View({ uid }: ViewProps) {
   );
 
   const handleClickDeleteButton = useCallback(() => {
-    confirm.open({
+    confirmModal.open({
       message: "Are you sure you want to delete this post?",
       onClickConfirm: () => {
         if (!deletePostMutation.isPending) {
@@ -146,7 +144,6 @@ function View({ uid }: ViewProps) {
           <Button onClick={handleClickDeleteButton}>Delete</Button>
         </Flex>
       )}
-      <ConfirmModal />
     </main>
   );
 }

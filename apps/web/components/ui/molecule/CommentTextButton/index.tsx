@@ -1,25 +1,30 @@
 import { Button, Flex, Input } from "@chakra-ui/react";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, memo } from "react";
 import useCommentMutation from "hooks/mutation/useCommentMutation";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 
-export default function CommentTextButton() {
+export default memo(function CommentTextButton() {
   const { data: session } = useSession();
   const { uid } = useParams();
   const [comment, setComment] = useState("");
   const { createCommentMutation } = useCommentMutation();
   const handleChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value) {
-      setComment(e.target.value);
-    }
+    setComment(e.target.value);
   };
   const handleClickSubmit = () => {
     if (!createCommentMutation.isPending && session?.user) {
-      createCommentMutation.mutate({
-        postUid: Number(uid),
-        content: comment,
-      });
+      createCommentMutation.mutate(
+        {
+          postUid: Number(uid),
+          content: comment,
+        },
+        {
+          onSuccess: () => {
+            setComment("");
+          },
+        },
+      );
     }
   };
   return (
@@ -33,4 +38,4 @@ export default function CommentTextButton() {
       <Button onClick={handleClickSubmit}>submit</Button>
     </Flex>
   );
-}
+});

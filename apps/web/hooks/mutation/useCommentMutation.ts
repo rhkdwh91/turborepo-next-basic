@@ -2,6 +2,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import axiosInstance from "axiosInstance";
 import { toast } from "kyz-toast";
+import { alertModal } from "@repo/ui/components/organism/AlertModal";
 import { CommentForm } from "types/comment";
 import { queryKeys } from "queryKeys";
 
@@ -15,11 +16,11 @@ const useCommentMutation = () => {
       return data;
     },
     onSuccess: () => {
-      toast.success("Successfully created comment!");
       queryClient.refetchQueries({
         queryKey: queryKeys.posts.detail(Number(uid)).queryKey,
         type: "active",
       });
+      toast.success("Successfully created comment!");
     },
     onError: (error) => {
       toast.error("Failed create post");
@@ -54,7 +55,7 @@ const useCommentMutation = () => {
       return data;
     },
     onSuccess: () => {
-      toast.success("Successfully delete comment!");
+      alertModal.open({ message: "Successfully delete comment!" });
       queryClient.refetchQueries({
         queryKey: queryKeys.posts.detail(Number(uid)).queryKey,
         type: "active",
