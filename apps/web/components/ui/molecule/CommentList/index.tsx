@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 interface CommentItemProps {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface CommentItemProps {
 
 function Item({ children }: CommentItemProps) {
   return (
-    <Text
+    <Box
       display="flex"
       flexWrap={"wrap"}
       justifyContent="space-between"
@@ -16,7 +16,7 @@ function Item({ children }: CommentItemProps) {
       padding="20px 0"
     >
       {children}
-    </Text>
+    </Box>
   );
 }
 

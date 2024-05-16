@@ -72,7 +72,7 @@ export default function AlertModal() {
     };
   }, []);
 
-  if (document && state.isOpen) {
+  if (typeof window !== "undefined" && state.isOpen) {
     const el = document.getElementById("modal-root") as HTMLElement;
     return ReactDom.createPortal(
       <Modal.Container>

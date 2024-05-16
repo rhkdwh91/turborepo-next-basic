@@ -110,7 +110,7 @@ function View({ uid }: ViewProps) {
               <CommentGroup.CommentList.Item key={comment.uid}>
                 <div>
                   {comment.user?.profileImage && (
-                    <span>
+                    <Text>
                       <img
                         src={comment.user?.profileImage}
                         alt="profile-image"
@@ -118,12 +118,12 @@ function View({ uid }: ViewProps) {
                         height={25}
                         style={{ borderRadius: 25 }}
                       />
-                    </span>
+                    </Text>
                   )}
-                  <span>{comment.user?.username}</span>
+                  <Text>{comment.user?.username}</Text>
                 </div>
-                <span>{comment.content}</span>
-                <span>{comment.createAt.split("T")[0]}</span>
+                <Text>{comment.content}</Text>
+                <Text>{comment.createAt.split("T")[0]}</Text>
                 {comment.user?.username === session?.user?.username && (
                   <button onClick={() => handleClickDeleteComment(comment.uid)}>
                     delete
