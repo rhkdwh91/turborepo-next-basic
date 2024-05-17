@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
         level: user.level,
         profileImage: user.profileImage,
         accessToken: token.accessToken,
+        refreshToken: token.refreshToken,
       },
       {
         status: 201,
