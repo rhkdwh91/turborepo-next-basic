@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import authOptions from "auth.config";
-import { verifyJWT } from "../../../../utils/signJWT";
+import { verifyJWT } from "utils/signJWT";
 
 export async function GET(req: NextRequest) {
   try {
@@ -18,11 +18,14 @@ export async function GET(req: NextRequest) {
       );
     }
     const result = await verifyJWT(session.user.accessToken);
-    console.log(result);
     return NextResponse.json({ message: result }, { status: 500 });
   } catch (error: any) {
     if (error?.code === "ERR_JWT_EXPIRED") {
-      return NextResponse.redirect(new URL("/sign-out", req.url));
+      const response = NextResponse.redirect(new URL("/", req.url));
+      response.cookies.set("next-auth.callback-url", "", { maxAge: 0 });
+      response.cookies.set("next-auth.csrf-token", "", { maxAge: 0 });
+      response.cookies.set("next-auth.session-token", "", { maxAge: 0 });
+      return response;
     }
     return NextResponse.json({ message: error }, { status: 500 });
   }
