@@ -1,6 +1,6 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import axiosInstance from "axiosInstance";
+import axiosInstance from "axiosInstance/axios-client";
 import { toast } from "kyz-toast";
 import { alertModal } from "@repo/ui/components/organism/AlertModal";
 import { CommentForm } from "types/comment";

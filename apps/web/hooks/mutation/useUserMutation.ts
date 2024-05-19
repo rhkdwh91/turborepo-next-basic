@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "axiosInstance";
-import { User, UserForm } from "types/user";
+import axiosInstance from "axiosInstance/axios-client";
+import { UserForm } from "types/user";
 import { toast } from "kyz-toast";
 
 const useUserMutation = () => {

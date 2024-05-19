@@ -8,6 +8,7 @@ export interface User {
   username: string;
   level: number;
   accessToken: string;
+  refreshToken: string;
   comments?: Comment[];
   posts?: Post[];
 }
