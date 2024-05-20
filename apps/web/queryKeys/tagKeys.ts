@@ -1,5 +1,5 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import axiosInstance from "axiosInstance/axios-client";
+import axiosInstance from "axiosInstance";
 import { Tag } from "types/tag";
 
 const tagsKeys = createQueryKeys("tags", {

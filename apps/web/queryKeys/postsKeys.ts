@@ -1,5 +1,5 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import axiosInstance from "axiosInstance/axios-client";
+import axiosInstance from "axiosInstance";
 import { Post } from "types/post";
 import qs from "qs";
 
