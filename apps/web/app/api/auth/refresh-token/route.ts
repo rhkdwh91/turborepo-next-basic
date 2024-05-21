@@ -1,7 +1,6 @@
 import { signJWT, verifyRefreshToken } from "utils/signJWT";
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import authConfig from "auth.config";
+import prisma from "prisma/client";
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,23 +14,23 @@ export async function POST(req: NextRequest) {
     const { payload } = await verifyRefreshToken(
       refreshToken.replace("Bearer ", ""),
     );
-    if (!payload?.user) {
+    if (!payload?.username) {
       return NextResponse.json(
         { message: "The ID is incorrect or incorrect." },
         { status: 400 },
       );
     }
-    const session = await getServerSession(authConfig);
-    if (!session?.user) {
-      return NextResponse.json(
-        { message: "login session expired" },
-        { status: 403 },
-      );
-    }
-    const { user } = session;
     const { username } = payload;
+    const user = await prisma.user.findFirst({
+      where: {
+        username: username,
+      },
+    });
+    if (!user) {
+      return NextResponse.json({ message: "not user" }, { status: 403 });
+    }
 
-    const token = await signJWT({ username });
+    const token = await signJWT({ username: user.username });
 
     return NextResponse.json(
       {
@@ -40,7 +39,7 @@ export async function POST(req: NextRequest) {
         email: user.email,
         level: user.level,
         profileImage: user.profileImage,
-        refreshToken: user.refreshToken,
+        refreshToken,
         accessToken: token.accessToken,
       },
       {

@@ -42,16 +42,17 @@ instance.interceptors.response.use(
       config,
       response: { status },
     } = error;
-    if (status !== 401 && error.response.data.message === "expired") {
+    if (status !== 401 && error.response.data.message !== "expired") {
       return Promise.reject(error);
     }
 
     await refreshAuthorize();
     const session = await getSession();
+    console.log(session, "CLIENT SESSION");
     if (!session?.user) {
       return Promise.reject(error);
     }
-    const { originalRequest } = config;
+    const originalRequest = config;
     originalRequest.headers.authorization = `Bearer ${session.user.accessToken}`;
     // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
     return axios(originalRequest);

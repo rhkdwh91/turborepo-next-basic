@@ -1,6 +1,28 @@
-import { AuthOptions } from "next-auth";
+import { AuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import axiosInstance from "axiosInstance";
+
+const postRefreshToken: any = async () => {
+  const session = await getServerSession(authOptions);
+  if (!session?.user) {
+    return null;
+  }
+
+  const res = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/auth/refresh-token`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: session.user.refreshToken,
+      },
+    },
+  );
+  const result = await res.json();
+  if (result?.username) {
+    return result;
+  }
+  return null;
+};
 
 const authOptions = {
   pages: {
@@ -23,16 +45,27 @@ const authOptions = {
       },
       async authorize(credentials, req) {
         if (req.body?.refresh === "true") {
+          return await postRefreshToken();
         }
 
-        const { data } = await axiosInstance.post(
+        const res = await fetch(
           `${process.env.NEXTAUTH_URL}/api/auth/sign-in`,
           {
-            username: credentials?.username,
-            password: credentials?.password,
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: credentials?.username,
+              password: credentials?.password,
+            }),
           },
         );
-        return data || null;
+        const result = await res.json();
+        if (result?.username) {
+          return result;
+        }
+        return null;
       },
     }),
   ],
