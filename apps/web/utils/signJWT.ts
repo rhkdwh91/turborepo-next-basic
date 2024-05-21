@@ -32,3 +32,10 @@ export const verifyJWT = async (value: string) => {
     new TextEncoder().encode(process.env.NEXT_PUBLIC_ACCESS_TOKEN_SECRET),
   );
 };
+
+export const verifyRefreshToken = async (value: string) => {
+  return await jwtVerify(
+    value,
+    new TextEncoder().encode(process.env.NEXT_PUBLIC_REFRESH_TOKEN_SECRET),
+  );
+};

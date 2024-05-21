@@ -1,6 +1,8 @@
 "use client";
 
 import axios from "axios";
+import { getSession } from "next-auth/react";
+import refreshAuthorize from "./refreshAuthorize";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -8,22 +10,19 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  function (config) {
-    const token = localStorage.getItem("token");
+  async (config) => {
+    const session = await getSession();
 
-    //요청시 AccessToken 계속 보내주기
-    if (!token) {
+    if (!session) {
       config.headers.accessToken = null;
       config.headers.refreshToken = null;
     }
 
-    if (config.headers && token) {
-      const { accessToken, refreshToken } = JSON.parse(token);
+    if (config.headers && session?.user) {
+      const { accessToken, refreshToken } = session.user;
       config.headers.authorization = `Bearer ${accessToken}`;
       config.headers.refreshToken = `Bearer ${refreshToken}`;
     }
-    // Do something before request is sent
-    console.log("request start", config);
     return config;
   },
   function (error) {
@@ -36,9 +35,6 @@ instance.interceptors.request.use(
 // Add a response interceptor
 instance.interceptors.response.use(
   function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    console.log("get response", response);
     return response;
   },
   async (error) => {
@@ -46,33 +42,19 @@ instance.interceptors.response.use(
       config,
       response: { status },
     } = error;
-    if (status === 401) {
-      if (error.response.data.message === "expired") {
-        const originalRequest = config;
-        const refreshToken = await localStorage.getItem("refreshToken");
-        // token refresh 요청
-        const { data } = await axios.post(
-          `http://localhost:3000/refreshToken`, // token refresh api
-          {},
-          { headers: { authorization: `Bearer ${refreshToken}` } },
-        );
-        // 새로운 토큰 저장
-        // dispatch(userSlice.actions.setAccessToken(data.data.accessToken)); store에 저장
-        const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-          data;
-        await localStorage.multiSet([
-          ["accessToken", newAccessToken],
-          ["refreshToken", newRefreshToken],
-        ]);
-        originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
-        // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
-        return axios(originalRequest);
-      }
+    if (status !== 401 && error.response.data.message === "expired") {
+      return Promise.reject(error);
     }
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    console.log("response error", error);
-    return Promise.reject(error);
+
+    await refreshAuthorize();
+    const session = await getSession();
+    if (!session?.user) {
+      return Promise.reject(error);
+    }
+    const { originalRequest } = config;
+    originalRequest.headers.authorization = `Bearer ${session.user.accessToken}`;
+    // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
+    return axios(originalRequest);
   },
 );
 

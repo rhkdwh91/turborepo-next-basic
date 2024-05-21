@@ -11,7 +11,6 @@ instance.interceptors.request.use(
   async (config) => {
     const session = await getServerSession(AuthConfig);
 
-    //요청시 AccessToken 계속 보내주기
     if (!session) {
       config.headers.accessToken = null;
       config.headers.refreshToken = null;
@@ -22,13 +21,9 @@ instance.interceptors.request.use(
       config.headers.authorization = `Bearer ${accessToken}`;
       config.headers.refreshToken = `Bearer ${refreshToken}`;
     }
-    // Do something before request is sent
-    console.log("request start", config);
     return config;
   },
   function (error) {
-    // Do something with request error
-    console.log("request error", error);
     return Promise.reject(error);
   },
 );
@@ -36,9 +31,6 @@ instance.interceptors.request.use(
 // Add a response interceptor
 instance.interceptors.response.use(
   async (response) => {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    console.log("get response", response);
     return response;
   },
   async (error) => {
@@ -47,9 +39,6 @@ instance.interceptors.response.use(
       response: { status },
     } = error;
     if (status === 401 && error.response.data.message !== "expired") {
-      // Any status codes that falls outside the range of 2xx cause this function to trigger
-      // Do something with response error
-      console.log("response error", error);
       return Promise.reject(error);
     }
     const session = await getServerSession(AuthConfig);
@@ -58,19 +47,12 @@ instance.interceptors.response.use(
     }
     const originalRequest = config;
     const { refreshToken } = session.user;
-    // token refresh 요청
     const { data } = await axios.post(
-      `http://localhost:3000/refreshToken`, // token refresh api
+      `http://localhost:3000/api/auth/refreshToken`, // token refresh api
       {},
       { headers: { authorization: `Bearer ${refreshToken}` } },
     );
-    // 새로운 토큰 저장
-    // dispatch(userSlice.actions.setAccessToken(data.data.accessToken)); store에 저장
-    const { accessToken: newAccessToken, refreshToken: newRefreshToken } = data;
-    await localStorage.multiSet([
-      ["accessToken", newAccessToken],
-      ["refreshToken", newRefreshToken],
-    ]);
+    const { accessToken: newAccessToken } = data;
     originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
     // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
     return axios(originalRequest);
