@@ -1,8 +1,17 @@
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getQueryClient, queryKeys } from "queryKeys";
+
 import View from "./view";
-import { getServerSession } from "next-auth";
-import authOptions from "auth.config";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
-  return <View user={session?.user} />;
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(queryKeys.profile.detail());
+
+  const dehydratedState = dehydrate(queryClient);
+
+  return (
+    <HydrationBoundary state={dehydratedState}>
+      <View />
+    </HydrationBoundary>
+  );
 }

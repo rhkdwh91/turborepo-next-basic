@@ -48,13 +48,11 @@ instance.interceptors.response.use(
 
     await refreshAuthorize();
     const session = await getSession();
-    console.log(session, "CLIENT SESSION");
     if (!session?.user) {
       return Promise.reject(error);
     }
     const originalRequest = config;
     originalRequest.headers.authorization = `Bearer ${session.user.accessToken}`;
-    // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
     return axios(originalRequest);
   },
 );

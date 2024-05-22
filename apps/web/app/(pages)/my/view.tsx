@@ -2,19 +2,18 @@
 
 import styles from "./page.module.css";
 import { Box, Text } from "@chakra-ui/react";
-import { User } from "types/user";
+import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "queryKeys";
 
-interface ViewProps {
-  user?: User;
-}
+export default function View() {
+  const { data } = useQuery(queryKeys.profile.detail());
 
-export default function View({ user }: ViewProps) {
   return (
     <main className={styles.main}>
       <div className={styles.layout}>
-        {user && (
+        {data?.user && (
           <Box>
-            {user.profileImage && (
+            {data.user.profileImage && (
               <Box
                 borderRadius="100%"
                 border="solid 1px #000"
@@ -27,7 +26,7 @@ export default function View({ user }: ViewProps) {
                 alignItems={"center"}
               >
                 <img
-                  src={user.profileImage}
+                  src={data.user.profileImage}
                   alt="profile image"
                   width={50}
                   height={50}
@@ -35,11 +34,12 @@ export default function View({ user }: ViewProps) {
               </Box>
             )}
             <Text>
-              level: {user.level === 0 && "최고 관리자"}{" "}
-              {user.level === 1 && "관리자"} {user.level === 2 && "회원"}
+              level: {data.user.level === 0 && "최고 관리자"}{" "}
+              {data.user.level === 1 && "관리자"}{" "}
+              {data.user.level === 2 && "회원"}
             </Text>
-            <Text>email: {user.email}</Text>
-            <Text>username: {user.username}</Text>
+            <Text>email: {data.user.email}</Text>
+            <Text>username: {data.user.username}</Text>
           </Box>
         )}
       </div>
