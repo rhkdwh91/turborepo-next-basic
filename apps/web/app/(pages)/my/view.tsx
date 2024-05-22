@@ -11,9 +11,9 @@ export default function View() {
   return (
     <main className={styles.main}>
       <div className={styles.layout}>
-        {data?.user && (
+        {data && (
           <Box>
-            {data.user.profileImage && (
+            {data.profileImage && (
               <Box
                 borderRadius="100%"
                 border="solid 1px #000"
@@ -26,7 +26,7 @@ export default function View() {
                 alignItems={"center"}
               >
                 <img
-                  src={data.user.profileImage}
+                  src={data.profileImage}
                   alt="profile image"
                   width={50}
                   height={50}
@@ -34,12 +34,11 @@ export default function View() {
               </Box>
             )}
             <Text>
-              level: {data.user.level === 0 && "최고 관리자"}{" "}
-              {data.user.level === 1 && "관리자"}{" "}
-              {data.user.level === 2 && "회원"}
+              level: {data.level === 0 && "최고 관리자"}{" "}
+              {data.level === 1 && "관리자"} {data.level === 2 && "회원"}
             </Text>
-            <Text>email: {data.user.email}</Text>
-            <Text>username: {data.user.username}</Text>
+            <Text>email: {data.email}</Text>
+            <Text>username: {data.username}</Text>
           </Box>
         )}
       </div>

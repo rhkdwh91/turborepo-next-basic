@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
 import { verifyJWT } from "utils/signJWT";
-import authOptions from "auth.config";
+import prisma from "prisma/client";
 
 export async function GET(req: NextRequest) {
   try {
@@ -19,16 +18,20 @@ export async function GET(req: NextRequest) {
         { status: 403 },
       );
     }
-    const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json(
-        { message: "login session expired" },
-        { status: 401 },
-      );
+
+    const user = await prisma.user.findFirst({
+      where: {
+        username: payload.username,
+      },
+    });
+    if (!user) {
+      return NextResponse.json({ message: "not user" }, { status: 403 });
     }
-    return NextResponse.json(session, { status: 200 });
+
+    return NextResponse.json(user, { status: 200 });
   } catch (error: any) {
     if (error?.code === "ERR_JWT_EXPIRED") {
+      console.log("ERR_JWT_EXPIRED");
       return NextResponse.json({ message: "expired" }, { status: 401 });
     }
     return NextResponse.json({ message: error }, { status: 500 });

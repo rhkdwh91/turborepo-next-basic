@@ -38,6 +38,7 @@ instance.interceptors.response.use(
       config,
       response: { status },
     } = error;
+    console.log(error.response.data.message);
     if (status === 401 && error.response.data.message !== "expired") {
       return Promise.reject(error);
     }
@@ -48,13 +49,11 @@ instance.interceptors.response.use(
     const originalRequest = config;
     const { refreshToken } = session.user;
     const { data } = await axios.post(
-      `http://localhost:3000/api/auth/refreshToken`, // token refresh api
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/refresh-token`, // token refresh api
       {},
       { headers: { authorization: `Bearer ${refreshToken}` } },
     );
-    const { accessToken: newAccessToken } = data;
-    originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
-    // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
+    originalRequest.headers.authorization = `Bearer ${data.accessToken}`;
     return axios(originalRequest);
   },
 );

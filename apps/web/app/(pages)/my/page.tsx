@@ -8,7 +8,6 @@ export default async function Page() {
   await queryClient.prefetchQuery(queryKeys.profile.detail());
 
   const dehydratedState = dehydrate(queryClient);
-
   return (
     <HydrationBoundary state={dehydratedState}>
       <View />

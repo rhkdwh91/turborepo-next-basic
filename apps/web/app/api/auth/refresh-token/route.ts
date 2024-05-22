@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
         email: user.email,
         level: user.level,
         profileImage: user.profileImage,
-        refreshToken,
+        refreshToken: refreshToken.replace("Bearer ", ""),
         accessToken: token.accessToken,
       },
       {
