@@ -1,8 +1,8 @@
 "use client";
 
 import { ToastContainer } from "kyz-toast";
-import AlertModal from "@repo/ui/components/organism/AlertModal";
-import ConfirmModal from "@repo/ui/components/organism/ConfirmModal";
+import AlertModal from "../components/organism/AlertModal";
+import ConfirmModal from "../components/organism/ConfirmModal";
 
 export default function ToastProvider({
   children,
