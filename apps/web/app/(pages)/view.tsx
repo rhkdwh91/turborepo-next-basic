@@ -18,6 +18,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { queryKeys } from "queryKeys";
 import Link from "next/link";
 import { Post } from "types/post";
+import ProfileImage from "@repo/ui/components/atom/ProfileImage";
 import styles from "./page.module.css";
 
 interface PostCardProps {
@@ -82,7 +83,10 @@ function PostCard({ post }: PostCardProps) {
             >
               {post.tags?.map((tag) => <Tag key={tag.name}>{tag.value}</Tag>)}
             </Box>
-            <Text fontSize={13}>{post.user?.username}</Text>
+            <div className="flex items-center">
+              <ProfileImage src={post.user?.profileImage ?? ""} />
+              <Text fontSize={13}>{post.user?.username}</Text>
+            </div>
             <Text fontSize={13}>createdAt {createAt}</Text>
           </Stack>
         </CardBody>

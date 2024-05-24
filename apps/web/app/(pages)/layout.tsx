@@ -10,6 +10,9 @@ import Header from "components/ui/organism/Header";
 import Footer from "components/ui/organism/Footer";
 import { getServerSession } from "next-auth";
 import authOptions from "auth.config";
+
+import "@repo/tailwind-config/globals.css";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
