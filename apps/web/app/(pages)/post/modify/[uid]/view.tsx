@@ -5,9 +5,8 @@ import { Editor, EditorState } from "kyz-editor";
 import { Input, Button, Tag, Box } from "@chakra-ui/react";
 import usePostMutation from "hooks/mutation/usePostMutation";
 import styles from "./page.module.css";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
-import { Post } from "types/post";
 import { redirect } from "next/navigation";
 import useS3ImageEditor from "hooks/useS3ImageEditor";
 import { useSession } from "next-auth/react";
@@ -24,11 +23,14 @@ interface ViewProps {
 
 export default function View({ uid }: ViewProps) {
   const { data: session } = useSession();
-  const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<Post>(
-    queryKeys.posts.detail(uid).queryKey,
-  );
-  const tags = queryClient.getQueryData<ITag[]>(queryKeys.tags.list().queryKey);
+  const { data } = useQuery({
+    ...queryKeys.posts.detail(uid),
+    staleTime: Infinity,
+  });
+  const { data: tags } = useQuery({
+    ...queryKeys.tags.list(),
+    staleTime: Infinity,
+  });
   if (!data) {
     redirect("/");
   }
