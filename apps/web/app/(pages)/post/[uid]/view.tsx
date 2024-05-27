@@ -23,6 +23,7 @@ import CommentGroup from "components/ui/organism/CommentGroup";
 import useCommentMutation from "hooks/mutation/useCommentMutation";
 
 import { confirmModal } from "@repo/ui/components/organism/ConfirmModal";
+import ProfileImage from "@ui/src/components/atom/ProfileImage";
 
 interface ViewProps {
   uid: number;
@@ -108,17 +109,9 @@ function View({ uid }: ViewProps) {
           {data && data.comments.length > 0 ? (
             data.comments.map((comment) => (
               <CommentGroup.CommentList.Item key={comment.uid}>
-                <div>
+                <div className="flex items-center">
                   {comment.user?.profileImage && (
-                    <Text>
-                      <img
-                        src={comment.user?.profileImage}
-                        alt="profile-image"
-                        width={25}
-                        height={25}
-                        style={{ borderRadius: 25 }}
-                      />
-                    </Text>
+                    <ProfileImage src={comment.user?.profileImage} />
                   )}
                   <Text>{comment.user?.username}</Text>
                 </div>

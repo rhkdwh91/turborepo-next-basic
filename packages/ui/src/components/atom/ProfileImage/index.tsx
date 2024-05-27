@@ -1,11 +1,17 @@
 interface ProfileImageProps {
   src: string;
+  width?: number;
+  height?: number;
 }
 
-export default function ProfileImage({ src }: ProfileImageProps) {
+export default function ProfileImage({
+  src,
+  width = 30,
+  height = 30,
+}: ProfileImageProps) {
   return (
-    <div className="border rounded-full mr-1">
-      <img src={src} alt="profile image" width={30} height={30} />
+    <div className="border-2 rounded-full mr-1 inline-block overflow-hidden">
+      <img src={src} alt="profile image" width={width} height={height} />
     </div>
   );
 }
