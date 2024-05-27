@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, Flex } from "@chakra-ui/react";
-import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import LogoutButton from "components/ui/atom/LogoutButton";
@@ -29,7 +28,12 @@ export default function Header({ session }: HeaderProps) {
         padding={4}
       >
         <Link href={"/"}>
-          <Image width={120} height={30} src={"/logo.png"} alt={"logo"} />
+          <img
+            width={120}
+            height={30}
+            src="https://bucket-9gqcvu.s3.ap-northeast-2.amazonaws.com/klog/logo_simple.png"
+            alt={"logo"}
+          />
         </Link>
         <Flex alignItems={"center"} gap={"4"}>
           {(status !== "loading" ? data : session) ? (
