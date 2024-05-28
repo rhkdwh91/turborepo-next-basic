@@ -1,4 +1,4 @@
-import { JWTPayload } from "jose";
+import "jose";
 import { UserToken } from "./user";
 
 declare module "jose" {
