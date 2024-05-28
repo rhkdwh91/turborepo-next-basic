@@ -1,4 +1,4 @@
-import { User, AdapterUser, Session } from "next-auth";
+import "next-auth";
 import { User as UserInterface } from "./user";
 
 declare module "next-auth/jwt" {
