@@ -1,12 +1,15 @@
 import { Post } from "./post";
 import { Comment } from "./comment";
 
-export interface User {
+export interface UserToken {
   uid: number;
-  email: string;
-  profileImage: string;
+  email: string | null;
+  profileImage: string | null;
   username: string;
-  level: number;
+  level: number | null;
+}
+
+export interface User extends UserToken {
   accessToken: string;
   refreshToken: string;
   comments?: Comment[];

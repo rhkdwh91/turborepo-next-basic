@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import prisma from "prisma/client";
 import { cloneDeep } from "lodash";
-import { getServerSession } from "next-auth";
-import authOptions from "auth.config";
+import authCheck from "@/utils/authCheck";
 
 export async function GET(
   req: NextRequest,
@@ -34,21 +33,10 @@ export async function PUT(
   { params }: { params: { uid: string } },
 ) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json(
-        { message: "No user found." },
-        {
-          status: 401,
-          headers: {
-            "Set-Cookie": `accessToken=;Path=/;HttpOnly;Max-Age=0;`,
-          },
-        },
-      );
-    }
+    const user = await authCheck(req);
     const requestData = await req.json();
     const form = cloneDeep(requestData);
-    form.userUid = session.user.uid;
+    form.userUid = user.uid;
     await prisma.post.update({
       data: form,
       where: {
@@ -69,18 +57,7 @@ export async function DELETE(
   { params }: { params: { uid: string } },
 ) {
   try {
-    const session = await getServerSession(authOptions);
-    if (!session) {
-      return NextResponse.json(
-        { message: "No user found." },
-        {
-          status: 401,
-          headers: {
-            "Set-Cookie": `accessToken=;Path=/;HttpOnly;Max-Age=0;`,
-          },
-        },
-      );
-    }
+    await authCheck(req);
     await prisma.post.delete({
       where: {
         uid: Number(params.uid),

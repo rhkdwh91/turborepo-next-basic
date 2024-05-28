@@ -1,35 +1,27 @@
 import { NextRequest } from "next/server";
 import { verifyJWT } from "./signJWT";
-import prisma from "prisma/client";
+import { UserToken } from "types/user";
 
-const COOKIES = {
-  accessToken: "accessToken",
-  refreshToken: "refreshToken",
-};
-
-const authCheck = async (req: NextRequest) => {
-  try {
-    const accessToken = req.cookies.get(COOKIES.accessToken);
-    if (!accessToken) {
-      return false;
-    }
-    const decode = await verifyJWT(accessToken.value);
-    if (!decode.payload?.username) {
-      return false;
-    }
-    const user = await prisma.user.findUnique({
-      where: {
-        username: String(decode.payload?.username),
-      },
-    });
-
-    if (!user) {
-      return false;
-    }
-    return user;
-  } catch (error) {
-    throw error;
+class AuthError extends Error {
+  status: number;
+  message: string;
+  constructor(status: number, message: string) {
+    super();
+    this.status = status;
+    this.message = message;
   }
+}
+
+const authCheck = async (req: NextRequest): Promise<UserToken> => {
+  const accessToken = req.headers.get("authorization");
+  if (!accessToken) {
+    throw new AuthError(403, "accessToken이 없음");
+  }
+  const { payload } = await verifyJWT(accessToken.replace("Bearer ", ""));
+  if (!payload?.username) {
+    throw new AuthError(403, "사용 불가능한 accessToken");
+  }
+  return payload;
 };
 
 export default authCheck;

@@ -24,18 +24,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const user = await authCheck(req);
-    if (!user) {
-      return NextResponse.json(
-        { message: "No user found." },
-        {
-          status: 401,
-          headers: {
-            "Set-Cookie": `accessToken=;Path=/;HttpOnly;Max-Age=0;`,
-          },
-        },
-      );
-    }
+    await authCheck(req);
     const requestData = await req.json();
     const form = cloneDeep(requestData);
     await prisma.tag.create({ data: form });

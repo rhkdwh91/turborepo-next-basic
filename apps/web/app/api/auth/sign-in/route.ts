@@ -32,7 +32,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const token = await signJWT({ username: user.username });
+    const token = await signJWT({
+      uid: user.uid,
+      username: user.username,
+      email: user.email,
+      profileImage: user.profileImage,
+      level: user.level,
+    });
 
     return NextResponse.json(
       {

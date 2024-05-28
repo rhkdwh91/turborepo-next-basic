@@ -1,6 +1,7 @@
 import { jwtVerify, SignJWT } from "jose";
+import { UserToken } from "types/user";
 
-export const signJWT = async (payload: object) => {
+export const signJWT = async (payload: UserToken) => {
   const iat = Math.floor(Date.now() / 1000);
   const accessExp = iat + 60 * 5; //초 * 분 * 시 * 일
   const refreshExp = iat + 60 * 60 * 24 * 14;
