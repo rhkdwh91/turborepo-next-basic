@@ -15,7 +15,6 @@ const useInfiniteScroll = ({
 
   const lastElementRef = useCallback(
     (node: HTMLDivElement | null) => {
-      console.log(isFetchingNextPage, hasNextPage);
       if (isFetchingNextPage || !hasNextPage) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
