@@ -6,13 +6,16 @@ import qs from "qs";
 export const infinityPostskeys = createQueryKeys("infinityPosts", {
   list: (params: { tag: string[] }) => ({
     queryKey: ["list", params],
-    queryFn: async ({ pageParam = 0 }: { pageParam: number }) => {
-      console.log(pageParam, "PAGE PARAM");
+    queryFn: async ({
+      pageParam = 0,
+    }: {
+      pageParam: number;
+    }): Promise<Post[]> => {
       const { data } = await axiosInstance.get<Post[]>("/api/posts", {
         params: {
           ...params,
-          skip: pageParam * 20,
-          take: 20,
+          skip: pageParam * 8,
+          take: 8,
         },
         paramsSerializer: (params) => {
           return qs.stringify(params, { arrayFormat: "repeat" });

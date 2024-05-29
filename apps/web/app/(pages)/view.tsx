@@ -20,6 +20,7 @@ import Link from "next/link";
 import { Post } from "types/post";
 import ProfileImage from "@repo/ui/components/atom/ProfileImage";
 import styles from "./page.module.css";
+import useInfiniteScroll from "hooks/useInfiniteScroll";
 
 interface PostCardProps {
   post: Post;
@@ -48,12 +49,12 @@ function PostCard({ post }: PostCardProps) {
         w={{
           base: "100%",
           md: "100%",
-          xl: "275px",
+          xl: "100%",
         }}
         marginY={{
           base: 4,
           md: 4,
-          xl: 0,
+          xl: 4,
         }}
         height={{
           xl: "100%",
@@ -108,24 +109,26 @@ export default function View() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchTags = searchParams.getAll("tag");
-  const { data } = useInfiniteQuery({
-    ...queryKeys.infinityPosts.list({
-      tag: createTagArray(searchTags),
-    }),
-    queryKey: ["list", { tag: createTagArray(searchTags) }],
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
-      console.log(lastPage, "LAST_PAGE");
-      return 1;
-    },
-    getPreviousPageParam: (firstPage) => {
-      console.log(firstPage, "NEXT_PAGE");
-      return 0;
-    },
-  });
+  const { data, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useInfiniteQuery<Post[]>({
+      ...queryKeys.infinityPosts.list({
+        tag: createTagArray(searchTags),
+      }),
+      queryKey: ["list", { tag: createTagArray(searchTags) }],
+      initialPageParam: 0,
+      getNextPageParam: (prevPage, allPages) => {
+        const isLastPage = prevPage.length < 8;
+        return isLastPage ? undefined : allPages.length;
+      },
+    });
+
   const { data: tags } = useQuery(queryKeys.tags.list());
 
-  console.log(data);
+  const [lastElementRef] = useInfiniteScroll({
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  });
 
   const handleClickTag = (tagName: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -170,9 +173,14 @@ export default function View() {
             </Tag>
           ))}
         </Box>
-        <Box display={{ md: "block", xl: "flex" }} flexWrap={"wrap"} gap={4}>
-          {data?.pages.map((page: any) =>
-            page?.map((post: any) => <PostCard post={post} key={post.uid} />),
+        <Box display={{ md: "block", xl: "block" }} flexWrap={"wrap"} gap={4}>
+          {data?.pages.map((page) =>
+            page?.map((post) => <PostCard post={post} key={post.uid} />),
+          )}
+          {!isFetchingNextPage && hasNextPage && (
+            <div ref={lastElementRef} className="w-full h-2">
+              FETCH
+            </div>
           )}
         </Box>
       </div>
