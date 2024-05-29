@@ -3,7 +3,7 @@ import { mergeQueryKeys } from "@lukemorales/query-key-factory";
 import { QueryClient } from "@tanstack/react-query";
 import { cache } from "react";
 
-import postsKeys from "./postsKeys";
+import postsKeys, { infinityPostskeys } from "./postsKeys";
 import tagsKeys from "./tagKeys";
 import profileKeys from "./profileKeys";
 
@@ -20,4 +20,9 @@ export const getQueryClient = cache(
       },
     }),
 );
-export const queryKeys = mergeQueryKeys(postsKeys, tagsKeys, profileKeys);
+export const queryKeys = mergeQueryKeys(
+  postsKeys,
+  infinityPostskeys,
+  tagsKeys,
+  profileKeys,
+);

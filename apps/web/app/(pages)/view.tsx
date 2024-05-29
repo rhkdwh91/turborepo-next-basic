@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
 
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useSearchParams, useRouter } from "next/navigation";
 import { queryKeys } from "queryKeys";
 import Link from "next/link";
@@ -95,20 +95,37 @@ function PostCard({ post }: PostCardProps) {
   );
 }
 
+function createTagArray(searchTags: string[] | string) {
+  if (Array.isArray(searchTags)) {
+    return [...searchTags];
+  } else if (searchTags) {
+    return [searchTags];
+  }
+  return [];
+}
+
 export default function View() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchTags = searchParams.getAll("tag");
-  const { data } = useQuery(
-    queryKeys.posts.list({
-      tag: Array.isArray(searchTags)
-        ? [...searchTags]
-        : searchTags
-          ? [searchTags]
-          : [],
+  const { data } = useInfiniteQuery({
+    ...queryKeys.infinityPosts.list({
+      tag: createTagArray(searchTags),
     }),
-  );
+    queryKey: ["list", { tag: createTagArray(searchTags) }],
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      console.log(lastPage, "LAST_PAGE");
+      return 1;
+    },
+    getPreviousPageParam: (firstPage) => {
+      console.log(firstPage, "NEXT_PAGE");
+      return 0;
+    },
+  });
   const { data: tags } = useQuery(queryKeys.tags.list());
+
+  console.log(data);
 
   const handleClickTag = (tagName: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -154,7 +171,9 @@ export default function View() {
           ))}
         </Box>
         <Box display={{ md: "block", xl: "flex" }} flexWrap={"wrap"} gap={4}>
-          {data?.map((post) => <PostCard post={post} key={post.uid} />)}
+          {data?.pages.map((page: any) =>
+            page?.map((post: any) => <PostCard post={post} key={post.uid} />),
+          )}
         </Box>
       </div>
     </main>

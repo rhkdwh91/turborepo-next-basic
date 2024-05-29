@@ -16,7 +16,7 @@ export default async function Page({ searchParams }: PageParams) {
     params.tag = Array.isArray(tag) ? [...tag] : [tag];
   }
   await Promise.all([
-    queryClient.prefetchQuery(queryKeys.posts.list(params)),
+    queryClient.prefetchQuery(queryKeys.infinityPosts.list(params)),
     queryClient.prefetchQuery(queryKeys.tags.list()),
   ]);
   const dehydratedState = dehydrate(queryClient);

@@ -8,9 +8,11 @@ export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams;
     const tags = searchParams.getAll("tag");
+    const take = searchParams.get("take");
+    const skip = searchParams.get("skip");
     const posts = await prisma.post.findMany({
-      take: 20,
-      skip: 0,
+      take: take && !Number.isNaN(Number(take)) ? Number(take) : 20,
+      skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
       include: {
         user: true,
       },
