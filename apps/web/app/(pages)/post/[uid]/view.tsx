@@ -17,7 +17,7 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import styles from "./page.module.css";
-import usePostMutation from "hooks/mutation/usePostMutation";
+import { useDeletePostMutation } from "hooks/mutation/usePostMutation";
 import { useSession } from "next-auth/react";
 import CommentGroup from "components/ui/organism/CommentGroup";
 import useCommentMutation from "hooks/mutation/useCommentMutation";
@@ -34,7 +34,7 @@ function View({ uid }: ViewProps) {
   const { data: session } = useSession();
   const { data, isLoading } = useQuery(queryKeys.posts.detail(uid));
   const { deleteCommentMutation } = useCommentMutation();
-  const { deletePostMutation } = usePostMutation();
+  const deletePostMutation = useDeletePostMutation();
 
   const handleClickModify = useCallback(() => {
     router.push(`/post/modify/${uid}`);

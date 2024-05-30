@@ -2,7 +2,7 @@ import styles from "@/app/(pages)/post/modify/[uid]/page.module.css";
 import { Box, Button, Input, Tag } from "@chakra-ui/react";
 import { Editor, EditorState, initialState } from "kyz-editor";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import usePostMutation from "@/hooks/mutation/usePostMutation";
+import { useSavePostMutation } from "@/hooks/mutation/usePostMutation";
 import useS3ImageEditor from "@/hooks/useS3ImageEditor";
 import { Tag as ITag } from "@/types/tag";
 import { cloneDeep } from "lodash";
@@ -24,7 +24,7 @@ export default function TextEditor({ uid, data }: TextEditorProps) {
   });
   const [title, setTitle] = useState(data?.title ?? "");
   const [content, setContent] = useState<string>(data?.content ?? initialState);
-  const { createPostMutation, modifyPostMutation } = usePostMutation();
+  const savePostMutation = useSavePostMutation(uid);
   const { fileRef, handleImage, insertImageEditor } = useS3ImageEditor();
   const [formTags, setFormTags] = useState<ITag[]>(data?.tags ?? []);
 
@@ -50,16 +50,8 @@ export default function TextEditor({ uid, data }: TextEditorProps) {
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (uid && !modifyPostMutation.isPending && session?.user) {
-      return modifyPostMutation.mutate({
-        uid,
-        title,
-        content,
-        tags: formTags,
-      });
-    }
-    if (!uid && !createPostMutation.isPending && session?.user) {
-      createPostMutation.mutate({
+    if (!savePostMutation.isPending && session?.user) {
+      return savePostMutation.mutate({
         uid,
         title,
         content,
@@ -115,7 +107,7 @@ export default function TextEditor({ uid, data }: TextEditorProps) {
         insertImage={insertImageEditor}
         editable
       />
-      <Button onClick={handleSubmit} isDisabled={modifyPostMutation.isPending}>
+      <Button onClick={handleSubmit} isDisabled={savePostMutation.isPending}>
         수정
       </Button>
     </div>

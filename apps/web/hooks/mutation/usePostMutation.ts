@@ -4,25 +4,25 @@ import axiosInstance from "axiosInstance/axios-client";
 import { PostForm } from "types/post";
 import { toast } from "kyz-toast";
 
-const usePostMutation = () => {
+export const useSavePostMutation = (id?: number) => {
   const router = useRouter();
-
-  const createPostMutation = useMutation({
-    mutationFn: async (form: PostForm) => {
-      const { data } = await axiosInstance.post("/api/posts", form);
-      return data;
-    },
-    onSuccess: () => {
-      toast.success("Successfully created post!");
-      router.push("/");
-    },
-    onError: (error) => {
-      toast.error("Failed create post");
-      console.error(error);
-    },
-  });
-
-  const modifyPostMutation = useMutation({
+  if (id) {
+    return useMutation({
+      mutationFn: async (form: PostForm) => {
+        const { data } = await axiosInstance.post("/api/posts", form);
+        return data;
+      },
+      onSuccess: () => {
+        toast.success("Successfully created post!");
+        router.push("/");
+      },
+      onError: (error) => {
+        toast.error("Failed create post");
+        console.error(error);
+      },
+    });
+  }
+  return useMutation({
     mutationFn: async (form: PostForm) => {
       const { data } = await axiosInstance.put("/api/posts/" + form.uid, form);
       return data;
@@ -36,8 +36,11 @@ const usePostMutation = () => {
       console.error(error);
     },
   });
+};
 
-  const deletePostMutation = useMutation({
+export const useDeletePostMutation = () => {
+  const router = useRouter();
+  return useMutation({
     mutationFn: async (uid: number) => {
       const { data } = await axiosInstance.delete("/api/posts/" + uid);
       return data;
@@ -47,12 +50,4 @@ const usePostMutation = () => {
       router.push("/");
     },
   });
-
-  return {
-    createPostMutation,
-    modifyPostMutation,
-    deletePostMutation,
-  };
 };
-
-export default usePostMutation;
