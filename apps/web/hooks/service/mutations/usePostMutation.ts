@@ -9,30 +9,30 @@ export const useSavePostMutation = (id?: number) => {
   if (id) {
     return useMutation({
       mutationFn: async (form: PostForm) => {
-        const { data } = await axiosInstance.post("/api/posts", form);
+        const { data } = await axiosInstance.put("/api/posts/" + id, form);
         return data;
       },
       onSuccess: () => {
-        toast.success("Successfully created post!");
+        toast.success("Successfully modify post!");
         router.push("/");
       },
       onError: (error) => {
-        toast.error("Failed create post");
+        toast.error("Failed modify post");
         console.error(error);
       },
     });
   }
   return useMutation({
     mutationFn: async (form: PostForm) => {
-      const { data } = await axiosInstance.put("/api/posts/" + form.uid, form);
+      const { data } = await axiosInstance.post("/api/posts", form);
       return data;
     },
     onSuccess: () => {
-      toast.success("Successfully modify post!");
+      toast.success("Successfully created post!");
       router.push("/");
     },
     onError: (error) => {
-      toast.error("Failed modify post");
+      toast.error("Failed create post");
       console.error(error);
     },
   });
