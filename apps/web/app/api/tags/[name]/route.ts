@@ -10,12 +10,12 @@ export async function GET(
   { params }: { params: { uid: string } },
 ) {
   try {
-    const comment = await prisma.comment.findUnique({
+    const tag = await prisma.tag.findUnique({
       where: {
         uid: Number(params.uid),
       },
     });
-    return NextResponse.json(comment, { status: 200 });
+    return NextResponse.json(tag, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
   }
@@ -30,7 +30,7 @@ export async function PUT(
 
     const requestData = await req.json();
     const form = cloneDeep(requestData);
-    await prisma.comment.update({
+    await prisma.tag.update({
       data: form,
       where: {
         uid: Number(params.uid),
@@ -47,14 +47,14 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: { name: string } },
 ) {
   try {
     await authCheck(req);
 
-    await prisma.comment.delete({
+    await prisma.tag.delete({
       where: {
-        uid: Number(params.uid),
+        name: params.name,
       },
     });
     return NextResponse.json(

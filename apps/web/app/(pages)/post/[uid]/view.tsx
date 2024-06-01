@@ -17,10 +17,10 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import styles from "./page.module.css";
-import { useDeletePostMutation } from "hooks/mutation/usePostMutation";
 import { useSession } from "next-auth/react";
 import CommentGroup from "components/ui/organism/CommentGroup";
-import useCommentMutation from "hooks/mutation/useCommentMutation";
+import { useDeletePostMutation } from "hooks/service/mutations/usePostMutation";
+import useCommentMutation from "hooks/service/mutations/useCommentMutation";
 
 import { confirmModal } from "@repo/ui/components/organism/ConfirmModal";
 import ProfileImage from "@ui/src/components/atom/ProfileImage";

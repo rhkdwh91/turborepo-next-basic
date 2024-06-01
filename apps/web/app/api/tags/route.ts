@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import prisma from "prisma/client";
 import { cloneDeep } from "lodash";
 import authCheck from "utils/authCheck";
+import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function GET() {
   try {
@@ -17,7 +18,6 @@ export async function GET() {
       { status: 200 },
     );
   } catch (error) {
-    console.error(error);
     return NextResponse.json({ message: error }, { status: 500 });
   }
 }
@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
       { status: 201 },
     );
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: error }, { status: 500 });
+    return errorHandler(error);
   }
 }

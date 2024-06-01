@@ -2,7 +2,7 @@ import styles from "@/app/(pages)/post/modify/[uid]/page.module.css";
 import { Box, Button, Input, Tag } from "@chakra-ui/react";
 import { Editor, EditorState, initialState } from "kyz-editor";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { useSavePostMutation } from "@/hooks/mutation/usePostMutation";
+import { useSavePostMutation } from "@/hooks/service/mutations/usePostMutation";
 import useS3ImageEditor from "@/hooks/useS3ImageEditor";
 import { Tag as ITag } from "@/types/tag";
 import { cloneDeep } from "lodash";

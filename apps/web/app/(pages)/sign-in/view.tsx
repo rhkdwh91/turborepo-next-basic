@@ -11,7 +11,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
-import useUserMutation from "hooks/mutation/useUserMutation";
+import useUserMutation from "@/hooks/service/mutations/useUserMutation";
 
 import styles from "./page.module.css";
 import { UserForm } from "types/user";

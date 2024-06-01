@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cloneDeep } from "lodash";
 import prisma from "prisma/client";
 import authCheck from "@/utils/authCheck";
+import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,10 +13,6 @@ export async function POST(req: NextRequest) {
     await prisma.comment.create({ data: form });
     return NextResponse.json({ message: "ok" }, { status: 201 });
   } catch (error: any) {
-    console.error(error);
-    if (error?.code === "ERR_JWT_EXPIRED") {
-      return NextResponse.json({ message: "expired" }, { status: 401 });
-    }
-    return NextResponse.json({ message: error }, { status: 500 });
+    return errorHandler(error);
   }
 }

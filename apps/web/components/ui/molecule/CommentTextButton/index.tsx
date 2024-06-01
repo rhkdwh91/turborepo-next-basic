@@ -1,6 +1,6 @@
 import { Button, Flex, Input } from "@chakra-ui/react";
 import React, { ChangeEvent, useState, memo } from "react";
-import useCommentMutation from "hooks/mutation/useCommentMutation";
+import useCommentMutation from "@/hooks/service/mutations/useCommentMutation";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 
