@@ -16,7 +16,7 @@ interface TextEditorProps {
   data?: Post;
 }
 
-export default function TextEditor({ uid, data }: TextEditorProps) {
+export default function LexicalEditor({ uid, data }: TextEditorProps) {
   const { data: session } = useSession();
   const { data: tags } = useQuery({
     ...queryKeys.tags.list(),
@@ -108,7 +108,7 @@ export default function TextEditor({ uid, data }: TextEditorProps) {
         editable
       />
       <Button onClick={handleSubmit} isDisabled={savePostMutation.isPending}>
-        수정
+        {uid ? "수정" : "생성"}
       </Button>
     </div>
   );
