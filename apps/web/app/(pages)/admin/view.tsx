@@ -25,6 +25,9 @@ function UserManage() {
             <p>email: {user.email}</p>
             <p>username: {user.username}</p>
             <p>level: {user.level}</p>
+            <button className="border-2 py-1 px-4 rounded-full bg-sky-600 mx-2 text-white cursor-pointer hover:bg-sky-700">
+              수정
+            </button>
           </div>
         ))}
       </article>
@@ -94,7 +97,7 @@ function TagManage() {
                 {...register("name", { required: "This is required." })}
                 type="text"
                 placeholder="please enter a name"
-                className="border-2 border-gray-400 block"
+                className="border-2 border-gray-400 block rounded py-2 px-4"
               />
               <ErrorMessage
                 errors={errors}
@@ -110,7 +113,7 @@ function TagManage() {
                 {...register("value", { required: "This is required." })}
                 type="text"
                 placeholder="please enter a value"
-                className="border-2 border-gray-400 block"
+                className="border-2 border-gray-400 block rounded py-2 px-4"
               />
               <ErrorMessage
                 errors={errors}
