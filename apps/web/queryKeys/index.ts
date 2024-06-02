@@ -6,6 +6,7 @@ import { cache } from "react";
 import postsKeys, { infinityPostskeys } from "./postsKeys";
 import tagsKeys from "./tagKeys";
 import profileKeys from "./profileKeys";
+import userKeys from "./userKeys";
 
 export const getQueryClient = cache(
   () =>
@@ -25,4 +26,5 @@ export const queryKeys = mergeQueryKeys(
   infinityPostskeys,
   tagsKeys,
   profileKeys,
+  userKeys,
 );
