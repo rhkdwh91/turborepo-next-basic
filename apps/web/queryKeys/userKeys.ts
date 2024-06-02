@@ -1,13 +1,13 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import { Post } from "@/types/post";
 import axiosInstance from "@/axiosInstance";
 import qs from "qs";
+import { User } from "next-auth";
 
 const userKeys = createQueryKeys("user", {
   list: () => ({
     queryKey: ["list"],
-    queryFn: async (): Promise<Post[]> => {
-      const { data } = await axiosInstance.get<Post[]>("/api/posts", {
+    queryFn: async (): Promise<User[]> => {
+      const { data } = await axiosInstance.get<User[]>("/api/users", {
         params: {
           skip: 0,
           take: 100,

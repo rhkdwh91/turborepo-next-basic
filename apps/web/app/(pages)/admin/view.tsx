@@ -10,6 +10,28 @@ import {
 } from "@/hooks/service/mutations/useTagMutation";
 import { confirmModal } from "@repo/ui/components/organism/ConfirmModal";
 
+function UserManage() {
+  const { data: users } = useQuery({ ...queryKeys.user.list() });
+  return (
+    <section className="my-4">
+      <h2 className="text-2xl font-bold">계정 관리</h2>
+      <article className="my-2 p-5">
+        <h3 className="text-xl font-bold">유저 리스트</h3>
+        {users?.map((user) => (
+          <div
+            key={user.username}
+            className="m-2 border-2 border-gray-500 bg-white p-4 inline-block text-black rounded"
+          >
+            <p>email: {user.email}</p>
+            <p>username: {user.username}</p>
+            <p>level: {user.level}</p>
+          </div>
+        ))}
+      </article>
+    </section>
+  );
+}
+
 function TagManage() {
   const { data: tags, refetch } = useQuery({ ...queryKeys.tags.list() });
   const methods = useForm();
@@ -132,9 +154,7 @@ export default function View() {
   return (
     <main className="px-2.5">
       <h1 className="text-5xl font-bold pb-3">Admin</h1>
-      <section className="my-4">
-        <h2 className="text-2xl font-bold">계정 관리</h2>
-      </section>
+      <UserManage />
       <TagManage />
     </main>
   );
