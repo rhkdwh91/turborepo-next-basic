@@ -1,5 +1,5 @@
 "use client";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useForm, FormProvider, FieldValues } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { useQuery } from "@tanstack/react-query";
@@ -9,28 +9,97 @@ import {
   useTagDeleteMutation,
 } from "@/hooks/service/mutations/useTagMutation";
 import { confirmModal } from "@repo/ui/components/organism/ConfirmModal";
+import { useUserLevelMutation } from "@/hooks/service/mutations/useUserMutation";
 
 function UserManage() {
+  const [isModify, setIsModify] = useState<boolean>(false);
+  const methods = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
   const { data: users } = useQuery({ ...queryKeys.user.list() });
+  const userLevelMutation = useUserLevelMutation();
+
+  const handleClickModifyMode = useCallback((modify: boolean) => {
+    setIsModify(modify);
+  }, []);
+
+  const handleSubmitModify = useCallback(
+    (form: FieldValues) => {
+      if (!userLevelMutation.isPending)
+        userLevelMutation.mutate({ level: form.level });
+    },
+    [userLevelMutation.isPending],
+  );
+
   return (
     <section className="my-4">
       <h2 className="text-2xl font-bold">계정 관리</h2>
-      <article className="my-2 p-5">
-        <h3 className="text-xl font-bold">유저 리스트</h3>
-        {users?.map((user) => (
-          <div
-            key={user.username}
-            className="m-2 border-2 border-gray-500 bg-white p-4 inline-block text-black rounded"
-          >
-            <p>email: {user.email}</p>
-            <p>username: {user.username}</p>
-            <p>level: {user.level}</p>
-            <button className="border-2 py-1 px-4 rounded-full bg-sky-600 mx-2 text-white cursor-pointer hover:bg-sky-700">
-              수정
-            </button>
-          </div>
-        ))}
-      </article>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(handleSubmitModify)}>
+          <article className="my-2 p-5">
+            <h3 className="text-xl font-bold">유저 리스트</h3>
+            {users?.map((user) => (
+              <div
+                key={user.username}
+                className="m-2 border-2 border-gray-500 bg-white p-4 inline-block text-black rounded"
+              >
+                <p>email: {user.email}</p>
+                <p>username: {user.username}</p>
+                <p>
+                  level:
+                  {isModify ? (
+                    <>
+                      <input
+                        {...register("name", { required: "This is required." })}
+                        type="text"
+                        placeholder="please enter a name"
+                        className="border-2 border-gray-400 block rounded py-2 px-4"
+                      />
+                      <ErrorMessage
+                        errors={errors}
+                        name="name"
+                        render={({ message }) => (
+                          <p className="text-red-600 py-1">{message}</p>
+                        )}
+                      />
+                    </>
+                  ) : (
+                    user.level
+                  )}
+                </p>
+                {isModify ? (
+                  <div>
+                    <button
+                      type="submit"
+                      className="border-2 py-1 px-4 rounded-full bg-sky-600 mx-2 text-white cursor-pointer hover:bg-sky-700"
+                    >
+                      확인
+                    </button>
+                    <button
+                      className="border-2 py-1 px-4 rounded-full bg-sky-600 mx-2 text-white cursor-pointer hover:bg-sky-700"
+                      onClick={() => handleClickModifyMode(false)}
+                    >
+                      취소
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <button
+                      className="border-2 py-1 px-4 rounded-full bg-sky-600 mx-2 text-white cursor-pointer hover:bg-sky-700"
+                      onClick={() => handleClickModifyMode(true)}
+                    >
+                      수정
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </article>
+        </form>
+      </FormProvider>
     </section>
   );
 }

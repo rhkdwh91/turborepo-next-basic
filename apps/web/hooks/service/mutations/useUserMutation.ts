@@ -4,6 +4,21 @@ import axiosInstance from "@/axiosInstance/axios-client";
 import { UserForm } from "@/types/user";
 import { toast } from "kyz-toast";
 
+export const useUserLevelMutation = () => {
+  return useMutation({
+    mutationFn: async (form: { level: number }) => {
+      const { data } = await axiosInstance.put("/api/user/level", form);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Successfully modified user level!");
+    },
+    onError: () => {
+      toast.error("Failed modified user level!");
+    },
+  });
+};
+
 const useUserMutation = () => {
   const router = useRouter();
 
