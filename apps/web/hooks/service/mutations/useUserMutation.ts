@@ -6,8 +6,11 @@ import { toast } from "kyz-toast";
 
 export const useUserLevelMutation = () => {
   return useMutation({
-    mutationFn: async (form: { level: number }) => {
-      const { data } = await axiosInstance.put("/api/user/level", form);
+    mutationFn: async (form: { level: number; uid: number }) => {
+      const { data } = await axiosInstance.put(
+        `/api/user/${form.uid}/level/`,
+        form,
+      );
       return data;
     },
     onSuccess: () => {
