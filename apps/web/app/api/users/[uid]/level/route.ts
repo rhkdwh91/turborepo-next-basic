@@ -12,7 +12,7 @@ export async function PUT(
   try {
     const user = await authCheck(req);
     if (user.level !== 0) {
-      throw new AuthError(403, "권한이 부족합니다.");
+      new AuthError(403, "권한이 부족합니다.");
     }
     const requestData = await req.json();
     const form = cloneDeep(requestData);
