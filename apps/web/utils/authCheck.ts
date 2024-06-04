@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { verifyJWT } from "./signJWT";
 import { UserToken } from "types/user";
 
-class AuthError extends Error {
+export class AuthError extends Error {
   status: number;
   message: string;
   constructor(status: number, message: string) {
