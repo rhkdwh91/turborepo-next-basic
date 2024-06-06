@@ -131,7 +131,7 @@ function View({ uid }: ViewProps) {
           )}
         </CommentGroup.CommentList>
       </CommentGroup>
-      {session && (
+      {session?.user?.level === 0 && (
         <Flex gap={2}>
           <Button onClick={handleClickModify}>Modify</Button>
           <Button onClick={handleClickDeleteButton}>Delete</Button>
