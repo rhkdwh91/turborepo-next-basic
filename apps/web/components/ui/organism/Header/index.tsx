@@ -44,6 +44,11 @@ export default function Header({ session }: HeaderProps) {
               <Link href={"/my"} className={styles.link}>
                 My
               </Link>
+              {data?.user?.level === 0 && (
+                <Link href={"/admin"} className={styles.link}>
+                  Admin
+                </Link>
+              )}
               <LogoutButton />
             </>
           ) : (
