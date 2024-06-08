@@ -26,6 +26,7 @@ model Post {
   content  String?   @db.LongText
   createAt DateTime  @default(now()) @db.DateTime(0)
   updateAt DateTime  @default(now()) @db.DateTime(0)
+  viewCnt BigInt?
   tags     Json?
   userUid  Int
   comments Comment[]
