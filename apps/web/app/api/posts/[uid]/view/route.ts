@@ -4,7 +4,7 @@ import prisma from "prisma/client";
 import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function PUT(
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: { uid: string } },
 ) {
   try {
