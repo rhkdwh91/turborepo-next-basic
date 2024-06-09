@@ -8,14 +8,18 @@ export async function PUT(
   { params }: { params: { uid: string } },
 ) {
   try {
-    await prisma.post.update({
-      data: {
-        viewCnt: {
+    await prisma.postView.upsert({
+      where: {
+        postUid: Number(params.uid),
+      },
+      update: {
+        count: {
           increment: 1,
         },
       },
-      where: {
-        uid: Number(params.uid),
+      create: {
+        postUid: Number(params.uid),
+        count: 1,
       },
     });
     return NextResponse.json(

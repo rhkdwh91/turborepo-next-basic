@@ -26,11 +26,19 @@ model Post {
   content  String?   @db.LongText
   createAt DateTime  @default(now()) @db.DateTime(0)
   updateAt DateTime  @default(now()) @db.DateTime(0)
-  viewCnt  Int?   @default(0)
   tags     Json?
   userUid  Int
   comments Comment[]
   user     User      @relation(fields: [userUid], references: [uid])
+  postView  PostView?
+}
+
+model PostView {
+  count  Int   @default(0)
+  postUid  Int   @id
+  post     Post  @relation(fields: [postUid], references: [uid])
+  createAt DateTime @default(now()) @db.DateTime(0)
+  updateAt DateTime @default(now()) @db.DateTime(0)
 }
 
 model Comment {

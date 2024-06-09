@@ -11,5 +11,13 @@ export const errorHandler = (error: any) => {
       },
       { status: 409 },
     );
+
+  if (error.code === "P2025")
+    return NextResponse.json(
+      {
+        message: `${error.meta.modelName} ${error.meta.cause}`,
+      },
+      { status: 404 },
+    );
   return NextResponse.json({ message: error }, { status: 500 });
 };
