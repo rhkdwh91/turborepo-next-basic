@@ -88,7 +88,8 @@ function PostCard({ post }: PostCardProps) {
               <ProfileImage src={post.user?.profileImage ?? ""} />
               <Text fontSize={13}>{post.user?.username}</Text>
             </div>
-            <Text fontSize={13}>createdAt {createAt}</Text>
+            <Text fontSize={13}>{post.postView?.count ?? 0} Views</Text>
+            <Text fontSize={13}>{createAt} createdAt</Text>
           </Stack>
         </CardBody>
       </Card>

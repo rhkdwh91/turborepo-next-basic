@@ -8,6 +8,7 @@ export interface Post {
   content: string;
   username: string;
   user?: User;
+  postView?: { count: number };
   userUid?: number;
   tags: Tag[];
   comments: Comment[];
