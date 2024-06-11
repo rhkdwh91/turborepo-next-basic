@@ -95,7 +95,18 @@ function View({ uid }: ViewProps) {
             >
               {data.tags?.map((tag) => <Tag key={tag.name}>{tag.value}</Tag>)}
             </Box>
-            <Text paddingX="2">{data.username}</Text>
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="center"
+              flexWrap="wrap"
+              gap={1}
+              paddingY={2}
+            >
+              <ProfileImage src={data.user?.profileImage} />
+              {data.user?.username}
+            </Box>
+            <Text paddingX="2">{data.postView?.count ?? 0} Views</Text>
             <Text paddingX="2">{data.updateAt}</Text>
             <Divider padding={2} borderColor={"black"} width="inherit" />
           </Stack>

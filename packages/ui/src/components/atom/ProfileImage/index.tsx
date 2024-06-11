@@ -1,5 +1,5 @@
 interface ProfileImageProps {
-  src: string;
+  src?: string | null;
   width?: number;
   height?: number;
 }
@@ -11,7 +11,7 @@ export default function ProfileImage({
 }: ProfileImageProps) {
   return (
     <div className="border-2 rounded-full mr-1 inline-block overflow-hidden">
-      <img src={src} alt="profile image" width={width} height={height} />
+      <img src={src ?? ""} alt="profile image" width={width} height={height} />
     </div>
   );
 }

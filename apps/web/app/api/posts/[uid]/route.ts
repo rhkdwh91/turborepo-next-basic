@@ -21,6 +21,7 @@ export async function GET(
           },
         },
         user: true,
+        postView: true,
       },
     });
     return NextResponse.json(post, { status: 200 });
