@@ -7,6 +7,7 @@ import postsKeys, { infinityPostskeys } from "./postsKeys";
 import tagsKeys from "./tagKeys";
 import profileKeys from "./profileKeys";
 import userKeys from "./userKeys";
+import authorKeys from "./authorKey";
 
 export const getQueryClient = cache(
   () =>
@@ -27,4 +28,5 @@ export const queryKeys = mergeQueryKeys(
   tagsKeys,
   profileKeys,
   userKeys,
+  authorKeys,
 );
