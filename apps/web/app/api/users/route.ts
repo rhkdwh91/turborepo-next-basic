@@ -10,14 +10,14 @@ export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
     const take = searchParams.get("take");
     const skip = searchParams.get("skip");
-    const posts = await prisma.user.findMany({
+    const users = await prisma.user.findMany({
       take: take && !Number.isNaN(Number(take)) ? Number(take) : 100,
       skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
       orderBy: {
         uid: "desc",
       },
     });
-    return NextResponse.json(posts, { status: 200 });
+    return NextResponse.json(users, { status: 200 });
   } catch (error) {
     return errorHandler(error);
   }
