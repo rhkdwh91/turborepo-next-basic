@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, MouseEvent } from "react";
 import {
   Card,
   Stack,
@@ -16,7 +16,6 @@ import { RepeatIcon } from "@chakra-ui/icons";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useSearchParams, useRouter } from "next/navigation";
 import { queryKeys } from "queryKeys";
-import Link from "next/link";
 import { Post } from "types/post";
 import ProfileImage from "@repo/ui/components/atom/ProfileImage";
 import styles from "./page.module.css";
@@ -27,6 +26,7 @@ interface PostCardProps {
 }
 
 function PostCard({ post }: PostCardProps) {
+  const router = useRouter();
   const content = useMemo(() => {
     const parseContent = JSON.parse(post.content);
     const rootChildrenText =
@@ -42,58 +42,78 @@ function PostCard({ post }: PostCardProps) {
   const createAt = useMemo(() => {
     return post.createAt.split("T")[0];
   }, [post]);
+
+  const handleClickPost = (
+    e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>,
+  ) => {
+    e.preventDefault();
+    router.push(`/post/${post.uid}`);
+  };
+
+  const handleClickProfile = (
+    e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>,
+    username?: string,
+  ) => {
+    e.stopPropagation();
+    if (username) {
+      router.push(`/author/${username}`);
+    }
+  };
+
   return (
-    <Link href={`/post/${post.uid}`}>
-      <Card
-        key={post.uid}
-        w={{
-          base: "100%",
-          md: "100%",
-          xl: "100%",
-        }}
-        marginY={{
-          base: 4,
-          md: 4,
-          xl: 4,
-        }}
-        height={{
-          xl: "100%",
-        }}
-      >
-        <CardBody>
-          <Stack>
-            <Heading
-              fontSize="2xl"
-              className={styles.title_line_clamp}
-              minHeight="60px"
-              maxHeight="60px"
-              fontWeight={600}
-            >
-              {post.title}
-            </Heading>
-            <Divider marginY={2} />
-            <Text className={styles.line_clamp} minHeight={70} maxHeight={70}>
-              {content}...
-            </Text>
-            <Divider marginY={2} />
-            <Box
-              display="flex"
-              justifyContent="flex-start"
-              flexWrap="wrap"
-              gap={2}
-            >
-              {post.tags?.map((tag) => <Tag key={tag.name}>{tag.value}</Tag>)}
-            </Box>
-            <div className="flex items-center">
-              <ProfileImage src={post.user?.profileImage ?? ""} />
-              <Text fontSize={13}>{post.user?.username}</Text>
-            </div>
-            <Text fontSize={13}>{post.postView?.count ?? 0} Views</Text>
-            <Text fontSize={13}>{createAt} createdAt</Text>
-          </Stack>
-        </CardBody>
-      </Card>
-    </Link>
+    <Card
+      w={{
+        base: "100%",
+        md: "100%",
+        xl: "100%",
+      }}
+      marginY={{
+        base: 4,
+        md: 4,
+        xl: 4,
+      }}
+      height={{
+        xl: "100%",
+      }}
+      cursor="pointer"
+      onClick={handleClickPost}
+    >
+      <CardBody>
+        <Stack>
+          <Heading
+            fontSize="2xl"
+            className={styles.title_line_clamp}
+            minHeight="60px"
+            maxHeight="60px"
+            fontWeight={600}
+          >
+            {post.title}
+          </Heading>
+          <Divider marginY={2} />
+          <Text className={styles.line_clamp} minHeight={70} maxHeight={70}>
+            {content}...
+          </Text>
+          <Divider marginY={2} />
+          <Box
+            display="flex"
+            justifyContent="flex-start"
+            flexWrap="wrap"
+            gap={2}
+          >
+            {post.tags?.map((tag) => <Tag key={tag.name}>{tag.value}</Tag>)}
+          </Box>
+          <div
+            className="flex items-center"
+            onClick={(e) => handleClickProfile(e, post.user?.username)}
+          >
+            <ProfileImage src={post.user?.profileImage ?? ""} />
+            <Text fontSize={13}>{post.user?.username}</Text>
+          </div>
+          <Text fontSize={13}>{post.postView?.count ?? 0} Views</Text>
+          <Text fontSize={13}>{createAt} createdAt</Text>
+        </Stack>
+      </CardBody>
+    </Card>
   );
 }
 
