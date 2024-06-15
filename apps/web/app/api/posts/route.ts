@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
     const tags = searchParams.getAll("tag");
     const take = searchParams.get("take");
     const skip = searchParams.get("skip");
+    const username = searchParams.get("username");
     const posts = await prisma.post.findMany({
       take: take && !Number.isNaN(Number(take)) ? Number(take) : 20,
       skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
@@ -18,17 +19,20 @@ export async function GET(req: NextRequest) {
         user: true,
         postView: true,
       },
-      where:
-        tags.length > 0
-          ? {
-              OR: tags.map((tag) => ({
+      where: {
+        OR:
+          tags.length > 0
+            ? tags.map((tag) => ({
                 tags: {
                   path: "$[*].name",
                   array_contains: tag,
                 },
-              })),
-            }
-          : undefined,
+              }))
+            : undefined,
+        user: {
+          username: username ? username : undefined,
+        },
+      },
       orderBy: {
         uid: "desc",
       },

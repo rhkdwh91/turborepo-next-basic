@@ -2,6 +2,13 @@ import { Tag } from "./tag";
 import { Comment } from "./comment";
 import { User } from "./user";
 
+export interface PostParams {
+  tags?: Tag[];
+  username?: string;
+  skip: number;
+  take: number;
+}
+
 export interface Post {
   uid: number;
   title: string;

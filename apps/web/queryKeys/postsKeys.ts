@@ -1,6 +1,6 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
 import axiosInstance from "axiosInstance";
-import { Post } from "types/post";
+import { Post, PostParams } from "types/post";
 import qs from "qs";
 
 export const infinityPostskeys = createQueryKeys("infinityPosts", {
@@ -31,6 +31,22 @@ const postsKeys = createQueryKeys("posts", {
     queryKey: [uid],
     queryFn: async (): Promise<Post> => {
       const { data } = await axiosInstance.get(`/api/posts/${uid}`);
+      return data;
+    },
+  }),
+  list: (params: PostParams) => ({
+    queryKey: ["list", params],
+    queryFn: async (): Promise<Post[]> => {
+      const { data } = await axiosInstance.get<Post[]>("/api/posts", {
+        params: {
+          ...params,
+          skip: params.skip * (params.take ?? 8),
+          take: params.take ?? 8,
+        },
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { arrayFormat: "repeat" });
+        },
+      });
       return data;
     },
   }),
