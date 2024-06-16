@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         newUser.email = requestData.email;
       }
       await prisma.user.create({
-        data: newUser,
+        data: { ...newUser, level: 3 },
       });
       return NextResponse.json({ message: "success" }, { status: 201 });
     }

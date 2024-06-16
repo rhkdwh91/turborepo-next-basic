@@ -18,8 +18,8 @@ export default function View() {
               <ProfileImage src={data.profileImage} width={80} height={80} />
             )}
             <Text>
-              level: {data.level === 0 && "최고 관리자"}{" "}
-              {data.level === 1 && "관리자"} {data.level === 2 && "회원"}
+              level: {data.level === 1 && "최고 관리자"}{" "}
+              {data.level === 2 && "작가"} {data.level === 3 && "회원"}
             </Text>
             <Text>email: {data.email}</Text>
             <Text>username: {data.username}</Text>
