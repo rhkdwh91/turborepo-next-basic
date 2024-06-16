@@ -1,5 +1,6 @@
 "use client";
 
+import { ClientSafeProvider, LiteralUnion, signIn } from "next-auth/react";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -10,14 +11,37 @@ import {
   Button,
   Flex,
 } from "@chakra-ui/react";
-import { signIn } from "next-auth/react";
+
 import useUserMutation from "@/hooks/service/mutations/useUserMutation";
 
 import styles from "./page.module.css";
 import { UserForm } from "types/user";
 import { toast } from "kyz-toast";
+import { BuiltInProviderType } from "next-auth/providers/index";
 
-export default function View() {
+interface ViewProps {
+  providers: Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null;
+}
+
+function SignInButtons({ providers }: ViewProps) {
+  return (
+    <>
+      {providers &&
+        Object.values(providers).map((provider) => (
+          <div key={provider.name}>
+            <button onClick={() => signIn(provider.id)}>
+              Sign in with {provider.name}
+            </button>
+          </div>
+        ))}
+    </>
+  );
+}
+
+export default function View({ providers }: ViewProps) {
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [form, setForm] = useState<UserForm>({
@@ -90,6 +114,7 @@ export default function View() {
           >
             SignIn
           </Button>
+          <SignInButtons providers={providers} />
           {/*
           <Button
             onClick={handleClickSignUp}

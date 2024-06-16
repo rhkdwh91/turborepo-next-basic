@@ -1,5 +1,6 @@
 import { AuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 const postRefreshToken: any = async () => {
   const session = await getServerSession(authOptions);
@@ -29,6 +30,10 @@ const authOptions = {
     signIn: "/sign-in",
   },
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -70,6 +75,15 @@ const authOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ account, profile }) {
+      if (account?.provider === "google") {
+        return (
+          (profile as any)?.email_verified &&
+          profile?.email?.endsWith("@example.com")
+        );
+      }
+      return true; // Do different verification for other providers that don't have `email_verified`
+    },
     async jwt(params) {
       if (params.user) {
         params.token.user = params.user;
