@@ -38,13 +38,15 @@ export default function Header({ session }: HeaderProps) {
         <Flex alignItems={"center"} gap={"4"}>
           {(status !== "loading" ? data : session) ? (
             <>
-              <Link href={"/post/write"} className={styles.link}>
-                Write
-              </Link>
               <Link href={"/my"} className={styles.link}>
                 My
               </Link>
-              {data?.user?.level === 0 && (
+              {data?.user?.level && data.user.level <= 2 && (
+                <Link href={"/post/write"} className={styles.link}>
+                  Write
+                </Link>
+              )}
+              {data?.user?.level && data.user.level <= 1 && (
                 <Link href={"/admin"} className={styles.link}>
                   Admin
                 </Link>
