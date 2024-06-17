@@ -8,7 +8,7 @@ export const useUserLevelMutation = () => {
   return useMutation({
     mutationFn: async (form: { level: number; uid: number }) => {
       const { data } = await axiosInstance.put(
-        `/api/user/${form.uid}/level/`,
+        `/api/users/${form.uid}/level/`,
         form,
       );
       return data;

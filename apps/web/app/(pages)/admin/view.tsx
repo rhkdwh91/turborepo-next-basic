@@ -38,14 +38,15 @@ function UserModifyForm({ uid, handleClickModifyMode }: UserModifyFormProps) {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(handleSubmitModify)}>
         <input
-          {...register("name", { required: "This is required." })}
+          {...register("level", { required: "This is required." })}
           type="text"
-          placeholder="please enter a name"
+          placeholder="please enter a level"
           className="border-2 border-gray-400 block rounded py-2 px-4"
+          onChange={(e) => (e.target.value = e.target.value.replace(/\D/g, ""))}
         />
         <ErrorMessage
           errors={errors}
-          name="name"
+          name="level"
           render={({ message }) => (
             <p className="text-red-600 py-1">{message}</p>
           )}

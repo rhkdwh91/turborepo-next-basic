@@ -11,11 +11,12 @@ export async function PUT(
 ) {
   try {
     const user = await authCheck(req);
-    if (user.level !== 0) {
+    if (user?.level && user.level > 1) {
       new AuthError(403, "권한이 부족합니다.");
     }
     const requestData = await req.json();
     const form = cloneDeep(requestData);
+    console.log(form);
     await prisma.user.update({
       data: { level: Number(form.level) },
       where: {
