@@ -2,7 +2,7 @@
 import { useCallback, useState } from "react";
 import { useForm, FormProvider, FieldValues } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/queryKeys";
 import {
   useTagCreateMutation,
@@ -17,6 +17,7 @@ interface UserModifyFormProps {
 }
 
 function UserModifyForm({ uid, handleClickModifyMode }: UserModifyFormProps) {
+  const queryClient = useQueryClient();
   const methods = useForm();
   const {
     register,
@@ -29,7 +30,17 @@ function UserModifyForm({ uid, handleClickModifyMode }: UserModifyFormProps) {
   const handleSubmitModify = useCallback(
     (form: FieldValues) => {
       if (!userLevelMutation.isPending)
-        userLevelMutation.mutate({ level: form.level, uid });
+        userLevelMutation.mutate(
+          { level: form.level, uid },
+          {
+            onSuccess: async () => {
+              await queryClient.refetchQueries({
+                queryKey: queryKeys.user.list().queryKey,
+              });
+              handleClickModifyMode(false);
+            },
+          },
+        );
     },
     [userLevelMutation.isPending],
   );
