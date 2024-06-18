@@ -18,6 +18,18 @@ model User {
   updateAt     DateTime  @default(now()) @db.DateTime(0)
   comments     Comment[]
   posts        Post[]
+  oauthToken   OauthToken?
+}
+
+model OauthToken {
+  userUid Int     @id
+  user    User    @relation(fields: [userUid], references: [uid])
+  google  String?  @unique
+  kakao   String?  @unique
+  naver   String?  @unique
+  github  String?  @unique
+  createAt DateTime @default(now()) @db.DateTime(0)
+  updateAt DateTime @default(now()) @db.DateTime(0)
 }
 
 model Post {
