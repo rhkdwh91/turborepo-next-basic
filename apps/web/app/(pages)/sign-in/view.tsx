@@ -47,7 +47,10 @@ export default function View() {
   };
 
   const handleClickSignInGoogle = async () => {
-    await signIn("google", { redirect: true, callbackUrl: "/" });
+    await signIn("google", {
+      redirect: true,
+      callbackUrl: process.env.NEXT_PUBLIC_API_URL,
+    });
   };
   /*
   const handleClickSignUp = () => {
