@@ -5,8 +5,8 @@ import { Button } from "@chakra-ui/react";
 import { signOut } from "next-auth/react";
 
 export default function LogoutButton() {
-  const handleClickLogout = useCallback(() => {
-    signOut();
+  const handleClickLogout = useCallback(async () => {
+    await signOut();
   }, []);
 
   return <Button onClick={handleClickLogout}>Logout</Button>;

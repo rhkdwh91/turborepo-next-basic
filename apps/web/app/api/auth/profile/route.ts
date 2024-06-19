@@ -5,6 +5,7 @@ import authCheck from "@/utils/authCheck";
 
 export async function GET(req: NextRequest) {
   try {
+    console.log(req, "________________PROFILE");
     const { username } = await authCheck(req);
 
     const user = await prisma.user.findFirst({

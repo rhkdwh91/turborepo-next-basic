@@ -28,11 +28,14 @@ const postRefreshToken: any = async () => {
 const authOptions = {
   pages: {
     signIn: "/sign-in",
+    error: "/sign-in",
   },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      authorization:
+        "https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code",
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -76,6 +79,9 @@ const authOptions = {
   ],
   callbacks: {
     async signIn({ account, profile, user }) {
+      if (!user) {
+        return false;
+      }
       if (account?.provider === "google") {
         const res = await fetch(
           `${process.env.NEXTAUTH_URL}/api/auth/sign-in/oauth-token`,
@@ -91,14 +97,19 @@ const authOptions = {
           },
         );
         const result = await res.json();
-        console.log(result);
         if (!result?.username) {
           return false;
         }
-        user = result;
+        user.uid = result.uid;
+        user.username = result.username;
+        user.email = result.email;
+        user.profileImage = result.profileImage;
+        user.level = result.level;
+        user.accessToken = result.accessToken;
+        user.refreshToken = result.refreshToken;
         return true;
       }
-      return true; // Do different verification for other providers that don't have `email_verified`
+      return true;
     },
     async jwt(params) {
       if (params.user) {

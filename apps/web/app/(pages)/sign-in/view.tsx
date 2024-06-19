@@ -26,21 +26,6 @@ interface ViewProps {
   > | null;
 }
 
-function SignInButtons({ providers }: ViewProps) {
-  return (
-    <>
-      {providers &&
-        Object.values(providers).map((provider) => (
-          <div key={provider.name}>
-            <button onClick={() => signIn(provider.id)}>
-              Sign in with {provider.name}
-            </button>
-          </div>
-        ))}
-    </>
-  );
-}
-
 export default function View({ providers }: ViewProps) {
   const router = useRouter();
   const [show, setShow] = useState(false);
@@ -62,6 +47,15 @@ export default function View({ providers }: ViewProps) {
       ...form,
       redirect: false,
     });
+    if (res?.status === 401 || !res) {
+      return toast.error("Failed login user!");
+    }
+    toast.success("login success");
+    router.push("/");
+  };
+
+  const handleClickSignInGoogle = async () => {
+    const res = await signIn("google", { redirect: false });
     if (res?.status === 401 || !res) {
       return toast.error("Failed login user!");
     }
@@ -114,7 +108,9 @@ export default function View({ providers }: ViewProps) {
           >
             SignIn
           </Button>
-          <SignInButtons providers={providers} />
+          <div>
+            <Button onClick={handleClickSignInGoogle}>GOOGLE</Button>
+          </div>
           {/*
           <Button
             onClick={handleClickSignUp}

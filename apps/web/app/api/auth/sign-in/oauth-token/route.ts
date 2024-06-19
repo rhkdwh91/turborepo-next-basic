@@ -1,8 +1,6 @@
 import { signJWT } from "utils/signJWT";
 import { NextRequest, NextResponse } from "next/server";
-import { OauthToken } from "@prisma/client";
 import prisma from "prisma/client";
-import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,26 +9,35 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Invalid Value" }, { status: 400 });
     }
 
-    const dynamicKey = requestData.provider as keyof OauthToken;
+    let user;
 
-    const oauthData = await prisma.oauthToken.findFirst({
-      where: {
-        [dynamicKey]: requestData.accountId,
+    user = await prisma.user.findUnique({
+      include: {
+        oauthToken: true,
       },
-    });
-
-    if (!oauthData) {
-      return NextResponse.json({ message: "Not user" }, { status: 404 });
-    }
-
-    const user = await prisma.user.findFirst({
       where: {
-        email: oauthData[dynamicKey] as string,
+        email: requestData.accountId,
       },
     });
 
     if (!user) {
-      return NextResponse.json({ message: "Not user" }, { status: 404 });
+      user = await prisma.user.create({
+        data: {
+          username: requestData.accountId,
+          email: requestData.accountId,
+          level: 3,
+        },
+      });
+    }
+
+    if (!(user as any)?.oauthToken) {
+      await prisma.oauthToken.create({
+        data: {
+          userUid: user.uid,
+          provider: requestData.provider,
+          id: requestData.accountId,
+        },
+      });
     }
 
     const token = await signJWT({

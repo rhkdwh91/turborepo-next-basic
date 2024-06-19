@@ -11,23 +11,21 @@ model User {
   uid          Int       @id @default(autoincrement())
   username     String    @unique
   email        String?   @unique
-  password     String
+  password     String?
   level        Int?
   profileImage String?
   createAt     DateTime  @default(now()) @db.DateTime(0)
   updateAt     DateTime  @default(now()) @db.DateTime(0)
   comments     Comment[]
   posts        Post[]
-  oauthToken   OauthToken?
+  oauthToken   OauthToken[]
 }
 
 model OauthToken {
   userUid Int     @id
   user    User    @relation(fields: [userUid], references: [uid])
-  google  String?  @unique
-  kakao   String?  @unique
-  naver   String?  @unique
-  github  String?  @unique
+  provider String?
+  id  String?  @unique
   createAt DateTime @default(now()) @db.DateTime(0)
   updateAt DateTime @default(now()) @db.DateTime(0)
 }
