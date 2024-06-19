@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.css";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import ProfileImage from "@ui/src/components/atom/ProfileImage";
@@ -23,6 +23,7 @@ export default function View() {
             </Text>
             <Text>email: {data.email}</Text>
             <Text>username: {data.username}</Text>
+            <Button>작가 신청</Button>
           </Box>
         )}
       </div>
