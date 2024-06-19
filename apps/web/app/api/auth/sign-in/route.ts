@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
         username: requestData.username,
       },
     });
-    if (!user) {
+    if (!user?.password) {
       return NextResponse.json(
         { message: "The ID is incorrect or incorrect." },
         { status: 400 },
