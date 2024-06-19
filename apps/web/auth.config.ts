@@ -77,6 +77,19 @@ const authOptions = {
   callbacks: {
     async signIn({ account, profile }) {
       if (account?.provider === "google") {
+        const res = await fetch(
+          `${process.env.NEXTAUTH_URL}/api/auth/sign-in/oauth-token`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              provider: "google",
+              accountId: account?.providerAccountId,
+            }),
+          },
+        );
         console.log(account, profile);
         return true;
       }
