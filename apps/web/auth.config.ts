@@ -75,7 +75,7 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ account, profile }) {
+    async signIn({ account, profile, user }) {
       if (account?.provider === "google") {
         const res = await fetch(
           `${process.env.NEXTAUTH_URL}/api/auth/sign-in/oauth-token`,
@@ -86,11 +86,16 @@ const authOptions = {
             },
             body: JSON.stringify({
               provider: "google",
-              accountId: account?.providerAccountId,
+              accountId: profile?.email,
             }),
           },
         );
-        console.log(account, profile);
+        const result = await res.json();
+        console.log(result);
+        if (!result?.username) {
+          return false;
+        }
+        user = result;
         return true;
       }
       return true; // Do different verification for other providers that don't have `email_verified`
