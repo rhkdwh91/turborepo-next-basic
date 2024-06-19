@@ -17,16 +17,8 @@ import useUserMutation from "@/hooks/service/mutations/useUserMutation";
 import styles from "./page.module.css";
 import { UserForm } from "types/user";
 import { toast } from "kyz-toast";
-import { BuiltInProviderType } from "next-auth/providers/index";
 
-interface ViewProps {
-  providers: Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  > | null;
-}
-
-export default function View({ providers }: ViewProps) {
+export default function View() {
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [form, setForm] = useState<UserForm>({
@@ -55,12 +47,7 @@ export default function View({ providers }: ViewProps) {
   };
 
   const handleClickSignInGoogle = async () => {
-    const res = await signIn("google", { redirect: false });
-    if (res?.status === 401 || !res) {
-      return toast.error("Failed login user!");
-    }
-    toast.success("login success");
-    router.push("/");
+    await signIn("google", { redirect: true, callbackUrl: "/" });
   };
   /*
   const handleClickSignUp = () => {
