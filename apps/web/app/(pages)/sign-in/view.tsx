@@ -1,6 +1,6 @@
 "use client";
 
-import { ClientSafeProvider, LiteralUnion, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -99,7 +99,13 @@ export default function View() {
             SignIn
           </Button>
           <div>
-            <Button onClick={handleClickSignInGoogle}>GOOGLE</Button>
+            <Button onClick={handleClickSignInGoogle}>
+              <img
+                src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
+                alt="google logo"
+              />
+              &nbsp; Google
+            </Button>
           </div>
           {/*
           <Button
