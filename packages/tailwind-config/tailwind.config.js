@@ -15,6 +15,7 @@ module.exports = {
       SF_HambakSnow: ["SF_HambakSnow"],
       MangoDdobak_B: ["MangoDdobak_B"],
       PretendardRegular: ["PretendardRegular"],
+      Neon: ["neon"],
     },
   },
   plugins: [],
