@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
-import { Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ChakraUiProvider from "@repo/ui/providers/ChakraUiProvider";
 import ReactQueryProvider from "@repo/ui/providers/ReactQueryProvider";
@@ -12,8 +11,6 @@ import { getServerSession } from "next-auth";
 import authOptions from "auth.config";
 
 import "@repo/tailwind-config/globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Cho's BLOG",
@@ -28,7 +25,7 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
   return (
     <html>
-      <body className={inter.className}>
+      <body className="font-PretendardRegular">
         <SessionProvider>
           <ReactQueryProvider>
             <ChakraUiProvider>

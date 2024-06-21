@@ -9,6 +9,13 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      DanjoBoldRegular: ["DanjoBoldRegular"],
+      WavvePADORegular: ["WavvePADORegular"],
+      SF_HambakSnow: ["SF_HambakSnow"],
+      MangoDdobak_B: ["MangoDdobak_B"],
+      PretendardRegular: ["PretendardRegular"],
+    },
   },
   plugins: [],
 };

@@ -5,7 +5,6 @@ import {
   Card,
   Stack,
   CardBody,
-  Heading,
   Text,
   Box,
   Tag,
@@ -80,15 +79,7 @@ function PostCard({ post }: PostCardProps) {
     >
       <CardBody>
         <Stack>
-          <Heading
-            fontSize="2xl"
-            className={styles.title_line_clamp}
-            minHeight="60px"
-            maxHeight="60px"
-            fontWeight={600}
-          >
-            {post.title}
-          </Heading>
+          <h2 className="font-bold text-2xl">{post.title}</h2>
           <Divider marginY={2} />
           <Text className={styles.line_clamp} minHeight={70} maxHeight={70}>
             {content}...
