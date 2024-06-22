@@ -22,19 +22,12 @@ export default function Header({ session }: HeaderProps) {
         justifyContent="space-between"
         alignItems="center"
         flexWrap={"wrap"}
-        margin={"0 auto 30px auto"}
+        margin={"0 auto"}
         gap={4}
         boxSize={"border-box"}
         padding={4}
       >
         <Link href={"/"} className="flux text-4xl">
-          {/*
-          <img
-            width={120}
-            height={30}
-            src="https://bucket-9gqcvu.s3.ap-northeast-2.amazonaws.com/klog/logo_simple.png"
-            alt={"logo"}
-          />*/}
           KLOG
         </Link>
         <Flex alignItems={"center"} gap={"4"}>

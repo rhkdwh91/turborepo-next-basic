@@ -1,9 +1,10 @@
 .main {
+
 }
 
 .layout {
     max-width: 1200px;
-    padding: 0 20px;
+    padding: 20px;
     margin: 0 auto;
 }
 

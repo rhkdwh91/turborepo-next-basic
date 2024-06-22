@@ -44,6 +44,52 @@
 }
 
 @layer components {
+    .ocean {
+        height: 5%;
+        width:100%;
+        position:absolute;
+        bottom:0;
+        left:0;
+        background: #015871;
+
+    }
+
+    .wave {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x;
+        position: absolute;
+        top: -198px;
+        width: 6400px;
+        height: 198px;
+        animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+        transform: translate3d(0, 0, 0);
+    }
+
+    .wave:nth-of-type(2) {
+        top: -175px;
+        animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+        opacity: 1;
+    }
+
+    @keyframes wave {
+        0% {
+            margin-left: 0;
+        }
+        100% {
+            margin-left: -1600px;
+        }
+    }
+
+    @keyframes swell {
+        0%, 100% {
+            transform: translate3d(0,-25px,0);
+        }
+        50% {
+            transform: translate3d(0,5px,0);
+        }
+    }
+
+
+
     .neon {
         font-family: "Neon", serif;
         color: #FB4264;
@@ -62,6 +108,35 @@
         -webkit-animation: neon 1s ease infinite;
     }
 
+    .flux {
+        animation: flux 2s linear infinite;
+        -moz-animation: flux 2s linear infinite;
+        -webkit-animation: flux 2s linear infinite;
+        -o-animation: flux 2s linear infinite;
+    }
+
+    .neon_line {
+        background-color: #FB4264;
+        border: #FB4264 dot-dot-dash 2px;
+        box-shadow: 0 0 3vw #F40A35;
+        border-radius: 16px;
+        padding: 5px 12px;
+        animation: neon_line 1s ease infinite;
+        -moz-animation: neon_line 1s ease infinite;
+        -webkit-animation: neon_line 1s ease infinite;
+    }
+
+    .flux_line {
+        background-color: #FB4264;
+        border: #FB4264 dot-dot-dash 2px;
+        box-shadow: 0 0 3vw #F40A35;
+        border-radius: 16px;
+        padding: 5px 12px;
+        animation: flux_line 1s ease infinite;
+        -moz-animation: flux_line 1s ease infinite;
+        -webkit-animation: flux_line 1s ease infinite;
+    }
+
     @keyframes neon {
         0%,
         100% {
@@ -74,12 +149,34 @@
         }
     }
 
-    .flux {
-        animation: flux 2s linear infinite;
-        -moz-animation: flux 2s linear infinite;
-        -webkit-animation: flux 2s linear infinite;
-        -o-animation: flux 2s linear infinite;
+    @keyframes neon_line {
+        0%,
+        100% {
+            box-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #FED128, .5vw .5vw .1vw #806914;
+            border-color: #FED128;
+            background-color: #FED128;
+        }
+        50% {
+            box-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
+            border-color: #806914;
+            background-color: #806914;
+        }
     }
+
+    @keyframes flux_line {
+        0%,
+        100% {
+            box-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
+            border-color: #28D7FE;
+            background-color: #28D7FE;
+        }
+        50% {
+            box-shadow: 0 0 .5vw #082180, 0 0 1.5vw #082180, 0 0 5vw #082180, 0 0 5vw #082180, 0 0 .2vw #082180, .5vw .5vw .1vw #0A3940;
+            border-color: #146C80;
+            background-color: #146C80;
+        }
+    }
+
 
     @keyframes flux {
         0%,

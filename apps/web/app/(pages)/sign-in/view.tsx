@@ -62,11 +62,16 @@ export default function View() {
 
   return (
     <main className={styles.main}>
+      <div className="ocean">
+        <div className="wave"></div>
+        <div className="wave"></div>
+      </div>
       <div className={styles.layout}>
         <FormLabel marginY={2}>
-          username
+          <span className="flux">username</span>
           <Input
             pr="4.5rem"
+            color="white"
             placeholder="Enter username"
             name="username"
             onChange={handleChangeInput}
@@ -74,10 +79,11 @@ export default function View() {
           />
         </FormLabel>
         <FormLabel marginY={2}>
-          password
+          <span className="flux">password</span>
           <InputGroup size="md">
             <Input
               pr="4.5rem"
+              color="white"
               type={show ? "text" : "password"}
               placeholder="Enter password"
               name="password"
@@ -91,22 +97,17 @@ export default function View() {
             </InputRightElement>
           </InputGroup>
         </FormLabel>
-        <Flex gap={2} marginY={4} justifyContent="flex-end">
-          <Button
+        <Flex gap={5} marginY={4} justifyContent="flex-end" alignItems="center">
+          <button className="flux" onClick={handleClickSignInGoogle}>
+            Google
+          </button>
+          <button
+            className="neon"
             onClick={handleClickSignIn}
-            isDisabled={signInUserMutation.isPending}
+            disabled={signInUserMutation.isPending}
           >
             SignIn
-          </Button>
-          <div>
-            <Button onClick={handleClickSignInGoogle}>
-              <img
-                src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
-                alt="google logo"
-              />
-              &nbsp; Google
-            </Button>
-          </div>
+          </button>
           {/*
           <Button
             onClick={handleClickSignUp}
