@@ -19,6 +19,7 @@ model User {
   comments     Comment[]
   posts        Post[]
   oauthToken   OauthToken[]
+  writerApplication WriterApplication?
 }
 
 model OauthToken {
@@ -26,6 +27,22 @@ model OauthToken {
   user    User    @relation(fields: [userUid], references: [uid])
   provider String?
   id  String?  @unique
+  createAt DateTime @default(now()) @db.DateTime(0)
+  updateAt DateTime @default(now()) @db.DateTime(0)
+}
+
+enum ApplicationType {
+  RECEIPT
+  ACCEPTING
+  ACCEPT
+  REJECT
+}
+
+model WriterApplication {
+  userUid Int @id
+  user    User    @relation(fields: [userUid], references: [uid])
+  status ApplicationType
+  content Json?
   createAt DateTime @default(now()) @db.DateTime(0)
   updateAt DateTime @default(now()) @db.DateTime(0)
 }
