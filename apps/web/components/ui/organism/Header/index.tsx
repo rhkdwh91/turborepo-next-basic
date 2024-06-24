@@ -36,6 +36,11 @@ export default function Header({ session }: HeaderProps) {
               <Link href={"/my"} className={styles.link}>
                 My
               </Link>
+              {data?.user?.level && data.user.level === 3 && (
+                <Link href={"/application"} className={styles.link}>
+                  Application
+                </Link>
+              )}
               {data?.user?.level && data.user.level <= 2 && (
                 <Link href={"/post/write"} className={styles.link}>
                   Write
