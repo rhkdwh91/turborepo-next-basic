@@ -21,6 +21,7 @@ export default function View() {
             className="my-2 p-5 w-[500px] h-[500px] border border-gray-200 rounded-md text-sm leading-tight text-black"
             {...methods.register("reason", { required: true, maxLength: 1500 })}
             required
+            maxLength={1500}
           />
           <div>{reasonWatch ? reasonWatch.length : 0} 자</div>
           <Button
