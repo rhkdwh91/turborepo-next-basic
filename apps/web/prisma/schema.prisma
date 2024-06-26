@@ -79,10 +79,21 @@ model Comment {
   user     User     @relation(fields: [userUid], references: [uid])
 }
 
+model Category {
+  uid Int @id @default(autoincrement())
+  name String @unique
+  value String
+  tags Tag[]
+  createAt DateTime @default(now()) @db.DateTime(0)
+  updateAt DateTime @default(now()) @db.DateTime(0)
+}
+
 model Tag {
   uid      Int      @id @default(autoincrement())
   name     String   @unique
   value    String
+  categoryUid Int?
+  category Category? @relation(fields: [categoryUid], references: [uid])
   createAt DateTime @default(now()) @db.DateTime(0)
   updateAt DateTime @default(now()) @db.DateTime(0)
 }
