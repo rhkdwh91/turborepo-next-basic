@@ -12,6 +12,9 @@ export async function GET() {
       orderBy: {
         createAt: "desc",
       },
+      include: {
+        tags: true,
+      },
     });
     return NextResponse.json(
       tags.map((tag) => ({ name: tag.name, value: tag.value })),
