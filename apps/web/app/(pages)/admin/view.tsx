@@ -10,6 +10,10 @@ import {
 } from "@/hooks/service/mutations/useTagMutation";
 import { confirmModal } from "@repo/ui/components/organism/ConfirmModal";
 import { useUserLevelMutation } from "@/hooks/service/mutations/useUserMutation";
+import {
+  useCategoryCreateMutation,
+  useCategoryDeleteMutation,
+} from "@/hooks/service/mutations/useCategoryMutation";
 
 interface UserModifyFormProps {
   uid: number;
@@ -124,6 +128,126 @@ function UserManage() {
                 </>
               )}
             </p>
+          </div>
+        ))}
+      </article>
+    </section>
+  );
+}
+
+function CategoryManage() {
+  const { data: categories, refetch } = useQuery({
+    ...queryKeys.categories.list(),
+  });
+  const methods = useForm();
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+  const createMutation = useCategoryCreateMutation();
+  const deleteMutation = useCategoryDeleteMutation();
+
+  const handleClickCreate = useCallback(
+    (form: FieldValues) => {
+      if (!createMutation.isPending)
+        createMutation.mutate(
+          { value: form.value, name: form.name },
+          {
+            onSuccess: async () => {
+              await refetch();
+              reset({
+                name: "",
+                value: "",
+              });
+            },
+          },
+        );
+    },
+    [createMutation],
+  );
+
+  const handleClickDelete = useCallback(
+    (name: string) => {
+      confirmModal.open({
+        message: "Are you sure you want to delete this category?",
+        onClickConfirm: () => {
+          if (!deleteMutation.isPending) {
+            deleteMutation.mutate(name, {
+              onSuccess: async () => {
+                await refetch();
+              },
+            });
+          }
+        },
+      });
+    },
+    [deleteMutation],
+  );
+
+  return (
+    <section className="my-4">
+      <h2 className="text-2xl font-bold">카테고리 관리</h2>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(handleClickCreate)}>
+          <article className="my-2 p-5">
+            <h3 className="text-xl font-bold">카테고리 생성</h3>
+            <label className="my-1 block">
+              <span className="block">Name</span>
+              <input
+                {...register("name", { required: "This is required." })}
+                type="text"
+                placeholder="please enter a name"
+                className="border-2 border-gray-400 block rounded py-2 px-4"
+              />
+              <ErrorMessage
+                errors={errors}
+                name="name"
+                render={({ message }) => (
+                  <p className="text-red-600 py-1">{message}</p>
+                )}
+              />
+            </label>
+            <label className="my-1 block">
+              <span className="block">Value</span>
+              <input
+                {...register("value", { required: "This is required." })}
+                type="text"
+                placeholder="please enter a value"
+                className="border-2 border-gray-400 block rounded py-2 px-4"
+              />
+              <ErrorMessage
+                errors={errors}
+                name="value"
+                render={({ message }) => (
+                  <p className="text-red-600 py-1">{message}</p>
+                )}
+              />
+            </label>
+            <button
+              type="submit"
+              className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
+            >
+              생성
+            </button>
+          </article>
+        </form>
+      </FormProvider>
+      <article className="my-2 p-5">
+        <h3 className="text-xl font-bold">카테고리 리스트</h3>
+        {categories?.map((category) => (
+          <div
+            key={category.name}
+            className="m-2 border-2 border-blue-400 bg-blue-600 p-2 inline-block rounded-full text-amber-50"
+          >
+            {category.value}
+            <button
+              className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black"
+              onClick={() => handleClickDelete(category.name)}
+            >
+              제거
+            </button>
           </div>
         ))}
       </article>
@@ -254,6 +378,7 @@ export default function View() {
     <main className="px-2.5">
       <h1 className="text-5xl font-bold pb-3">Admin</h1>
       <UserManage />
+      <CategoryManage />
       <TagManage />
     </main>
   );

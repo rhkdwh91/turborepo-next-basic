@@ -5,6 +5,7 @@ import { cache } from "react";
 
 import postsKeys, { infinityPostskeys } from "./postsKeys";
 import tagsKeys from "./tagKeys";
+import categoryKey from "./categoryKey";
 import profileKeys from "./profileKeys";
 import userKeys from "./userKeys";
 import authorKeys from "./authorKey";
@@ -26,6 +27,7 @@ export const queryKeys = mergeQueryKeys(
   postsKeys,
   infinityPostskeys,
   tagsKeys,
+  categoryKey,
   profileKeys,
   userKeys,
   authorKeys,
