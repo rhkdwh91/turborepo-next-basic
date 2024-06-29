@@ -242,6 +242,9 @@ function CategoryManage() {
             className="m-2 border-2 border-blue-400 bg-blue-600 p-2 inline-block rounded-full text-amber-50"
           >
             {category.value}
+            <button className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black">
+              태그 추가
+            </button>
             <button
               className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black"
               onClick={() => handleClickDelete(category.name)}
