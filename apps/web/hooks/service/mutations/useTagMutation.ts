@@ -18,9 +18,11 @@ export const useTagDeleteMutation = () => {
   });
 };
 
-export const useTagUpdateCategoryMutation = (uid: number) => {
+export const useTagUpdateCategoryMutation = () => {
   return useMutation({
-    mutationFn: (payload: { value: string; name: string }) =>
-      axiosInstance.post(`/api/tag/${uid}`, payload),
+    mutationFn: (payload: { categoryUid: number; tagUid: number }) =>
+      axiosInstance.put(`/api/tags/${payload.tagUid}/category`, {
+        categoryUid: payload.categoryUid,
+      }),
   });
 };

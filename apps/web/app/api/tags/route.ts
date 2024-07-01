@@ -14,7 +14,7 @@ export async function GET() {
       },
     });
     return NextResponse.json(
-      tags.map((tag) => ({ name: tag.name, value: tag.value })),
+      tags.map((tag) => ({ uid: tag.uid, name: tag.name, value: tag.value })),
       { status: 200 },
     );
   } catch (error) {

@@ -7,6 +7,7 @@ import { queryKeys } from "@/queryKeys";
 import {
   useTagCreateMutation,
   useTagDeleteMutation,
+  useTagUpdateCategoryMutation,
 } from "@/hooks/service/mutations/useTagMutation";
 import { confirmModal } from "@repo/ui/components/organism/ConfirmModal";
 import { useUserLevelMutation } from "@/hooks/service/mutations/useUserMutation";
@@ -14,6 +15,7 @@ import {
   useCategoryCreateMutation,
   useCategoryDeleteMutation,
 } from "@/hooks/service/mutations/useCategoryMutation";
+import { Tag } from "@/types/tag";
 
 interface UserModifyFormProps {
   uid: number;
@@ -136,6 +138,7 @@ function UserManage() {
 }
 
 function CategoryManage() {
+  const [tagUid, setTagUid] = useState("");
   const { data: categories, refetch } = useQuery({
     ...queryKeys.categories.list(),
   });
@@ -148,6 +151,7 @@ function CategoryManage() {
   } = methods;
   const createMutation = useCategoryCreateMutation();
   const deleteMutation = useCategoryDeleteMutation();
+  const addTagMutation = useTagUpdateCategoryMutation();
 
   const handleClickCreate = useCallback(
     (form: FieldValues) => {
@@ -184,6 +188,21 @@ function CategoryManage() {
       });
     },
     [deleteMutation],
+  );
+
+  const handleClickTag = useCallback(
+    (category: Tag) => {
+      addTagMutation.mutate(
+        {
+          categoryUid: category.uid,
+          tagUid: Number(tagUid),
+        },
+        {
+          onSuccess: () => refetch(),
+        },
+      );
+    },
+    [tagUid],
   );
 
   return (
@@ -237,21 +256,39 @@ function CategoryManage() {
       <article className="my-2 p-5">
         <h3 className="text-xl font-bold">카테고리 리스트</h3>
         {categories?.map((category) => (
-          <div
-            key={category.name}
-            className="m-2 border-2 border-blue-400 bg-blue-600 p-2 inline-block rounded-full text-amber-50"
-          >
-            {category.value}
-            <button className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black">
-              태그 추가
-            </button>
-            <button
-              className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black"
-              onClick={() => handleClickDelete(category.name)}
+          <>
+            <div
+              key={category.name}
+              className="m-2 border-2 border-blue-400 bg-blue-600 p-2 inline-block rounded-full text-amber-50"
             >
-              제거
-            </button>
-          </div>
+              {category.value}
+              <button
+                className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black"
+                onClick={() => handleClickDelete(category.name)}
+              >
+                제거
+              </button>
+            </div>
+            <div>
+              <input
+                placeholder="please enter a value"
+                className="border-2 border-gray-400 block rounded py-2 px-4"
+                type="text"
+                value={tagUid}
+                onChange={(e) =>
+                  setTagUid(e.target.value.replace(/[^0-9]/g, ""))
+                }
+              />
+              <button
+                type="button"
+                className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black"
+                onClick={() => handleClickTag(category)}
+              >
+                태그 추가
+              </button>
+            </div>
+            {category.tags.map((tag) => tag.name).join(", ")}
+          </>
         ))}
       </article>
     </section>
@@ -362,7 +399,7 @@ function TagManage() {
             key={tag.name}
             className="m-2 border-2 border-blue-400 bg-blue-600 p-2 inline-block rounded-full text-amber-50"
           >
-            {tag.value}
+            ({tag.uid}) {tag.value}
             <button
               className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black"
               onClick={() => handleClickDelete(tag.name)}

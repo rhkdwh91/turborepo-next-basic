@@ -7,7 +7,7 @@ import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function GET() {
   try {
-    const tags = await prisma.category.findMany({
+    const categories = await prisma.category.findMany({
       take: 10,
       orderBy: {
         createAt: "desc",
@@ -17,7 +17,12 @@ export async function GET() {
       },
     });
     return NextResponse.json(
-      tags.map((tag) => ({ name: tag.name, value: tag.value })),
+      categories.map((category) => ({
+        uid: category.uid,
+        name: category.name,
+        value: category.value,
+        tags: category.tags,
+      })),
       { status: 200 },
     );
   } catch (error) {
