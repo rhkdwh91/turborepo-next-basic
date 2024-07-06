@@ -9,6 +9,7 @@ import categoryKey from "./categoryKey";
 import profileKeys from "./profileKeys";
 import userKeys from "./userKeys";
 import authorKeys from "./authorKey";
+import writerApplicationKeys from "./writerApplicationKeys";
 
 export const getQueryClient = cache(
   () =>
@@ -31,4 +32,5 @@ export const queryKeys = mergeQueryKeys(
   profileKeys,
   userKeys,
   authorKeys,
+  writerApplicationKeys,
 );

@@ -4,6 +4,20 @@ import { cloneDeep } from "lodash";
 import prisma from "@/prisma/client";
 import { errorHandler } from "@/utils/apiErrorHandler";
 
+export async function GET(req: NextRequest) {
+  try {
+    const user = await authCheck(req);
+    await prisma.writerApplication.findUnique({
+      where: {
+        userUid: user.uid,
+      },
+    });
+    return NextResponse.json({ message: "ok" }, { status: 201 });
+  } catch (error) {
+    return errorHandler(error);
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const user = await authCheck(req);
