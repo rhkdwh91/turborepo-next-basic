@@ -9,7 +9,8 @@ import { useReceiptWriterApplication } from "@/hooks/service/mutations/useWriter
 
 export default function View() {
   const methods = useForm();
-  const { data } = useQuery(queryKeys.categories.list());
+  const { data } = useQuery(queryKeys.writerApplication.detail());
+  const { data: categories } = useQuery(queryKeys.categories.list());
   const receiptWriterApplicationMutation = useReceiptWriterApplication();
 
   const categoryWatch = methods.watch("category");
@@ -25,6 +26,8 @@ export default function View() {
     [receiptWriterApplicationMutation],
   );
 
+  console.log(data);
+
   return (
     <main className="max-w-[1160px] mx-auto pt-[50px] pb-[100px]">
       <h1 className="font-bold text-2xl mb-3">작가신청</h1>
@@ -39,7 +42,7 @@ export default function View() {
           <select
             {...methods.register("category", { required: "This is required." })}
           >
-            {data?.map((item) => (
+            {categories?.map((item) => (
               <option key={item.value} value={item.value}>
                 {item.name}
               </option>
