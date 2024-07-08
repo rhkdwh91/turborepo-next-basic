@@ -26,7 +26,16 @@ export default function View() {
     [receiptWriterApplicationMutation],
   );
 
-  console.log(data);
+  if (data && data.status === "RECEIPT") {
+    return (
+      <main className="max-w-[1160px] mx-auto pt-[50px] pb-[100px]">
+        <h1 className="font-bold text-2xl mb-3">작가신청</h1>
+        <div>
+          작가 신청이 완료되었습니다. 관리자가 확인할때까지 기다려주세요.
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="max-w-[1160px] mx-auto pt-[50px] pb-[100px]">
