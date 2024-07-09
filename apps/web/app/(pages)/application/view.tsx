@@ -37,6 +37,33 @@ export default function View() {
     );
   }
 
+  if (data && data.status === "REJECT") {
+    return (
+      <main className="max-w-[1160px] mx-auto pt-[50px] pb-[100px]">
+        <h1 className="font-bold text-2xl mb-3">작가신청</h1>
+        <div>작가 신청이 거부되었습니다. 아래 사항을 확인 부탁드립니다.</div>
+      </main>
+    );
+  }
+
+  if (data && data.status === "ACCEPTING") {
+    return (
+      <main className="max-w-[1160px] mx-auto pt-[50px] pb-[100px]">
+        <h1 className="font-bold text-2xl mb-3">작가신청</h1>
+        <div>관리자가 확인하였습니다. 현재 처리 중입니다.</div>
+      </main>
+    );
+  }
+
+  if (data && data.status === "ACCEPT") {
+    return (
+      <main className="max-w-[1160px] mx-auto pt-[50px] pb-[100px]">
+        <h1 className="font-bold text-2xl mb-3">작가신청</h1>
+        <div>작가 신청 완료되었습니다.</div>
+      </main>
+    );
+  }
+
   return (
     <main className="max-w-[1160px] mx-auto pt-[50px] pb-[100px]">
       <h1 className="font-bold text-2xl mb-3">작가신청</h1>
