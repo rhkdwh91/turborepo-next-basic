@@ -6,7 +6,9 @@ const writerApplicationKeys = createQueryKeys("writerApplication", {
   detail: () => ({
     queryKey: ["detail"],
     queryFn: async (): Promise<WriterApplication> => {
-      const { data } = await axiosInstance.get(`/api/writer-application`);
+      const { data } = await axiosInstance.get(
+        `/api/writer-application/latest`,
+      );
       return data;
     },
   }),

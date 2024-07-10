@@ -7,7 +7,12 @@ import { errorHandler } from "@/utils/apiErrorHandler";
 export async function GET(req: NextRequest) {
   try {
     const user = await authCheck(req);
-    const writerApplication = await prisma.writerApplication.findUnique({
+    const searchParams = req.nextUrl.searchParams;
+    const take = searchParams.get("take");
+    const skip = searchParams.get("skip");
+    const writerApplication = await prisma.writerApplication.findMany({
+      take: take && !Number.isNaN(Number(take)) ? Number(take) : 20,
+      skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
       where: {
         userUid: user.uid,
       },
