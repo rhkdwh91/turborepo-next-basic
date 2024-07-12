@@ -413,6 +413,24 @@ function TagManage() {
   );
 }
 
+function ApplicationWriterManager() {
+  const { data: applications } = useQuery(queryKeys.writerApplication.list());
+  console.log(applications);
+  return (
+    <section className="my-4">
+      <h2 className="text-2xl font-bold">작가 신청 관리</h2>
+      {applications &&
+        applications.map((application) => (
+          <div>
+            {application.status}
+            {application.user.name}
+            {application.updateAt}
+          </div>
+        ))}
+    </section>
+  );
+}
+
 export default function View() {
   return (
     <main className="px-2.5">
@@ -420,6 +438,7 @@ export default function View() {
       <UserManage />
       <CategoryManage />
       <TagManage />
+      <ApplicationWriterManager />
     </main>
   );
 }
