@@ -10,11 +10,20 @@ export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams;
     const take = searchParams.get("take");
     const skip = searchParams.get("skip");
+    const userUid = searchParams.get("userUid");
+
+    const where: any = {};
+
+    if (userUid) {
+      where.userUid = userUid;
+    }
+
     const writerApplication = await prisma.writerApplication.findMany({
       take: take && !Number.isNaN(Number(take)) ? Number(take) : 20,
       skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
-      where: {
-        userUid: user.uid,
+      where: where,
+      include: {
+        user: true,
       },
     });
     console.log(writerApplication, user);
