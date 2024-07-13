@@ -19,7 +19,7 @@ model User {
   comments     Comment[]
   posts        Post[]
   oauthToken   OauthToken[]
-  writerApplication WriterApplication?
+  writerApplication WriterApplication[]
 }
 
 model OauthToken {
@@ -39,9 +39,10 @@ enum ApplicationType {
 }
 
 model WriterApplication {
-  userUid Int @id
-  user    User    @relation(fields: [userUid], references: [uid])
-  status ApplicationType
+  uid     Int @id @default(autoincrement())
+  userUid Int
+  user    User  @relation(fields: [userUid], references: [uid])
+  status  ApplicationType
   content Json?
   createAt DateTime @default(now()) @db.DateTime(0)
   updateAt DateTime @default(now()) @db.DateTime(0)

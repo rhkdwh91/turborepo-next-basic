@@ -11,6 +11,7 @@ export type ApplicationType =
   (typeof ApplicationType)[keyof typeof ApplicationType];
 
 export interface WriterApplication {
+  uid: number;
   userUid: number;
   user: User;
   status: ApplicationType;

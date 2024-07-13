@@ -421,9 +421,12 @@ function ApplicationWriterManager() {
       <h2 className="text-2xl font-bold">작가 신청 관리</h2>
       {applications &&
         applications.map((application) => (
-          <div>
-            {application.status}
-            {application.user.name}
+          <div key={application.uid}>
+            {application.status === "RECEIPT" && <p>신청접수</p>}
+            {application.status === "REJECT" && <p>승인거절</p>}
+            {application.status === "ACCEPTING" && <p>승인평가</p>}
+            {application.status === "ACCEPT" && <p>승인</p>}
+            {application.user.username}
             {application.updateAt}
           </div>
         ))}
