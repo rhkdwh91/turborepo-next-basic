@@ -422,12 +422,12 @@ function ApplicationWriterManager() {
       {applications &&
         applications.map((application) => (
           <div key={application.uid}>
+            <p>{application.user.username}</p>
+            <p>{application.updateAt}</p>
             {application.status === "RECEIPT" && <p>신청접수</p>}
             {application.status === "REJECT" && <p>승인거절</p>}
             {application.status === "ACCEPTING" && <p>승인평가</p>}
             {application.status === "ACCEPT" && <p>승인</p>}
-            {application.user.username}
-            {application.updateAt}
           </div>
         ))}
     </section>
