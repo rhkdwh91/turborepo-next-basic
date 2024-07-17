@@ -20,11 +20,14 @@ export const useReceiptWriterApplication = () => {
 
 export const useAcceptingWriterApplication = () => {
   return useMutation({
-    mutationFn: async (payload: { content: string }) => {
-      const { data } = await axiosInstance.post("/api/writer-application", {
-        ...payload,
-        status: "ACCEPTING",
-      });
+    mutationFn: async (payload: { userUid: number; content: string }) => {
+      const { data } = await axiosInstance.post(
+        "/api/writer-application/admin",
+        {
+          ...payload,
+          status: "ACCEPTING",
+        },
+      );
 
       return data;
     },
@@ -36,11 +39,14 @@ export const useAcceptingWriterApplication = () => {
 
 export const useAcceptWriterApplication = () => {
   return useMutation({
-    mutationFn: async (payload: { content: string }) => {
-      const { data } = await axiosInstance.post("/api/writer-application", {
-        ...payload,
-        status: "ACCEPT",
-      });
+    mutationFn: async (payload: { userUid: number; content: string }) => {
+      const { data } = await axiosInstance.post(
+        "/api/writer-application/admin",
+        {
+          ...payload,
+          status: "ACCEPT",
+        },
+      );
 
       return data;
     },
@@ -52,11 +58,14 @@ export const useAcceptWriterApplication = () => {
 
 export const useRejectWriterApplication = () => {
   return useMutation({
-    mutationFn: async (payload: { content: string }) => {
-      const { data } = await axiosInstance.post("/api/writer-application", {
-        ...payload,
-        status: "REJECT",
-      });
+    mutationFn: async (payload: { userUid: number; content: string }) => {
+      const { data } = await axiosInstance.post(
+        "/api/writer-application/admin",
+        {
+          ...payload,
+          status: "REJECT",
+        },
+      );
 
       return data;
     },

@@ -16,6 +16,11 @@ import {
   useCategoryDeleteMutation,
 } from "@/hooks/service/mutations/useCategoryMutation";
 import { Tag } from "@/types/tag";
+import {
+  useAcceptingWriterApplication,
+  useReceiptWriterApplication,
+  useRejectWriterApplication,
+} from "@/hooks/service/mutations/useWriterApplication";
 
 interface UserModifyFormProps {
   uid: number;
@@ -414,8 +419,34 @@ function TagManage() {
 }
 
 function ApplicationWriterManager() {
-  const { data: applications } = useQuery(queryKeys.writerApplication.list());
-  console.log(applications);
+  const { data: applications, refetch } = useQuery(
+    queryKeys.writerApplication.list(),
+  );
+  const acceptingWriterApplication = useAcceptingWriterApplication();
+  const rejectWriterApplication = useRejectWriterApplication();
+
+  const handleClickAccepting = (userUid: number) => {
+    acceptingWriterApplication.mutate(
+      { userUid, content: "" },
+      {
+        onSuccess: async () => {
+          await refetch();
+        },
+      },
+    );
+  };
+
+  const handleClickReject = (userUid: number, content: string) => {
+    rejectWriterApplication.mutate(
+      { userUid, content },
+      {
+        onSuccess: async () => {
+          await refetch();
+        },
+      },
+    );
+  };
+
   return (
     <section className="my-4">
       <h2 className="text-2xl font-bold">작가 신청 관리</h2>
@@ -424,7 +455,25 @@ function ApplicationWriterManager() {
           <div key={application.uid}>
             <p>{application.user.username}</p>
             <p>{application.updateAt}</p>
-            {application.status === "RECEIPT" && <p>신청접수</p>}
+            {application.status === "RECEIPT" && (
+              <div>
+                <p>상태: 신청접수</p>
+                <button
+                  className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
+                  onClick={() => handleClickAccepting(application.user.uid)}
+                >
+                  승인 평가
+                </button>
+                <button
+                  className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
+                  onClick={() =>
+                    handleClickReject(application.user.uid, "승인 거절")
+                  }
+                >
+                  승인 거절
+                </button>
+              </div>
+            )}
             {application.status === "REJECT" && <p>승인거절</p>}
             {application.status === "ACCEPTING" && <p>승인평가</p>}
             {application.status === "ACCEPT" && <p>승인</p>}
