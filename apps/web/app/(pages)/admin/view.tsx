@@ -475,7 +475,22 @@ function ApplicationWriterManager() {
               </div>
             )}
             {application.status === "REJECT" && <p>승인거절</p>}
-            {application.status === "ACCEPTING" && <p>승인평가</p>}
+            {application.status === "ACCEPTING" && (
+              <div>
+                <p>승인평가</p>
+                <button className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2">
+                  승인
+                </button>
+                <button
+                  className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
+                  onClick={() =>
+                    handleClickReject(application.user.uid, "승인 거절")
+                  }
+                >
+                  승인 거절
+                </button>
+              </div>
+            )}
             {application.status === "ACCEPT" && <p>승인</p>}
           </div>
         ))}
