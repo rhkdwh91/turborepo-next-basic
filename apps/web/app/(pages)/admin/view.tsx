@@ -18,7 +18,7 @@ import {
 import { Tag } from "@/types/tag";
 import {
   useAcceptingWriterApplication,
-  useReceiptWriterApplication,
+  useAcceptWriterApplication,
   useRejectWriterApplication,
 } from "@/hooks/service/mutations/useWriterApplication";
 
@@ -424,6 +424,7 @@ function ApplicationWriterManager() {
   );
   const acceptingWriterApplication = useAcceptingWriterApplication();
   const rejectWriterApplication = useRejectWriterApplication();
+  const acceptWriterApplication = useAcceptWriterApplication();
 
   const handleClickAccepting = (userUid: number) => {
     acceptingWriterApplication.mutate(
@@ -439,6 +440,17 @@ function ApplicationWriterManager() {
   const handleClickReject = (userUid: number, content: string) => {
     rejectWriterApplication.mutate(
       { userUid, content },
+      {
+        onSuccess: async () => {
+          await refetch();
+        },
+      },
+    );
+  };
+
+  const handleClickAccept = (userUid: number) => {
+    acceptWriterApplication.mutate(
+      { userUid, content: "" },
       {
         onSuccess: async () => {
           await refetch();
@@ -478,7 +490,10 @@ function ApplicationWriterManager() {
             {application.status === "ACCEPTING" && (
               <div>
                 <p>승인평가</p>
-                <button className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2">
+                <button
+                  className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
+                  onClick={() => handleClickAccept(application.user.uid)}
+                >
                   승인
                 </button>
                 <button
