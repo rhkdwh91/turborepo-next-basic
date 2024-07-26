@@ -72,8 +72,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(yjs@13.6.18)
       kyz-toast:
-        specifier: ^0.2.0
-        version: 0.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.2.2
+        version: 0.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -206,8 +206,8 @@ importers:
         specifier: ^5.29.2
         version: 5.51.11(react@18.3.1)
       kyz-toast:
-        specifier: ^0.2.0
-        version: 0.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.2.2
+        version: 0.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-auth:
         specifier: ^4.24.7
         version: 4.24.7(next@14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -869,6 +869,9 @@ packages:
 
   '@emotion/cache@11.13.0':
     resolution: {integrity: sha512-hPV345J/tH0Cwk2wnU/3PBzORQ9HeX+kQSbwI+jslzpRCHE6fSGTohswksA/Ensr8znPzwfzKZCmAM9Lmlhp7g==}
+
+  '@emotion/cache@11.13.1':
+    resolution: {integrity: sha512-iqouYkuEblRcXmylXIwwOodiEK5Ifl7JcX7o6V4jI3iW4mLXX3dmt5xwBtIkJiQEXFAI+pC8X0i67yiPkH9Ucw==}
 
   '@emotion/hash@0.9.2':
     resolution: {integrity: sha512-MyqliTZGuOm3+5ZRSaaBGP3USLw6+EGykkwZns2EPC5g8jJ4z9OrdZY9apkl3+UP9+sdz76YYkwCKP5gh8iY3g==}
@@ -2844,8 +2847,8 @@ packages:
     peerDependencies:
       react: '>=16'
 
-  kyz-toast@0.2.0:
-    resolution: {integrity: sha512-41Nm8aSYGy2q9nIa0VuuB4UV2YGZI/7gq3NRXFC0FX3vT0n0yxWueDMilf+6PhTBhncY6QtremOISBN71+m40Q==}
+  kyz-toast@0.2.2:
+    resolution: {integrity: sha512-3Bh8+FHZk5G4JsY4IW+ZCm66XSSGnYyfTK3veqfsJVgMyaPCfFTySygBwUa4a+DWtz6KUPmb8KAmxRr20xyZVA==}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
@@ -3310,6 +3313,10 @@ packages:
 
   postcss@8.4.39:
     resolution: {integrity: sha512-0vzE+lAiG7hZl1/9I8yzKLx3aR9Xbof3fBHKunvMfOCYAtMhrsnccJY2iTURb9EZd5+pLuiNV9/c/GZJOHsgIw==}
+    engines: {node: ^10 || ^12 || >=14}
+
+  postcss@8.4.40:
+    resolution: {integrity: sha512-YF2kKIUzAofPMpfH6hOi2cGnv/HrUlfucspc7pDyvv7kGdqXrfj8SCl/t8owkEgKEuu8ZcRjSOxFxVLqwChZ2Q==}
     engines: {node: ^10 || ^12 || >=14}
 
   preact-render-to-string@5.2.6:
@@ -5032,6 +5039,14 @@ snapshots:
       '@emotion/weak-memoize': 0.4.0
       stylis: 4.2.0
 
+  '@emotion/cache@11.13.1':
+    dependencies:
+      '@emotion/memoize': 0.9.0
+      '@emotion/sheet': 1.4.0
+      '@emotion/utils': 1.4.0
+      '@emotion/weak-memoize': 0.4.0
+      stylis: 4.2.0
+
   '@emotion/hash@0.9.2': {}
 
   '@emotion/is-prop-valid@1.3.0':
@@ -5044,7 +5059,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.24.8
       '@emotion/babel-plugin': 11.12.0
-      '@emotion/cache': 11.13.0
+      '@emotion/cache': 11.13.1
       '@emotion/serialize': 1.3.0
       '@emotion/use-insertion-effect-with-fallbacks': 1.1.0(react@18.3.1)
       '@emotion/utils': 1.4.0
@@ -7446,10 +7461,16 @@ snapshots:
       - rollup
       - yjs
 
-  kyz-toast@0.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  kyz-toast@0.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
+      '@rollup/plugin-replace': 5.0.7
+      postcss: 8.4.40
+      postcss-url: 10.1.3(postcss@8.4.40)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+      rollup-plugin-svg: 2.0.0
+    transitivePeerDependencies:
+      - rollup
 
   language-subtag-registry@0.3.23: {}
 
@@ -7910,6 +7931,14 @@ snapshots:
       postcss: 8.4.39
       xxhashjs: 0.2.2
 
+  postcss-url@10.1.3(postcss@8.4.40):
+    dependencies:
+      make-dir: 3.1.0
+      mime: 2.5.2
+      minimatch: 3.0.8
+      postcss: 8.4.40
+      xxhashjs: 0.2.2
+
   postcss-value-parser@4.2.0: {}
 
   postcss@8.4.31:
@@ -7919,6 +7948,12 @@ snapshots:
       source-map-js: 1.2.0
 
   postcss@8.4.39:
+    dependencies:
+      nanoid: 3.3.7
+      picocolors: 1.0.1
+      source-map-js: 1.2.0
+
+  postcss@8.4.40:
     dependencies:
       nanoid: 3.3.7
       picocolors: 1.0.1
