@@ -295,9 +295,9 @@ function TagManage() {
 
 export default function View() {
   return (
-    <div>
+    <main className="px-2.5 py-10 max-w-6xl lg:max-w-6xl mx-auto">
       <CategoryManage />
       <TagManage />
-    </div>
+    </main>
   );
 }

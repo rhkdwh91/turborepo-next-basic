@@ -51,7 +51,7 @@ export default function View() {
   };
 
   return (
-    <section className="my-4">
+    <main className="px-2.5 py-10 max-w-6xl lg:max-w-6xl mx-auto">
       <h2 className="text-2xl font-bold">작가 신청 관리</h2>
       {applications &&
         applications.map((application) => (
@@ -100,6 +100,6 @@ export default function View() {
             {application.status === "ACCEPT" && <p>승인</p>}
           </div>
         ))}
-    </section>
+    </main>
   );
 }

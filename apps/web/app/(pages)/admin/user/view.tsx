@@ -87,7 +87,7 @@ export default function View() {
   }, []);
 
   return (
-    <section className="my-4">
+    <main className="px-2.5 py-10 max-w-6xl lg:max-w-6xl mx-auto">
       <h2 className="text-2xl font-bold">계정 관리</h2>
 
       <article className="my-2 p-5">
@@ -123,6 +123,6 @@ export default function View() {
           </div>
         ))}
       </article>
-    </section>
+    </main>
   );
 }
