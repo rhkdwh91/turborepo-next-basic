@@ -5,6 +5,7 @@ import ChakraUiProvider from "@repo/ui/providers/ChakraUiProvider";
 import ReactQueryProvider from "@repo/ui/providers/ReactQueryProvider";
 import SessionProvider from "@repo/ui/providers/SessionProvider";
 import ToastProvider from "@repo/ui/providers/ToastProvider";
+import ThemeProvider from "providers/ThemeProvider";
 import Header from "components/ui/organism/Header";
 import Footer from "components/ui/organism/Footer";
 import { getServerSession } from "next-auth";
@@ -28,13 +29,20 @@ export default async function RootLayout({
       <body className="font-PretendardRegular">
         <SessionProvider>
           <ReactQueryProvider>
-            <ChakraUiProvider>
-              <ToastProvider>
-                <Header session={session} />
-                {children}
-                <Footer />
-              </ToastProvider>
-            </ChakraUiProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <ChakraUiProvider>
+                <ToastProvider>
+                  <Header session={session} />
+                  {children}
+                  <Footer />
+                </ToastProvider>
+              </ChakraUiProvider>
+            </ThemeProvider>
           </ReactQueryProvider>
         </SessionProvider>
         <SpeedInsights />
