@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@ui/src/components/organism/card";
+} from "@ui/src/components/organism/Card";
 import { useRouter } from "next/navigation";
 import { MouseEvent, useMemo } from "react";
 import { Post } from "@/types/post";
