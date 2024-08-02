@@ -1,8 +1,5 @@
 "use client";
 
-import { Box, Tag } from "@chakra-ui/react";
-import { RepeatIcon } from "@chakra-ui/icons";
-
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useSearchParams, useRouter } from "next/navigation";
 import { queryKeys } from "queryKeys";
@@ -11,6 +8,7 @@ import styles from "./page.module.css";
 import useInfiniteScroll from "hooks/useInfiniteScroll";
 
 import PostCard from "components/ui/organism/PostCard";
+import { Button } from "@ui/src/components/atom/Button";
 
 function createTagArray(searchTags: string[] | string) {
   if (Array.isArray(searchTags)) {
@@ -66,30 +64,25 @@ export default function View() {
   return (
     <main className={styles.main}>
       <div className={styles.layout}>
-        <Box
-          display={"flex"}
-          justifyContent={"flex-start"}
-          gap={2}
-          flexWrap="wrap"
-          marginBottom={10}
-        >
-          <Tag cursor="pointer" variant="outline" onClick={handleClickReset}>
-            <RepeatIcon />
-          </Tag>
+        <div className="flex gap-4 mb-6">
+          <Button
+            variant="outline"
+            className="text-white"
+            onClick={handleClickReset}
+          >
+            reset
+          </Button>
           {tags?.map((tag) => (
-            <Tag
-              key={tag.name}
-              cursor="pointer"
-              size={"lg"}
-              colorScheme={"teal"}
-              variant={searchTags.includes(tag.name) ? "solid" : "outline"}
+            <Button
+              variant="outline"
+              className="text-white"
               onClick={() => handleClickTag(tag.name)}
             >
               {tag.value}
-            </Tag>
+            </Button>
           ))}
-        </Box>
-        <Box display={{ md: "block", xl: "block" }} flexWrap={"wrap"} gap={4}>
+        </div>
+        <div className="flex flex-wrap gap-4">
           {data?.pages.map((page) =>
             page?.map((post) => <PostCard post={post} key={post.uid} />),
           )}
@@ -98,7 +91,7 @@ export default function View() {
               FETCH
             </div>
           )}
-        </Box>
+        </div>
       </div>
     </main>
   );

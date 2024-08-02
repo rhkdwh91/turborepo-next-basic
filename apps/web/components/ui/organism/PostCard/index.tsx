@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@ui/src/components/organism/card";
 import { useRouter } from "next/navigation";
 import { MouseEvent, useMemo } from "react";
 import { Post } from "@/types/post";
@@ -50,7 +50,7 @@ export default function Index({ post }: PostCardProps) {
     }
   };
   return (
-    <Card onClick={handleClickPost}>
+    <Card className="cursor-pointer" onClick={handleClickPost}>
       <CardHeader>
         <CardTitle>{post.title}</CardTitle>
         <CardDescription>{content}...</CardDescription>
