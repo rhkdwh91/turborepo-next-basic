@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import ChakraUiProvider from "@repo/ui/providers/ChakraUiProvider";
 import ReactQueryProvider from "@repo/ui/providers/ReactQueryProvider";
 import SessionProvider from "@repo/ui/providers/SessionProvider";
 import ToastProvider from "@repo/ui/providers/ToastProvider";
@@ -35,13 +34,11 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <ChakraUiProvider>
-                <ToastProvider>
-                  <Header session={session} />
-                  {children}
-                  <Footer />
-                </ToastProvider>
-              </ChakraUiProvider>
+              <ToastProvider>
+                <Header session={session} />
+                {children}
+                <Footer />
+              </ToastProvider>
             </ThemeProvider>
           </ReactQueryProvider>
         </SessionProvider>

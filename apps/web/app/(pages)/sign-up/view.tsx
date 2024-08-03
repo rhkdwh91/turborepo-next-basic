@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@chakra-ui/react";
+import { Button } from "@ui/src/components/atom/Button";
 import { signIn } from "next-auth/react";
 
 export default function View() {

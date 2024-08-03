@@ -5,17 +5,6 @@ import { useRouter } from "next/navigation";
 import { Editor } from "kyz-editor";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
-import {
-  Divider,
-  Box,
-  Text,
-  Heading,
-  Stack,
-  Button,
-  Flex,
-  CircularProgress,
-  Tag,
-} from "@chakra-ui/react";
 import styles from "./page.module.css";
 import { useSession } from "next-auth/react";
 import CommentGroup from "components/ui/organism/CommentGroup";
@@ -67,52 +56,24 @@ function View({ uid }: ViewProps) {
 
   return (
     <main className={styles.layout}>
-      {isLoading && (
-        <Flex justifyContent="center" height="100vh" width="100%">
-          <CircularProgress
-            isIndeterminate
-            color="blue"
-            thickness="12px"
-            position="absolute"
-            top="50%"
-            left="50%"
-            transform={`translate(-50%, -50%)`}
-          />
-        </Flex>
-      )}
+      {isLoading && <div>로딩중</div>}
       {data && (
-        <Box position="relative" paddingY="10">
-          <Stack paddingY="2">
-            <Heading fontSize="3xl" paddingY="2">
-              {data.title}
-            </Heading>
-            <Box
-              display="flex"
-              justifyContent="flex-start"
-              alignItems="center"
-              flexWrap="wrap"
-              gap={2}
-            >
-              {data.tags?.map((tag) => <Tag key={tag.name}>{tag.value}</Tag>)}
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="flex-start"
-              alignItems="center"
-              flexWrap="wrap"
-              gap={1}
-              paddingY={2}
-            >
+        <div>
+          <div>
+            <h1 className="">{data.title}</h1>
+            <div className="flex">
+              {data.tags?.map((tag) => <span key={tag.name}>{tag.value}</span>)}
+            </div>
+            <div className="flex gap-1 border-b-1">
               <ProfileImage src={data.user?.profileImage} />
               {data.user?.username}
-            </Box>
-            <Text paddingX="2">{data.postView?.count ?? 0} Views</Text>
-            <Text paddingX="2">{data.updateAt}</Text>
-            <Divider padding={2} borderColor={"black"} width="inherit" />
-          </Stack>
+            </div>
+            <span>{data.postView?.count ?? 0} Views</span>
+            <span>{data.updateAt}</span>
+          </div>
 
           <Editor editable={false} initialEditorState={data.content} />
-        </Box>
+        </div>
       )}
       <CommentGroup>
         <CommentGroup.CommentTextButton />
@@ -124,10 +85,10 @@ function View({ uid }: ViewProps) {
                   {comment.user?.profileImage && (
                     <ProfileImage src={comment.user?.profileImage} />
                   )}
-                  <Text>{comment.user?.username}</Text>
+                  <span>{comment.user?.username}</span>
                 </div>
-                <Text>{comment.content}</Text>
-                <Text>{comment.createAt.split("T")[0]}</Text>
+                <span>{comment.content}</span>
+                <span>{comment.createAt.split("T")[0]}</span>
                 {comment.user?.username === session?.user?.username && (
                   <button onClick={() => handleClickDeleteComment(comment.uid)}>
                     delete
@@ -143,10 +104,10 @@ function View({ uid }: ViewProps) {
         </CommentGroup.CommentList>
       </CommentGroup>
       {session?.user?.level === 0 && (
-        <Flex gap={2}>
-          <Button onClick={handleClickModify}>Modify</Button>
-          <Button onClick={handleClickDeleteButton}>Delete</Button>
-        </Flex>
+        <div className="flex gap-1">
+          <button onClick={handleClickModify}>Modify</button>
+          <button onClick={handleClickDeleteButton}>Delete</button>
+        </div>
       )}
     </main>
   );

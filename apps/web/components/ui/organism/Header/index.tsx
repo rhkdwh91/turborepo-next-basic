@@ -1,6 +1,5 @@
 "use client";
 
-import { Box, Flex } from "@chakra-ui/react";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import LogoutButton from "components/ui/atom/LogoutButton";
@@ -14,23 +13,12 @@ interface HeaderProps {
 export default function Header({ session }: HeaderProps) {
   const { data, status } = useSession();
   return (
-    <Box bg="black">
-      <Box
-        color="white"
-        display={"flex"}
-        maxWidth={{ md: "100%", xl: 1160 }}
-        justifyContent="space-between"
-        alignItems="center"
-        flexWrap={"wrap"}
-        margin={"0 auto"}
-        gap={4}
-        boxSize={"border-box"}
-        padding={4}
-      >
+    <div className="bg-black text-white">
+      <div className="flex items-center justify-between max-w-6xl mx-auto py-10">
         <Link href={"/"} className="flux text-4xl">
           KLOG
         </Link>
-        <Flex alignItems={"center"} gap={"4"}>
+        <div>
           {(status !== "loading" ? data : session) ? (
             <>
               <Link href={"/my"} className={styles.link}>
@@ -58,8 +46,8 @@ export default function Header({ session }: HeaderProps) {
               SignIn
             </Link>
           )}
-        </Flex>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 }

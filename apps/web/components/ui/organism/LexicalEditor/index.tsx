@@ -1,5 +1,5 @@
 import styles from "@/app/(pages)/post/modify/[uid]/page.module.css";
-import { Box, Button, Input, Tag } from "@chakra-ui/react";
+import { Button } from "@ui/src/components/atom/Button";
 import { Editor, EditorState, initialState } from "kyz-editor";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useSavePostMutation } from "@/hooks/service/mutations/usePostMutation";
@@ -69,35 +69,14 @@ export default function LexicalEditor({ uid, data }: TextEditorProps) {
         onChange={handleImage}
         style={{ display: "none" }}
       />
-      <Input
-        placeholder="title"
-        size="lg"
-        marginY={4}
-        value={title}
-        onChange={handleChangeTitle}
-      />
-      <Box
-        display="flex"
-        justifyContent="flex-start"
-        alignItems="center"
-        flexWrap="wrap"
-        gap={2}
-      >
+      <input placeholder="title" value={title} onChange={handleChangeTitle} />
+      <div>
         {tags?.map((tag) => (
-          <Tag
-            key={tag.name}
-            cursor="pointer"
-            colorScheme={
-              formTags.find((formTags) => formTags.name === tag.name)
-                ? "teal"
-                : "gray"
-            }
-            onClick={() => handleClickTag(tag)}
-          >
+          <span key={tag.name} onClick={() => handleClickTag(tag)}>
             {tag.value}
-          </Tag>
+          </span>
         ))}
-      </Box>
+      </div>
       <Editor
         placeholder={
           <div className="editor-placeholder">Enter some rich text...</div>
@@ -107,7 +86,7 @@ export default function LexicalEditor({ uid, data }: TextEditorProps) {
         insertImage={insertImageEditor}
         editable
       />
-      <Button onClick={handleSubmit} isDisabled={savePostMutation.isPending}>
+      <Button onClick={handleSubmit} disabled={savePostMutation.isPending}>
         {uid ? "수정" : "생성"}
       </Button>
     </div>

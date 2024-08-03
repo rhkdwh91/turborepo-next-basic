@@ -3,14 +3,7 @@
 import { signIn } from "next-auth/react";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Button,
-  Flex,
-} from "@chakra-ui/react";
+import { Button } from "@ui/src/components/atom/Button";
 
 import useUserMutation from "@/hooks/service/mutations/useUserMutation";
 
@@ -67,22 +60,20 @@ export default function View() {
         <div className="wave"></div>
       </div>
       <div className={styles.layout}>
-        <FormLabel marginY={2}>
+        <label>
           <span className="flux">username</span>
-          <Input
-            pr="4.5rem"
+          <input
             color="white"
             placeholder="Enter username"
             name="username"
             onChange={handleChangeInput}
             value={form.username}
           />
-        </FormLabel>
-        <FormLabel marginY={2}>
+        </label>
+        <div>
           <span className="flux">password</span>
-          <InputGroup size="md">
-            <Input
-              pr="4.5rem"
+          <label>
+            <input
               color="white"
               type={show ? "text" : "password"}
               placeholder="Enter password"
@@ -90,14 +81,14 @@ export default function View() {
               onChange={handleChangeInput}
               value={form.password}
             />
-            <InputRightElement width="4.5rem">
-              <Button h="1.75rem" size="sm" onClick={handleClickPasswordShow}>
+            <span>
+              <Button size="sm" onClick={handleClickPasswordShow}>
                 {show ? "Hide" : "Show"}
               </Button>
-            </InputRightElement>
-          </InputGroup>
-        </FormLabel>
-        <Flex gap={5} marginY={4} justifyContent="flex-end" alignItems="center">
+            </span>
+          </label>
+        </div>
+        <div>
           <button className="flux" onClick={handleClickSignInGoogle}>
             Google
           </button>
@@ -115,7 +106,7 @@ export default function View() {
           >
             SignUp
           </Button>*/}
-        </Flex>
+        </div>
       </div>
     </main>
   );

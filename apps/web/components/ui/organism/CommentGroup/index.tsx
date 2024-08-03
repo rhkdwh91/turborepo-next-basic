@@ -1,6 +1,4 @@
 import React, { ReactNode } from "react";
-import { Box } from "@chakra-ui/react";
-
 import CommentTextButton from "components/ui/molecule/CommentTextButton";
 import CommentList from "components/ui/molecule/CommentList";
 
@@ -9,7 +7,7 @@ interface CommentGroupProps {
 }
 
 function CommentGroup({ children }: CommentGroupProps) {
-  return <Box marginBottom={4}>{children}</Box>;
+  return <div className="mb-4">{children}</div>;
 }
 
 export default Object.assign(CommentGroup, {

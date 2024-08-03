@@ -1,7 +1,7 @@
 "use client";
 
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
-import { Button } from "@chakra-ui/react";
+import { Button } from "@ui/src/components/atom/Button";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/queryKeys";
 import { useCallback } from "react";
@@ -106,12 +106,7 @@ export default function View() {
             maxLength={1500}
           />
           <div>{reasonWatch ? reasonWatch.length : 0} 자</div>
-          <Button
-            type="submit"
-            color="white"
-            bgColor="cornflowerblue"
-            className="float-right"
-          >
+          <Button type="submit" color="white" className="float-right">
             신청
           </Button>
         </form>

@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { Box } from "@chakra-ui/react";
 
 interface CommentItemProps {
   children: ReactNode;
@@ -7,16 +6,9 @@ interface CommentItemProps {
 
 function Item({ children }: CommentItemProps) {
   return (
-    <Box
-      display="flex"
-      flexWrap={"wrap"}
-      justifyContent="space-between"
-      alignItems="center"
-      borderBottom="solid 1px #ddd"
-      padding="20px 0"
-    >
+    <div className="flex flex-wrap space-between text-center border-solid border-gray-200 p-20">
       {children}
-    </Box>
+    </div>
   );
 }
 
@@ -25,11 +17,7 @@ interface CommentListProps {
 }
 
 function CommentList({ children }: CommentListProps) {
-  return (
-    <Box borderTop="solid 1px #ddd" marginY={10}>
-      {children}
-    </Box>
-  );
+  return <div className="border-solid border-gray-200">{children}</div>;
 }
 
 export default Object.assign(CommentList, {

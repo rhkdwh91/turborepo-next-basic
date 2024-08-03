@@ -1,4 +1,4 @@
-import { Button, Flex, Input } from "@chakra-ui/react";
+import { Button } from "@ui/src/components/atom/Button";
 import React, { ChangeEvent, useState, memo } from "react";
 import useCommentMutation from "@/hooks/service/mutations/useCommentMutation";
 import { useSession } from "next-auth/react";
@@ -28,14 +28,14 @@ export default memo(function CommentTextButton() {
     }
   };
   return (
-    <Flex gap={4} marginBottom={4}>
-      <Input
+    <div className="flex gap-4">
+      <input
         type="text"
         placeholder="your comment here."
         value={comment}
         onChange={handleChangeComment}
       />
       <Button onClick={handleClickSubmit}>submit</Button>
-    </Flex>
+    </div>
   );
 });
