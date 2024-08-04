@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Input } from "@ui/src/components/atom/Input";
 import { Button } from "@ui/src/components/atom/Button";
 
 import useUserMutation from "@/hooks/service/mutations/useUserMutation";
@@ -54,16 +55,11 @@ export default function View() {
   };*/
 
   return (
-    <main className={styles.main}>
-      <div className="ocean">
-        <div className="wave"></div>
-        <div className="wave"></div>
-      </div>
+    <main>
       <div className={styles.layout}>
         <label>
-          <span className="flux">username</span>
-          <input
-            color="white"
+          <span>username</span>
+          <Input
             placeholder="Enter username"
             name="username"
             onChange={handleChangeInput}
@@ -71,10 +67,9 @@ export default function View() {
           />
         </label>
         <div>
-          <span className="flux">password</span>
+          <span>password</span>
           <label>
-            <input
-              color="white"
+            <Input
               type={show ? "text" : "password"}
               placeholder="Enter password"
               name="password"
@@ -82,23 +77,27 @@ export default function View() {
               value={form.password}
             />
             <span>
-              <Button size="sm" onClick={handleClickPasswordShow}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleClickPasswordShow}
+              >
                 {show ? "Hide" : "Show"}
               </Button>
             </span>
           </label>
         </div>
         <div>
-          <button className="flux" onClick={handleClickSignInGoogle}>
+          <Button variant="outline" onClick={handleClickSignInGoogle}>
             Google
-          </button>
-          <button
-            className="neon"
+          </Button>
+          <Button
+            variant="outline"
             onClick={handleClickSignIn}
             disabled={signInUserMutation.isPending}
           >
             SignIn
-          </button>
+          </Button>
           {/*
           <Button
             onClick={handleClickSignUp}
