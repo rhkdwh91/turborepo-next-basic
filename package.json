@@ -2,10 +2,11 @@
   "name": "my-turborepo",
   "private": true,
   "scripts": {
-    "build": "turbo build",
+    "build": "git submodule update --recursive --remote && turbo build --filter web",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\",",
+    "vercel-install": "./vercel-submodule-workaround.sh && pnpm --ignore-scripts --production=false"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
