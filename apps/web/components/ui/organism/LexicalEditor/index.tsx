@@ -1,5 +1,6 @@
 import styles from "@/app/(pages)/post/modify/[uid]/page.module.css";
 import { Button } from "@ui/src/components/atom/Button";
+import { Input } from "@ui/src/components/atom/Input";
 import { Editor, EditorState, initialState } from "kyz-editor";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useSavePostMutation } from "@/hooks/service/mutations/usePostMutation";
@@ -61,7 +62,7 @@ export default function LexicalEditor({ uid, data }: TextEditorProps) {
   };
   return (
     <div className={styles.layout}>
-      <input
+      <Input
         ref={fileRef}
         type="file"
         name="user_file"
@@ -69,7 +70,7 @@ export default function LexicalEditor({ uid, data }: TextEditorProps) {
         onChange={handleImage}
         style={{ display: "none" }}
       />
-      <input placeholder="title" value={title} onChange={handleChangeTitle} />
+      <Input placeholder="title" value={title} onChange={handleChangeTitle} />
       <div>
         {tags?.map((tag) => (
           <span key={tag.name} onClick={() => handleClickTag(tag)}>
