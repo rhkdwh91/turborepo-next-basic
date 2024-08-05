@@ -74,6 +74,7 @@ export default function View() {
           </Button>
           {tags?.map((tag) => (
             <Button
+              key={tag.value}
               variant="outline"
               className="text-white"
               onClick={() => handleClickTag(tag.name)}
