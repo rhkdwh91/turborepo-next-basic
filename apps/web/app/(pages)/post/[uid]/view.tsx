@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Editor } from "kyz-editor";
 import { useQuery } from "@tanstack/react-query";
+import dayjs from "dayjs";
 import { queryKeys } from "queryKeys";
 import styles from "./page.module.css";
 import { useSession } from "next-auth/react";
@@ -60,16 +61,18 @@ function View({ uid }: ViewProps) {
       {data && (
         <div>
           <div>
-            <h1 className="">{data.title}</h1>
-            <div className="flex">
+            <h1 className="text-white my-3">{data.title}</h1>
+            <div className="flex gap-2">
               {data.tags?.map((tag) => <span key={tag.name}>{tag.value}</span>)}
             </div>
-            <div className="flex gap-1 border-b-1">
+            <div className="flex gap-1 my-2 items-center">
               <ProfileImage src={data.user?.profileImage} />
               {data.user?.username}
             </div>
-            <span>{data.postView?.count ?? 0} Views</span>
-            <span>{data.updateAt}</span>
+            <span className="mr-2">{data.postView?.count ?? 0} Views</span>
+            <span>
+              uploadAt, {dayjs(data.updateAt).format("YYYY-MM-DD hh:mm:ss")}
+            </span>
           </div>
 
           <Editor editable={false} initialEditorState={data.content} />

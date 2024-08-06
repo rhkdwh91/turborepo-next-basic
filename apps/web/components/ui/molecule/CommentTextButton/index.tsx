@@ -1,4 +1,5 @@
 import { Button } from "@ui/src/components/atom/Button";
+import { Input } from "@ui/src/components/atom/Input";
 import React, { ChangeEvent, useState, memo } from "react";
 import useCommentMutation from "@/hooks/service/mutations/useCommentMutation";
 import { useSession } from "next-auth/react";
@@ -29,13 +30,15 @@ export default memo(function CommentTextButton() {
   };
   return (
     <div className="flex gap-4">
-      <input
+      <Input
         type="text"
         placeholder="your comment here."
         value={comment}
         onChange={handleChangeComment}
       />
-      <Button onClick={handleClickSubmit}>submit</Button>
+      <Button variant="default" onClick={handleClickSubmit}>
+        submit
+      </Button>
     </div>
   );
 });
