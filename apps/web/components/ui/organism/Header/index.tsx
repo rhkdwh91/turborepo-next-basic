@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./styles.module.css";
 import LogoutButton from "components/ui/atom/LogoutButton";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
@@ -21,21 +20,27 @@ export default function Header({ session }: HeaderProps) {
         <div>
           {(status !== "loading" ? data : session) ? (
             <>
-              <Link href={"/my"} className={styles.link}>
+              <Link href={"/my"} className="p-2 editor-text-underline">
                 My
               </Link>
               {data?.user?.level && data.user.level === 3 && (
-                <Link href={"/application"} className={styles.link}>
+                <Link
+                  href={"/application"}
+                  className="p-2 editor-text-underline"
+                >
                   Application
                 </Link>
               )}
               {data?.user?.level && data.user.level <= 2 && (
-                <Link href={"/post/write"} className={styles.link}>
+                <Link
+                  href={"/post/write"}
+                  className="p-2 editor-text-underline"
+                >
                   Write
                 </Link>
               )}
               {data?.user?.level && data.user.level <= 1 && (
-                <Link href={"/admin"} className={styles.link}>
+                <Link href={"/admin"} className="p-2 editor-text-underline">
                   Admin
                 </Link>
               )}

@@ -4,7 +4,6 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useSearchParams, useRouter } from "next/navigation";
 import { queryKeys } from "queryKeys";
 import { Post } from "types/post";
-import styles from "./page.module.css";
 import useInfiniteScroll from "hooks/useInfiniteScroll";
 
 import PostCard from "components/ui/organism/PostCard";
@@ -62,8 +61,8 @@ export default function View() {
   };
 
   return (
-    <main className={styles.main}>
-      <div className={styles.layout}>
+    <div>
+      <div>
         <div className="flex gap-4 mb-6">
           <Button
             variant="outline"
@@ -94,6 +93,6 @@ export default function View() {
           )}
         </div>
       </div>
-    </main>
+    </div>
   );
 }
