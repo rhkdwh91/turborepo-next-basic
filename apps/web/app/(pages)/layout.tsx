@@ -10,8 +10,7 @@ import Footer from "components/ui/organism/Footer";
 import { getServerSession } from "next-auth";
 import authOptions from "auth.config";
 
-import GlobalStyles from "@/styles/GlobalStyles";
-import StyledComponentsRegistry from "lib/registry";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "Cho's BLOG",
@@ -27,27 +26,24 @@ export default async function RootLayout({
   return (
     <html>
       <body className="font-PretendardRegular">
-        <StyledComponentsRegistry>
-          <GlobalStyles />
-          <SessionProvider>
-            <ReactQueryProvider>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="dark"
-                enableSystem
-                disableTransitionOnChange
-              >
-                <ToastProvider>
-                  <Header session={session} />
-                  {children}
-                  <Footer />
-                </ToastProvider>
-              </ThemeProvider>
-            </ReactQueryProvider>
-          </SessionProvider>
-          <SpeedInsights />
-          <div id={"modal-root"} />
-        </StyledComponentsRegistry>
+        <SessionProvider>
+          <ReactQueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <ToastProvider>
+                <Header session={session} />
+                {children}
+                <Footer />
+              </ToastProvider>
+            </ThemeProvider>
+          </ReactQueryProvider>
+        </SessionProvider>
+        <SpeedInsights />
+        <div id={"modal-root"} />
       </body>
     </html>
   );

@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
-import withTwin from './withTwin.mjs'
 
-export default withTwin({
+export default {
   transpilePackages: ["@repo/ui", "@repo/tailwind-config"],
   eslint: {
     ignoreDuringBuilds: true,
@@ -9,4 +8,4 @@ export default withTwin({
   compiler: {
     styledComponents: true,
   }
-});
+};

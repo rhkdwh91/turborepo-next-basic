@@ -61,9 +61,9 @@ export default function View() {
   };
 
   return (
-    <div>
-      <div>
-        <div className="flex gap-4 mb-6">
+    <div className="min-h-screen">
+      <div className="max-w-6xl mx-auto pb-20">
+        <div className="flex gap-4 my-6">
           <Button
             variant="outline"
             className="text-white"
@@ -74,7 +74,9 @@ export default function View() {
           {tags?.map((tag) => (
             <Button
               key={tag.value}
-              variant="outline"
+              variant={
+                searchTags.includes(tag.value) ? "destructive" : "outline"
+              }
               className="text-white"
               onClick={() => handleClickTag(tag.name)}
             >
