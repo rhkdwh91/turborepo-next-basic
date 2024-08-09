@@ -55,20 +55,21 @@ export default function View() {
   };*/
 
   return (
-    <main>
-      <div className={styles.layout}>
-        <label>
+    <main className="max-w-6xl mx-auto h-[calc(100vh-230px)]">
+      <div className="flex items-center gap-4 flex-col w-2xl absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <label className="w-52">
           <span>username</span>
           <Input
+            className="w-[100%]"
             placeholder="Enter username"
             name="username"
             onChange={handleChangeInput}
             value={form.username}
           />
         </label>
-        <div>
+        <label className="w-52">
           <span>password</span>
-          <label>
+          <div className="flex items-center gap-2">
             <Input
               type={show ? "text" : "password"}
               placeholder="Enter password"
@@ -85,9 +86,9 @@ export default function View() {
                 {show ? "Hide" : "Show"}
               </Button>
             </span>
-          </label>
-        </div>
-        <div>
+          </div>
+        </label>
+        <div className="w-52 flex items-center gap-2 justify-end">
           <Button variant="outline" onClick={handleClickSignInGoogle}>
             Google
           </Button>
