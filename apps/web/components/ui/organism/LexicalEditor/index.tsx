@@ -11,6 +11,7 @@ import { Post } from "types/post";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/queryKeys";
+import clsx from "clsx";
 
 interface TextEditorProps {
   uid?: number;
@@ -60,6 +61,8 @@ export default function LexicalEditor({ uid, data }: TextEditorProps) {
       });
     }
   };
+
+  console.log(formTags);
   return (
     <div className={styles.layout}>
       <Input
@@ -71,9 +74,20 @@ export default function LexicalEditor({ uid, data }: TextEditorProps) {
         style={{ display: "none" }}
       />
       <Input placeholder="title" value={title} onChange={handleChangeTitle} />
-      <div>
+      <div className="flex justify-center gap-2 flex-nowrap mt-4">
         {tags?.map((tag) => (
-          <span key={tag.name} onClick={() => handleClickTag(tag)}>
+          <span
+            className={clsx(
+              "border-2 border-zinc-800 border-solid py-1 px-2 rounded cursor-pointer",
+              {
+                "bg-rose-900": formTags.find(
+                  (formTag) => formTag.value === tag.value,
+                ),
+              },
+            )}
+            key={tag.name}
+            onClick={() => handleClickTag(tag)}
+          >
             {tag.value}
           </span>
         ))}

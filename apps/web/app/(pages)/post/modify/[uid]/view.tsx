@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "./page.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import { redirect } from "next/navigation";
@@ -20,7 +19,7 @@ export default function View({ uid }: ViewProps) {
   }
 
   return (
-    <main className={styles.main}>
+    <main>
       <LexicalEditor uid={uid} data={data} />
     </main>
   );
