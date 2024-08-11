@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "git submodule update --recursive --remote && turbo build --filter web",
-    "dev": "turbo dev",
+    "dev": "turbo --filter web dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\","
   },
