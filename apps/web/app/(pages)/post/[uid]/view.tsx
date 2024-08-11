@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import CommentGroup from "components/ui/organism/CommentGroup";
 import { useDeletePostMutation } from "hooks/service/mutations/usePostMutation";
 import useCommentMutation from "hooks/service/mutations/useCommentMutation";
+import { Button } from "@repo/ui/components/atom/Button";
 
 import { confirmModal } from "@repo/ui/components/organism/ConfirmModal";
 import ProfileImage from "@ui/src/components/atom/ProfileImage";
@@ -84,19 +85,24 @@ function View({ uid }: ViewProps) {
           {data && data.comments.length > 0 ? (
             data.comments.map((comment) => (
               <CommentGroup.CommentList.Item key={comment.uid}>
-                <div className="flex items-center">
+                <div className="flex items-center w-1/6">
                   {comment.user?.profileImage && (
                     <ProfileImage src={comment.user?.profileImage} />
                   )}
                   <span>{comment.user?.username}</span>
                 </div>
-                <span>{comment.content}</span>
-                <span>{comment.createAt.split("T")[0]}</span>
-                {comment.user?.username === session?.user?.username && (
-                  <button onClick={() => handleClickDeleteComment(comment.uid)}>
-                    delete
-                  </button>
-                )}
+                <span className="w-2/3 text-left px-4">{comment.content}</span>
+                <div className="w-1/6 flex flex-col gap-4">
+                  <span>{comment.createAt.split("T")[0]}</span>
+                  {comment.user?.username === session?.user?.username && (
+                    <Button
+                      variant="outline"
+                      onClick={() => handleClickDeleteComment(comment.uid)}
+                    >
+                      delete
+                    </Button>
+                  )}
+                </div>
               </CommentGroup.CommentList.Item>
             ))
           ) : (
@@ -106,10 +112,14 @@ function View({ uid }: ViewProps) {
           )}
         </CommentGroup.CommentList>
       </CommentGroup>
-      {session?.user?.level === 0 && (
-        <div className="flex gap-1">
-          <button onClick={handleClickModify}>Modify</button>
-          <button onClick={handleClickDeleteButton}>Delete</button>
+      {session?.user?.level === 1 && (
+        <div className="flex justify-end gap-4 pt-10">
+          <Button variant="secondary" onClick={handleClickModify}>
+            Modify
+          </Button>
+          <Button variant="destructive" onClick={handleClickDeleteButton}>
+            Delete
+          </Button>
         </div>
       )}
     </main>

@@ -6,7 +6,7 @@ interface CommentItemProps {
 
 function Item({ children }: CommentItemProps) {
   return (
-    <div className="flex flex-wrap space-between text-center border-solid border-gray-200 p-20">
+    <div className="flex flex-wrap text-center border-b  border-zinc-700 border-solid py-5 justify-start w-full items-center">
       {children}
     </div>
   );
@@ -17,7 +17,7 @@ interface CommentListProps {
 }
 
 function CommentList({ children }: CommentListProps) {
-  return <div className="border-solid border-gray-200">{children}</div>;
+  return <div className="border-solid border-gray-200 w-full">{children}</div>;
 }
 
 export default Object.assign(CommentList, {
