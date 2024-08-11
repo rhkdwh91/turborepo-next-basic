@@ -2,12 +2,6 @@
   "name": "web",
   "version": "1.0.0",
   "private": true,
-  "babelMacros": {
-    "twin": {
-      "config": "tailwind.config.js",
-      "preset": "styled-components"
-    }
-  },
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
