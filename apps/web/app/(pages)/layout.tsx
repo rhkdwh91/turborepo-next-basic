@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ReactQueryProvider from "@repo/ui/providers/ReactQueryProvider";
-import SessionProvider from "@repo/ui/providers/SessionProvider";
+import SessionProvider from "providers/SessionProvider";
 import ToastProvider from "@repo/ui/providers/ToastProvider";
 import ThemeProvider from "providers/ThemeProvider";
 import Header from "components/ui/organism/Header";

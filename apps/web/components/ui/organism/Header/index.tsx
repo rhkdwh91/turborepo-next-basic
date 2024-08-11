@@ -12,12 +12,16 @@ interface HeaderProps {
 export default function Header({ session }: HeaderProps) {
   const { data, status } = useSession();
   return (
-    <div className="bg-black text-white">
-      <div className="flex items-center justify-between max-w-6xl mx-auto py-10">
-        <Link href={"/"} className="flux text-4xl">
-          KLOG
+    <div className="text-white">
+      <div className="flex items-center justify-between max-w-6xl mx-auto py-3">
+        <Link href={"/"} className="text-2xl">
+          <img
+            width={80}
+            src="https://bucket-9gqcvu.s3.ap-northeast-2.amazonaws.com/klog/logo_simple.png"
+            alt={"logo"}
+          />
         </Link>
-        <div>
+        <div className="flex items-center justify-between gap-4">
           {(status !== "loading" ? data : session) ? (
             <>
               <Link href={"/my"} className="p-2 editor-text-underline">
@@ -47,9 +51,7 @@ export default function Header({ session }: HeaderProps) {
               <LogoutButton />
             </>
           ) : (
-            <Link href={"/sign-in"} className="neon  text-3xl">
-              SignIn
-            </Link>
+            <Link href={"/sign-in"}>Sign In</Link>
           )}
         </div>
       </div>
