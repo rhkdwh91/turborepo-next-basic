@@ -9,5 +9,9 @@ export default function LogoutButton() {
     await signOut();
   }, []);
 
-  return <Button onClick={handleClickLogout}>Logout</Button>;
+  return (
+    <Button variant="ghost" onClick={handleClickLogout}>
+      Logout
+    </Button>
+  );
 }
