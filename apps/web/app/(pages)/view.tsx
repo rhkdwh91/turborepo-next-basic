@@ -8,6 +8,7 @@ import useInfiniteScroll from "hooks/useInfiniteScroll";
 
 import PostCard from "components/ui/organism/PostCard";
 import { Button } from "@ui/src/components/atom/Button";
+import { Skeleton } from "@ui/src/components/atom/Skeleton";
 
 function createTagArray(searchTags: string[] | string) {
   if (Array.isArray(searchTags)) {
@@ -90,7 +91,8 @@ export default function View() {
           )}
           {!isFetchingNextPage && hasNextPage && (
             <div ref={lastElementRef} className="w-full h-2">
-              FETCH
+              <Skeleton className="h-[230px] w-[250px] rounded-xl" />
+              <Skeleton className="h-[230px] w-[400px] rounded-xl" />
             </div>
           )}
         </div>
