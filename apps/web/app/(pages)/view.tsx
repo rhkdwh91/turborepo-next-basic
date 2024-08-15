@@ -98,8 +98,8 @@ export default function View() {
               <Skeleton className="h-[230px] w-[400px] rounded-xl" />
               <Skeleton className="h-[230px] w-[300px] rounded-xl" />
               <Skeleton className="h-[230px] w-[250px] rounded-xl" />
-              <Skeleton className="h-[230px] w-[400px] rounded-xl" />
-              <Skeleton className="h-[230px] w-[300px] rounded-xl" />
+              <Skeleton className="h-[230px] w-[320px] rounded-xl" />
+              <Skeleton className="h-[230px] w-[200px] rounded-xl" />
             </>
           )}
         </div>
