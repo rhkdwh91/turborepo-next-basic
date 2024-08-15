@@ -90,10 +90,17 @@ export default function View() {
             page?.map((post) => <PostCard post={post} key={post.uid} />),
           )}
           {!isFetchingNextPage && hasNextPage && (
-            <div ref={lastElementRef} className="w-full h-2">
+            <div ref={lastElementRef} className="w-full h-2" />
+          )}
+          {hasNextPage && (
+            <>
               <Skeleton className="h-[230px] w-[250px] rounded-xl" />
               <Skeleton className="h-[230px] w-[400px] rounded-xl" />
-            </div>
+              <Skeleton className="h-[230px] w-[300px] rounded-xl" />
+              <Skeleton className="h-[230px] w-[250px] rounded-xl" />
+              <Skeleton className="h-[230px] w-[400px] rounded-xl" />
+              <Skeleton className="h-[230px] w-[300px] rounded-xl" />
+            </>
           )}
         </div>
       </div>
