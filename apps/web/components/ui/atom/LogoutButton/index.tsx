@@ -1,10 +1,10 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, memo } from "react";
 import { Button } from "@ui/src/components/atom/Button";
 import { signOut } from "next-auth/react";
 
-export default function LogoutButton() {
+export default memo(function LogoutButton() {
   const handleClickLogout = useCallback(async () => {
     await signOut();
   }, []);
@@ -14,4 +14,4 @@ export default function LogoutButton() {
       Logout
     </Button>
   );
-}
+});
