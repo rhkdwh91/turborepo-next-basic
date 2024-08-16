@@ -64,7 +64,7 @@ export default function View() {
   return (
     <div className="min-h-screen">
       <div className="max-w-6xl mx-auto pb-20">
-        <div className="flex gap-4 my-6">
+        <div className="flex flex-wrap gap-4 my-6">
           <Button
             variant="outline"
             className="text-white"
