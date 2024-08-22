@@ -25,7 +25,7 @@
     "dayjs": "^1.11.12",
     "jose": "^5.2.4",
     "kyz-editor": "workspace:*",
-    "kyz-toast": "^0.2.2",
+    "kyz-toast": "workspace:*",
     "lodash": "^4.17.21",
     "lucide-react": "^0.418.0",
     "next": "^14.1.1",
