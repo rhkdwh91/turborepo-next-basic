@@ -8,7 +8,7 @@ import useInfiniteScroll from "hooks/useInfiniteScroll";
 
 import PostCard from "components/ui/organism/PostCard";
 import { Button } from "@ui/src/components/atom/Button";
-import { Skeleton } from "@ui/src/components/atom/Skeleton";
+import PostsSkeleton from "@/components/ui/skeleton/PostsSkeleton";
 
 function createTagArray(searchTags: string[] | string) {
   if (Array.isArray(searchTags)) {
@@ -23,7 +23,7 @@ export default function View() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchTags = searchParams.getAll("tag");
-  const { data, isFetchingNextPage, hasNextPage, fetchNextPage } =
+  const { data, isFetchingNextPage, hasNextPage, fetchNextPage, isLoading } =
     useInfiniteQuery<Post[]>({
       ...queryKeys.infinityPosts.list({
         tag: createTagArray(searchTags),
@@ -92,15 +92,8 @@ export default function View() {
           {!isFetchingNextPage && hasNextPage && (
             <div ref={lastElementRef} className="w-full h-2" />
           )}
-          {hasNextPage && (
-            <>
-              <Skeleton className="h-[230px] w-[250px] rounded-xl" />
-              <Skeleton className="h-[230px] w-[400px] rounded-xl" />
-              <Skeleton className="h-[230px] w-[300px] rounded-xl" />
-              <Skeleton className="h-[230px] w-[250px] rounded-xl" />
-              <Skeleton className="h-[230px] w-[320px] rounded-xl" />
-              <Skeleton className="h-[230px] w-[200px] rounded-xl" />
-            </>
+          {(hasNextPage || isFetchingNextPage || isLoading) && (
+            <PostsSkeleton />
           )}
         </div>
       </div>
