@@ -5,6 +5,40 @@ import { cloneDeep } from "lodash";
 import authCheck from "@/utils/authCheck";
 import { errorHandler } from "@/utils/apiErrorHandler";
 
+const getPosts = async (payload: {
+  take: string | null;
+  skip: string | null;
+  tags: string[];
+  username: string | null;
+}) => {
+  const { take, skip, tags, username } = payload;
+  return prisma.post.findMany({
+    take: take && !Number.isNaN(Number(take)) ? Number(take) : 20,
+    skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
+    include: {
+      user: true,
+      postView: true,
+    },
+    where: {
+      OR:
+        tags.length > 0
+          ? tags.map((tag) => ({
+              tags: {
+                path: "$[*].name",
+                array_contains: tag,
+              },
+            }))
+          : undefined,
+      user: {
+        username: username ? username : undefined,
+      },
+    },
+    orderBy: {
+      uid: "desc",
+    },
+  });
+};
+
 export async function GET(req: NextRequest) {
   try {
     const searchParams = req.nextUrl.searchParams;
@@ -12,31 +46,7 @@ export async function GET(req: NextRequest) {
     const take = searchParams.get("take");
     const skip = searchParams.get("skip");
     const username = searchParams.get("username");
-    const posts = await prisma.post.findMany({
-      take: take && !Number.isNaN(Number(take)) ? Number(take) : 20,
-      skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
-      include: {
-        user: true,
-        postView: true,
-      },
-      where: {
-        OR:
-          tags.length > 0
-            ? tags.map((tag) => ({
-                tags: {
-                  path: "$[*].name",
-                  array_contains: tag,
-                },
-              }))
-            : undefined,
-        user: {
-          username: username ? username : undefined,
-        },
-      },
-      orderBy: {
-        uid: "desc",
-      },
-    });
+    const posts = await getPosts({ tags, take, skip, username });
     return NextResponse.json(posts, { status: 200 });
   } catch (error) {
     console.error(error);
