@@ -1,6 +1,7 @@
 import { signJWT, verifyRefreshToken } from "utils/signJWT";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "prisma/client";
+import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,6 +27,7 @@ export async function POST(req: NextRequest) {
         username: username,
       },
     });
+    console.log(user, "SERVER");
     if (!user) {
       return NextResponse.json({ message: "not user" }, { status: 403 });
     }
@@ -52,8 +54,13 @@ export async function POST(req: NextRequest) {
         status: 201,
       },
     );
-  } catch (error) {
-    console.log(error);
-    return NextResponse.json({ message: error }, { status: 500 });
+  } catch (error: any) {
+    if (error?.code === "ERR_JWT_EXPIRED") {
+      return NextResponse.json(
+        { message: "expired refresh token" },
+        { status: 403 },
+      );
+    }
+    return errorHandler(error);
   }
 }
