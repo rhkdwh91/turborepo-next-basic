@@ -10,7 +10,7 @@ export default memo(function LogoutButton() {
   }, []);
 
   return (
-    <Button variant="ghost" onClick={handleClickLogout}>
+    <Button variant="outline" onClick={handleClickLogout}>
       Logout
     </Button>
   );
