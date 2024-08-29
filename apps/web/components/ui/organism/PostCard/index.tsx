@@ -30,10 +30,6 @@ export default function PostCard({ post }: PostCardProps) {
     return "";
   }, [post]);
 
-  const createAt = useMemo(() => {
-    return post.createAt.split("T")[0];
-  }, [post]);
-
   const handleClickPost = (
     e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>,
   ) => {
@@ -72,7 +68,7 @@ export default function PostCard({ post }: PostCardProps) {
           </div>
           <div className="flex items-center gap-6 justify-between mt-5 pt-5 border-t border-gray-700 w-full">
             <span>{post.postView?.count ?? 0} Views</span>
-            <span>{dayjs(createAt).format("YYYY-MM-DD")} createdAt</span>
+            <span>{dayjs(post.createAt).format("YYYY-MM-DD")} createdAt</span>
           </div>
         </div>
       </CardFooter>
