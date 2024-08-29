@@ -99,8 +99,13 @@ export default function LexicalEditor({ uid, data }: TextEditorProps) {
         insertImage={insertImageEditor}
         editable
       />
-      <Button onClick={handleSubmit} disabled={savePostMutation.isPending}>
-        {uid ? "수정" : "생성"}
+      <Button
+        variant="secondary"
+        color="primary"
+        onClick={handleSubmit}
+        disabled={savePostMutation.isPending}
+      >
+        {uid ? "수정" : "신규 등록"}
       </Button>
     </div>
   );

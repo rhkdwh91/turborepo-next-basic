@@ -10,12 +10,13 @@ import { useRouter } from "next/navigation";
 import { MouseEvent, useMemo } from "react";
 import { Post } from "@/types/post";
 import ProfileImage from "@ui/src/components/atom/ProfileImage";
+import dayjs from "dayjs";
 
 interface PostCardProps {
   post: Post;
 }
 
-export default function Index({ post }: PostCardProps) {
+export default function PostCard({ post }: PostCardProps) {
   const router = useRouter();
   const content = useMemo(() => {
     const parseContent = JSON.parse(post.content);
@@ -61,7 +62,7 @@ export default function Index({ post }: PostCardProps) {
         </p>
       </CardContent>
       <CardFooter>
-        <p>
+        <div className="w-full">
           <div
             className="flex items-center"
             onClick={(e) => handleClickProfile(e, post.user?.username)}
@@ -69,9 +70,11 @@ export default function Index({ post }: PostCardProps) {
             <ProfileImage src={post.user?.profileImage ?? ""} />
             <span>{post.user?.username}</span>
           </div>
-          <span>{post.postView?.count ?? 0} Views</span>
-          <span>{createAt} createdAt</span>
-        </p>
+          <div className="flex items-center gap-6 justify-between mt-5 pt-5 border-t border-gray-700 w-full">
+            <span>{post.postView?.count ?? 0} Views</span>
+            <span>{dayjs(createAt).format("YYYY-MM-DD")} createdAt</span>
+          </div>
+        </div>
       </CardFooter>
     </Card>
   );
