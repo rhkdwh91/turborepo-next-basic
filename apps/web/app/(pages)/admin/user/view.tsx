@@ -6,10 +6,21 @@ import { useUserLevelMutation } from "@/hooks/service/mutations/useUserMutation"
 import { useCallback, useState } from "react";
 import { queryKeys } from "@/queryKeys";
 import { ErrorMessage } from "@hookform/error-message";
+import { Button } from "@ui/src/components/atom/Button";
+import { Input } from "@ui/src/components/atom/Input";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+  CardContent,
+} from "@ui/src/components/organism/Card";
+import ProfileImage from "@ui/src/components/atom/ProfileImage";
 
 interface UserModifyFormProps {
   uid: number;
-  handleClickModifyMode: (value: boolean) => void;
+  handleClickModifyMode: (uid: number | null) => void;
 }
 
 function UserModifyForm({ uid, handleClickModifyMode }: UserModifyFormProps) {
@@ -33,7 +44,7 @@ function UserModifyForm({ uid, handleClickModifyMode }: UserModifyFormProps) {
               await queryClient.refetchQueries({
                 queryKey: queryKeys.user.list().queryKey,
               });
-              handleClickModifyMode(false);
+              handleClickModifyMode(null);
             },
           },
         );
@@ -43,12 +54,14 @@ function UserModifyForm({ uid, handleClickModifyMode }: UserModifyFormProps) {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(handleSubmitModify)}>
-        <input
+      <form
+        onSubmit={handleSubmit(handleSubmitModify)}
+        className="flex flex-col gap-4"
+      >
+        <Input
           {...register("level", { required: "This is required." })}
           type="text"
           placeholder="please enter a level"
-          className="border-2 border-gray-400 block rounded py-2 px-4"
           onChange={(e) => (e.target.value = e.target.value.replace(/\D/g, ""))}
         />
         <ErrorMessage
@@ -59,19 +72,14 @@ function UserModifyForm({ uid, handleClickModifyMode }: UserModifyFormProps) {
           )}
         />
 
-        <div>
-          <button
-            type="submit"
-            className="border-2 py-1 px-4 rounded-full bg-sky-600 mx-2 text-white cursor-pointer hover:bg-sky-700"
-          >
-            확인
-          </button>
-          <button
-            className="border-2 py-1 px-4 rounded-full bg-sky-600 mx-2 text-white cursor-pointer hover:bg-sky-700"
-            onClick={() => handleClickModifyMode(false)}
+        <div className="flex gap-4">
+          <Button type="submit">확인</Button>
+          <Button
+            variant="destructive"
+            onClick={() => handleClickModifyMode(null)}
           >
             취소
-          </button>
+          </Button>
         </div>
       </form>
     </FormProvider>
@@ -79,49 +87,63 @@ function UserModifyForm({ uid, handleClickModifyMode }: UserModifyFormProps) {
 }
 
 export default function View() {
-  const [isModify, setIsModify] = useState<boolean>(false);
+  const [modifyNumber, setIsModifyNumber] = useState<null | number>(null);
   const { data: users } = useQuery({ ...queryKeys.user.list() });
 
-  const handleClickModifyMode = useCallback((modify: boolean) => {
-    setIsModify(modify);
+  const handleClickModifyMode = useCallback((uid: number | null) => {
+    setIsModifyNumber(uid);
   }, []);
 
   return (
     <main className="px-2.5 py-10 max-w-6xl lg:max-w-6xl mx-auto">
-      <h2 className="text-2xl font-bold">계정 관리</h2>
+      <h1 className="text-3xl font-bold mb-10">계정 관리</h1>
 
-      <article className="my-2 p-5">
-        <h3 className="text-xl font-bold">유저 리스트</h3>
-        {users?.map((user) => (
-          <div
-            key={user.username}
-            className="m-2 border-2 border-gray-500 bg-white p-4 inline-block text-black rounded"
-          >
-            <p>email: {user.email}</p>
-            <p>username: {user.username}</p>
-            <p>
-              level:
-              {isModify ? (
-                <UserModifyForm
-                  uid={user.uid}
-                  handleClickModifyMode={handleClickModifyMode}
-                />
-              ) : (
-                <>
-                  {user.level}
-                  <div>
-                    <button
-                      className="border-2 py-1 px-4 rounded-full bg-sky-600 mx-2 text-white cursor-pointer hover:bg-sky-700"
-                      onClick={() => handleClickModifyMode(true)}
-                    >
-                      수정
-                    </button>
-                  </div>
-                </>
-              )}
-            </p>
-          </div>
-        ))}
+      <article className="my-2">
+        <h2 className="text-2xl font-bold mb-4">유저 리스트</h2>
+        <section className="flex flex-wrap gap-4">
+          {users?.map((user) => (
+            <Card key={user.username} className="min-w-[320px]">
+              <CardHeader>
+                <CardTitle className="flex gap-2 items-center">
+                  <ProfileImage
+                    src={user.profileImage}
+                    width={30}
+                    height={30}
+                  />
+                  {user.username}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  <p>email: {user.email}</p>
+                </CardDescription>
+              </CardContent>
+              <CardFooter>
+                <p className="flex gap-4 items-center">
+                  level:
+                  {modifyNumber === user.uid ? (
+                    <UserModifyForm
+                      uid={user.uid}
+                      handleClickModifyMode={handleClickModifyMode}
+                    />
+                  ) : (
+                    <>
+                      {user.level}
+                      <div>
+                        <Button
+                          variant="secondary"
+                          onClick={() => handleClickModifyMode(user.uid)}
+                        >
+                          수정
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                </p>
+              </CardFooter>
+            </Card>
+          ))}
+        </section>
       </article>
     </main>
   );
