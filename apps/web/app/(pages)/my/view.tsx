@@ -1,13 +1,20 @@
 "use client";
 
 import styles from "./page.module.css";
+import { useRouter } from "next/navigation";
 import { Button } from "@ui/src/components/atom/Button";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import ProfileImage from "@ui/src/components/atom/ProfileImage";
+import { useCallback } from "react";
 
 export default function View() {
+  const router = useRouter();
   const { data } = useQuery(queryKeys.profile.detail());
+
+  const onClickApplicationButton = useCallback(() => {
+    router.push("/application");
+  }, []);
 
   return (
     <main className={styles.main}>
@@ -23,7 +30,7 @@ export default function View() {
             </p>
             <p>email: {data.email}</p>
             <p>username: {data.username}</p>
-            <Button>작가 신청</Button>
+            <Button onClick={onClickApplicationButton}>작가 신청</Button>
           </div>
         )}
       </div>

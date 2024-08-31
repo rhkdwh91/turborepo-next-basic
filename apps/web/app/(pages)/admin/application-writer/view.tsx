@@ -8,6 +8,7 @@ import {
   useAcceptWriterApplication,
   useRejectWriterApplication,
 } from "@/hooks/service/mutations/useWriterApplication";
+import { Button } from "@ui/src/components/atom/Button";
 
 export default function View() {
   const { data: applications, refetch } = useQuery(
@@ -55,46 +56,51 @@ export default function View() {
       <h2 className="text-2xl font-bold">작가 신청 관리</h2>
       {applications &&
         applications.map((application) => (
-          <div key={application.uid}>
+          <div
+            key={application.uid}
+            className="my-8 border-t border-b py-4 flex flex-col gap-2"
+          >
             <p>{application.user.username}</p>
             <p>{application.updateAt}</p>
             {application.status === "RECEIPT" && (
-              <div>
+              <div className="flex justify-between">
                 <p>상태: 신청접수</p>
-                <button
-                  className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
-                  onClick={() => handleClickAccepting(application.user.uid)}
-                >
-                  승인 평가
-                </button>
-                <button
-                  className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
-                  onClick={() =>
-                    handleClickReject(application.user.uid, "승인 거절")
-                  }
-                >
-                  승인 거절
-                </button>
+                <div className="flex gap-4">
+                  <Button
+                    onClick={() => handleClickAccepting(application.user.uid)}
+                  >
+                    승인 평가
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    onClick={() =>
+                      handleClickReject(application.user.uid, "승인 거절")
+                    }
+                  >
+                    승인 거절
+                  </Button>
+                </div>
               </div>
             )}
             {application.status === "REJECT" && <p>승인거절</p>}
             {application.status === "ACCEPTING" && (
-              <div>
+              <div className="flex justify-between">
                 <p>승인평가</p>
-                <button
-                  className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
-                  onClick={() => handleClickAccept(application.user.uid)}
-                >
-                  승인
-                </button>
-                <button
-                  className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
-                  onClick={() =>
-                    handleClickReject(application.user.uid, "승인 거절")
-                  }
-                >
-                  승인 거절
-                </button>
+                <div className="flex gap-4">
+                  <Button
+                    onClick={() => handleClickAccept(application.user.uid)}
+                  >
+                    승인
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    onClick={() =>
+                      handleClickReject(application.user.uid, "승인 거절")
+                    }
+                  >
+                    승인 거절
+                  </Button>
+                </div>
               </div>
             )}
             {application.status === "ACCEPT" && <p>승인</p>}

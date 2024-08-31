@@ -16,6 +16,7 @@ import {
 import { confirmModal } from "@ui/src/components/organism/ConfirmModal";
 import { Tag } from "@/types/tag";
 import { ErrorMessage } from "@hookform/error-message";
+import { Button } from "@repo/ui/components/atom/Button";
 
 function CategoryManage() {
   const [tagUid, setTagUid] = useState("");
@@ -124,12 +125,7 @@ function CategoryManage() {
                 )}
               />
             </label>
-            <button
-              type="submit"
-              className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
-            >
-              생성
-            </button>
+            <Button type="submit">생성</Button>
           </article>
         </form>
       </FormProvider>
@@ -139,15 +135,16 @@ function CategoryManage() {
           <>
             <div
               key={category.name}
-              className="m-2 border-2 border-blue-400 bg-blue-600 p-2 inline-block rounded-full text-amber-50"
+              className="m-2 border-2 border-blue-400 bg-blue-600 py-2 px-4 inline-block rounded-2xl text-amber-50"
             >
               {category.value}
-              <button
-                className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black"
+              <Button
+                variant="destructive"
+                className="ml-4"
                 onClick={() => handleClickDelete(category.name)}
               >
                 제거
-              </button>
+              </Button>
             </div>
             <div>
               <input
@@ -159,13 +156,9 @@ function CategoryManage() {
                   setTagUid(e.target.value.replace(/[^0-9]/g, ""))
                 }
               />
-              <button
-                type="button"
-                className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black"
-                onClick={() => handleClickTag(category)}
-              >
+              <Button type="button" onClick={() => handleClickTag(category)}>
                 태그 추가
-              </button>
+              </Button>
             </div>
             {category.tags.map((tag) => tag.name).join(", ")}
           </>
@@ -263,12 +256,7 @@ function TagManage() {
                 )}
               />
             </label>
-            <button
-              type="submit"
-              className="border-2 py-1 px-4 rounded-full bg-amber-200 my-2"
-            >
-              생성
-            </button>
+            <Button type="submit">생성</Button>
           </article>
         </form>
       </FormProvider>
@@ -277,15 +265,16 @@ function TagManage() {
         {tags?.map((tag) => (
           <div
             key={tag.name}
-            className="m-2 border-2 border-blue-400 bg-blue-600 p-2 inline-block rounded-full text-amber-50"
+            className="m-2 border-2 border-blue-400 bg-blue-600 py-2 px-4 inline-block rounded-2xl text-amber-50"
           >
             ({tag.uid}) {tag.value}
-            <button
-              className="border-2 py-1 px-4 rounded-full bg-amber-200 mx-2 text-black"
+            <Button
+              variant="destructive"
+              className="ml-2"
               onClick={() => handleClickDelete(tag.name)}
             >
               제거
-            </button>
+            </Button>
           </div>
         ))}
       </article>
