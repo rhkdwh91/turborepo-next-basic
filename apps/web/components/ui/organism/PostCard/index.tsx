@@ -11,6 +11,7 @@ import { MouseEvent, useMemo } from "react";
 import { Post } from "@/types/post";
 import ProfileImage from "@ui/src/components/atom/ProfileImage";
 import dayjs from "dayjs";
+import { Badge } from "@ui/src/components/atom/Badge";
 
 interface PostCardProps {
   post: Post;
@@ -54,7 +55,11 @@ export default function PostCard({ post }: PostCardProps) {
       </CardHeader>
       <CardContent>
         <p>
-          {post.tags?.map((tag) => <span key={tag.name}>{tag.value}</span>)}
+          {post.tags?.map((tag) => (
+            <Badge variant="outline" key={tag.name}>
+              {tag.value}
+            </Badge>
+          ))}
         </p>
       </CardContent>
       <CardFooter>

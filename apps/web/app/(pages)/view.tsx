@@ -7,7 +7,7 @@ import { Post } from "types/post";
 import useInfiniteScroll from "hooks/useInfiniteScroll";
 
 import PostCard from "components/ui/organism/PostCard";
-import { Button } from "@ui/src/components/atom/Button";
+import { Badge } from "@ui/src/components/atom/Badge";
 import PostsSkeleton from "@/components/ui/skeleton/PostsSkeleton";
 
 function createTagArray(searchTags: string[] | string) {
@@ -65,24 +65,22 @@ export default function View() {
     <div className="min-h-screen">
       <div className="max-w-6xl mx-auto pb-20">
         <div className="flex flex-wrap gap-4 my-6">
-          <Button
+          <Badge
+            className="cursor-pointer"
             variant="outline"
-            className="text-white"
             onClick={handleClickReset}
           >
             reset
-          </Button>
+          </Badge>
           {tags?.map((tag) => (
-            <Button
+            <Badge
               key={tag.value}
-              variant={
-                searchTags.includes(tag.value) ? "destructive" : "outline"
-              }
-              className="text-white"
+              className="cursor-pointer"
+              variant={searchTags.includes(tag.value) ? "default" : "outline"}
               onClick={() => handleClickTag(tag.name)}
             >
               {tag.value}
-            </Button>
+            </Badge>
           ))}
         </div>
         <div className="flex flex-wrap gap-4">

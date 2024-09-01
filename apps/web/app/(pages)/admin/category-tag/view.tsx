@@ -17,6 +17,7 @@ import { confirmModal } from "@ui/src/components/organism/ConfirmModal";
 import { Tag } from "@/types/tag";
 import { ErrorMessage } from "@hookform/error-message";
 import { Button } from "@repo/ui/components/atom/Button";
+import { Badge } from "@repo/ui/components/atom/Badge";
 
 function CategoryManage() {
   const [tagUid, setTagUid] = useState("");
@@ -133,19 +134,16 @@ function CategoryManage() {
         <h3 className="text-xl font-bold">카테고리 리스트</h3>
         {categories?.map((category) => (
           <>
-            <div
-              key={category.name}
-              className="m-2 border-2 border-blue-400 bg-blue-600 py-2 px-4 inline-block rounded-2xl text-amber-50"
-            >
+            <Badge key={category.name}>
               {category.value}
               <Button
-                variant="destructive"
+                variant="ghost"
                 className="ml-4"
                 onClick={() => handleClickDelete(category.name)}
               >
                 제거
               </Button>
-            </div>
+            </Badge>
             <div>
               <input
                 placeholder="please enter a value"
@@ -263,19 +261,16 @@ function TagManage() {
       <article className="my-2 p-5">
         <h3 className="text-xl font-bold">태그 리스트</h3>
         {tags?.map((tag) => (
-          <div
-            key={tag.name}
-            className="m-2 border-2 border-blue-400 bg-blue-600 py-2 px-4 inline-block rounded-2xl text-amber-50"
-          >
+          <Badge key={tag.name}>
             ({tag.uid}) {tag.value}
             <Button
-              variant="destructive"
+              variant="ghost"
               className="ml-2"
               onClick={() => handleClickDelete(tag.name)}
             >
               제거
             </Button>
-          </div>
+          </Badge>
         ))}
       </article>
     </section>
