@@ -75,7 +75,7 @@ function View({ uid }: ViewProps) {
                 <ProfileImage src={data.user?.profileImage} />
                 {data.user?.username}
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
                 <span className="text-right">
                   {dayjs(data.updateAt).format("YYYY-MM-DD hh:mm:ss")}
                 </span>
