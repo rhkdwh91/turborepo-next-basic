@@ -6,12 +6,12 @@ import { Editor } from "kyz-editor";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { queryKeys } from "queryKeys";
-import styles from "./page.module.css";
 import { useSession } from "next-auth/react";
 import CommentGroup from "components/ui/organism/CommentGroup";
 import { useDeletePostMutation } from "hooks/service/mutations/usePostMutation";
 import useCommentMutation from "hooks/service/mutations/useCommentMutation";
 import { Button } from "@repo/ui/components/atom/Button";
+import { Badge } from "@repo/ui/components/atom/Badge";
 
 import { confirmModal } from "@repo/ui/components/organism/ConfirmModal";
 import ProfileImage from "@ui/src/components/atom/ProfileImage";
@@ -57,23 +57,33 @@ function View({ uid }: ViewProps) {
   }, [deletePostMutation.isPending]);
 
   return (
-    <main className={styles.layout}>
+    <main className="max-w-xl mx-auto">
       {isLoading && <div>로딩중</div>}
       {data && (
         <div>
           <div>
             <h1 className="text-white my-3">{data.title}</h1>
-            <div className="flex gap-2">
-              {data.tags?.map((tag) => <span key={tag.name}>{tag.value}</span>)}
+            <div className="flex gap-2 pb-4 mb-4 border-b border-gray-700">
+              {data.tags?.map((tag) => (
+                <Badge key={tag.name} variant="outline">
+                  {tag.value}
+                </Badge>
+              ))}
             </div>
-            <div className="flex gap-1 my-2 items-center">
-              <ProfileImage src={data.user?.profileImage} />
-              {data.user?.username}
+            <div className="flex items-center justify-between">
+              <div className="flex gap-1 my-2 items-center">
+                <ProfileImage src={data.user?.profileImage} />
+                {data.user?.username}
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="text-right">
+                  {dayjs(data.updateAt).format("YYYY-MM-DD hh:mm:ss")}
+                </span>
+                <span className="text-right">
+                  {data.postView?.count ?? 0} Views
+                </span>
+              </div>
             </div>
-            <span className="mr-2">{data.postView?.count ?? 0} Views</span>
-            <span>
-              uploadAt, {dayjs(data.updateAt).format("YYYY-MM-DD hh:mm:ss")}
-            </span>
           </div>
 
           <Editor editable={false} initialEditorState={data.content} />
