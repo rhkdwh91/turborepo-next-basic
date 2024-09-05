@@ -1,38 +1,32 @@
 "use client";
 
-import styles from "./page.module.css";
-import { useRouter } from "next/navigation";
-import { Button } from "@ui/src/components/atom/Button";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import ProfileImage from "@ui/src/components/atom/ProfileImage";
-import { useCallback } from "react";
 
 export default function View() {
-  const router = useRouter();
   const { data } = useQuery(queryKeys.profile.detail());
 
-  const onClickApplicationButton = useCallback(() => {
-    router.push("/application");
-  }, []);
-
   return (
-    <main className={styles.main}>
-      <div className={styles.layout}>
+    <main className="max-w-6xl mx-auto min-h-screen">
+      <div className="pt-10">
+        <h1 className="text-3xl font-semibold pb-4">내 정보</h1>
         {data && (
-          <div>
+          <div className="flex gap-2 pb-4 mb-4 border-b border-gray-700">
             {data.profileImage && (
               <ProfileImage src={data.profileImage} width={80} height={80} />
             )}
-            <p>
-              level: {data.level === 1 && "최고 관리자"}{" "}
-              {data.level === 2 && "작가"} {data.level === 3 && "회원"}
-            </p>
-            <p>email: {data.email}</p>
-            <p>username: {data.username}</p>
-            <Button onClick={onClickApplicationButton}>작가 신청</Button>
+            <div>
+              <p>
+                level: {data.level === 1 && "최고 관리자"}{" "}
+                {data.level === 2 && "작가"} {data.level === 3 && "회원"}
+              </p>
+              <p>email: {data.email}</p>
+              <p>username: {data.username}</p>
+            </div>
           </div>
         )}
+        <h2 className="text-2xl font-semibold pb-4">내 포스트</h2>
       </div>
     </main>
   );
