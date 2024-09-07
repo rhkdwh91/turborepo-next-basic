@@ -9,7 +9,6 @@ export default async function Page() {
   const session = await getServerSession(authOptions);
   const queryClient = getQueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(queryKeys.profile.detail()),
     queryClient.prefetchQuery({
       ...queryKeys.posts.list({
         skip: 0,

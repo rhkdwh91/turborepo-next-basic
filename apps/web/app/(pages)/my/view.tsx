@@ -31,7 +31,7 @@ export default function View() {
                 {data.user.level === 2 && "작가"}{" "}
                 {data.user.level === 3 && "회원"}
               </p>
-              <p>email: {data.user.email}</p>
+              {data.user.email && <p>email: {data.user.email}</p>}
               <p>username: {data.user.username}</p>
             </div>
           </div>
