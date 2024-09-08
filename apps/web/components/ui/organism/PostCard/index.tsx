@@ -72,8 +72,8 @@ export default function PostCard({ post }: PostCardProps) {
             <span>{post.user?.username}</span>
           </div>
           <div className="flex items-center gap-6 justify-between mt-5 pt-5 border-t border-gray-700 w-full">
-            <span>{post.postView?.count ?? 0} Views</span>
-            <span>{dayjs(post.createAt).format("YYYY-MM-DD")} createdAt</span>
+            <span>{post.postView?.count ?? 0} views</span>
+            <span>{dayjs(post.createAt).format("YYYY-MM-DD")}</span>
           </div>
         </div>
       </CardFooter>
