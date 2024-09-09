@@ -8,25 +8,26 @@ datasource db {
 }
 
 model User {
-  uid          Int       @id @default(autoincrement())
-  username     String    @unique
-  email        String?   @unique
-  password     String?
-  level        Int?
-  profileImage String?
-  createAt     DateTime  @default(now()) @db.DateTime(0)
-  updateAt     DateTime  @default(now()) @db.DateTime(0)
-  comments     Comment[]
-  posts        Post[]
-  oauthToken   OauthToken[]
-  writerApplication WriterApplication[]
+  uid                    Int                      @id @default(autoincrement())
+  username               String                   @unique
+  email                  String?                  @unique
+  password               String?
+  level                  Int?
+  profileImage           String?
+  createAt               DateTime                 @default(now()) @db.DateTime(0)
+  updateAt               DateTime                 @default(now()) @db.DateTime(0)
+  comments               Comment[]
+  posts                  Post[]
+  oauthToken             OauthToken[]
+  writerApplication      WriterApplication[]
+  WriterApplicationUsers WriterApplicationUsers[]
 }
 
 model OauthToken {
-  userUid Int     @id
-  user    User    @relation(fields: [userUid], references: [uid])
+  userUid  Int      @id
+  user     User     @relation(fields: [userUid], references: [uid])
   provider String?
-  id  String?  @unique
+  id       String?  @unique
   createAt DateTime @default(now()) @db.DateTime(0)
   updateAt DateTime @default(now()) @db.DateTime(0)
 }
@@ -39,11 +40,19 @@ enum ApplicationType {
 }
 
 model WriterApplication {
-  uid     Int @id @default(autoincrement())
-  userUid Int
-  user    User  @relation(fields: [userUid], references: [uid])
-  status  ApplicationType
-  content Json?
+  uid      Int             @id @default(autoincrement())
+  userUid  Int
+  user     User            @relation(fields: [userUid], references: [uid])
+  status   ApplicationType
+  content  Json?
+  createAt DateTime        @default(now()) @db.DateTime(0)
+  updateAt DateTime        @default(now()) @db.DateTime(0)
+}
+
+model WriterApplicationUsers {
+  uid      Int      @id @default(autoincrement())
+  userUid  Int
+  user     User     @relation(fields: [userUid], references: [uid])
   createAt DateTime @default(now()) @db.DateTime(0)
   updateAt DateTime @default(now()) @db.DateTime(0)
 }
@@ -58,13 +67,13 @@ model Post {
   userUid  Int
   comments Comment[]
   user     User      @relation(fields: [userUid], references: [uid])
-  postView  PostView?
+  postView PostView?
 }
 
 model PostView {
-  count  Int   @default(0)
-  postUid  Int   @id
-  post     Post  @relation(fields: [postUid], references: [uid])
+  count    Int      @default(0)
+  postUid  Int      @id
+  post     Post     @relation(fields: [postUid], references: [uid])
   createAt DateTime @default(now()) @db.DateTime(0)
   updateAt DateTime @default(now()) @db.DateTime(0)
 }
@@ -81,20 +90,20 @@ model Comment {
 }
 
 model Category {
-  uid Int @id @default(autoincrement())
-  name String @unique
-  value String
-  tags Tag[]
+  uid      Int      @id @default(autoincrement())
+  name     String   @unique
+  value    String
+  tags     Tag[]
   createAt DateTime @default(now()) @db.DateTime(0)
   updateAt DateTime @default(now()) @db.DateTime(0)
 }
 
 model Tag {
-  uid      Int      @id @default(autoincrement())
-  name     String   @unique
-  value    String
+  uid         Int       @id @default(autoincrement())
+  name        String    @unique
+  value       String
   categoryUid Int?
-  category Category? @relation(fields: [categoryUid], references: [uid])
-  createAt DateTime @default(now()) @db.DateTime(0)
-  updateAt DateTime @default(now()) @db.DateTime(0)
+  category    Category? @relation(fields: [categoryUid], references: [uid])
+  createAt    DateTime  @default(now()) @db.DateTime(0)
+  updateAt    DateTime  @default(now()) @db.DateTime(0)
 }
