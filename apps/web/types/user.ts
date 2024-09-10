@@ -22,3 +22,11 @@ export interface UserForm {
   username: string;
   password: string;
 }
+
+export interface ApplicationUserData {
+  createAt: string;
+  uid: number;
+  updateAt: string;
+  user: UserToken;
+  userUid: number;
+}

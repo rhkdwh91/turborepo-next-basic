@@ -18,16 +18,18 @@ export async function GET(req: NextRequest) {
       where.userUid = userUid;
     }
 
-    const writerApplication = await prisma.writerApplication.findMany({
-      take: take && !Number.isNaN(Number(take)) ? Number(take) : 20,
-      skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
-      where: where,
-      include: {
-        user: true,
+    const writerApplicationUsers = await prisma.writerApplicationUsers.findMany(
+      {
+        take: take && !Number.isNaN(Number(take)) ? Number(take) : 20,
+        skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
+        where: where,
+        include: {
+          user: true,
+        },
       },
-    });
-    console.log(writerApplication, user);
-    return NextResponse.json(writerApplication, { status: 201 });
+    );
+    console.log(writerApplicationUsers, user);
+    return NextResponse.json(writerApplicationUsers, { status: 201 });
   } catch (error) {
     return errorHandler(error);
   }
@@ -41,6 +43,11 @@ export async function POST(req: NextRequest) {
     form.userUid = user.uid;
     await prisma.writerApplication.create({
       data: form,
+    });
+    await prisma.writerApplicationUsers.create({
+      data: {
+        userUid: user.uid,
+      },
     });
 
     return NextResponse.json({ message: "ok" }, { status: 201 });
