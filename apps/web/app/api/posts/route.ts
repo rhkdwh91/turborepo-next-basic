@@ -16,7 +16,17 @@ const getPosts = async (payload: {
     take: take && !Number.isNaN(Number(take)) ? Number(take) : 20,
     skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
     include: {
-      user: true,
+      user: {
+        select: {
+          uid: true,
+          username: true,
+          email: true,
+          level: true,
+          profileImage: true,
+          createAt: true,
+          updateAt: true,
+        },
+      },
       postView: true,
     },
     where: {

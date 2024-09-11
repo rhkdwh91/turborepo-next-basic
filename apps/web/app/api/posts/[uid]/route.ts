@@ -17,10 +17,30 @@ export async function GET(
       include: {
         comments: {
           include: {
-            user: true,
+            user: {
+              select: {
+                uid: true,
+                username: true,
+                email: true,
+                level: true,
+                profileImage: true,
+                createAt: true,
+                updateAt: true,
+              },
+            },
           },
         },
-        user: true,
+        user: {
+          select: {
+            uid: true,
+            username: true,
+            email: true,
+            level: true,
+            profileImage: true,
+            createAt: true,
+            updateAt: true,
+          },
+        },
         postView: true,
       },
     });

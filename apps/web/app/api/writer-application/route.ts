@@ -24,7 +24,17 @@ export async function GET(req: NextRequest) {
         skip: skip && !Number.isNaN(Number(skip)) ? Number(skip) : 0,
         where: where,
         include: {
-          user: true,
+          user: {
+            select: {
+              uid: true,
+              username: true,
+              email: true,
+              level: true,
+              profileImage: true,
+              createAt: true,
+              updateAt: true,
+            },
+          },
         },
       },
     );
