@@ -10,6 +10,9 @@ export async function GET(req: NextRequest) {
       where: {
         userUid: user.uid,
       },
+      orderBy: {
+        uid: "desc",
+      },
     });
     console.log(writerApplication, user);
     return NextResponse.json(writerApplication, { status: 201 });

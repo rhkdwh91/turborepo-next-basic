@@ -51,7 +51,7 @@ model WriterApplication {
 
 model WriterApplicationUsers {
   uid      Int      @id @default(autoincrement())
-  userUid  Int
+  userUid  Int      @unique
   user     User     @relation(fields: [userUid], references: [uid])
   createAt DateTime @default(now()) @db.DateTime(0)
   updateAt DateTime @default(now()) @db.DateTime(0)

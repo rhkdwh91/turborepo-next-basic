@@ -116,7 +116,23 @@ export default function View({ uid }: ViewProps) {
                   )}
                 </div>
               )}
-              {application.status === "ACCEPT" && <p>승인</p>}
+              {application.status === "ACCEPT" && (
+                <div className="flex justify-between">
+                  <p>승인</p>
+                  {applications.length - 1 === index && (
+                    <div className="flex gap-4">
+                      <Button
+                        variant="destructive"
+                        onClick={() =>
+                          handleClickReject(application.user.uid, "승인 거절")
+                        }
+                      >
+                        승인 거절
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           ))}
       </div>
