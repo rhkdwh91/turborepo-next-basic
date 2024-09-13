@@ -5,7 +5,8 @@ import authOptions from "auth.config";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  if ((session?.user?.level && session.user.level < 3) || !session)
+  console.log(session);
+  if ((session?.user?.level && session.user.level < 2) || !session)
     return redirect("/");
   return <View />;
 }

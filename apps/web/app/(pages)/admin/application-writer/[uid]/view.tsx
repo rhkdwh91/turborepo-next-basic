@@ -124,10 +124,10 @@ export default function View({ uid }: ViewProps) {
                       <Button
                         variant="destructive"
                         onClick={() =>
-                          handleClickReject(application.user.uid, "승인 거절")
+                          handleClickReject(application.user.uid, "승인 취소")
                         }
                       >
-                        승인 거절
+                        승인 취소
                       </Button>
                     </div>
                   )}

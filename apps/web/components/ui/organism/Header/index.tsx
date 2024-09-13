@@ -27,7 +27,7 @@ export default function Header({ session }: HeaderProps) {
               <Link href={"/my"} className="p-2 editor-text-underline">
                 My
               </Link>
-              {data?.user?.level && data.user.level === 3 && (
+              {data?.user?.level && data.user.level >= 2 && (
                 <Link
                   href={"/application"}
                   className="p-2 editor-text-underline"

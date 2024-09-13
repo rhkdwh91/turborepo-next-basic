@@ -9,6 +9,31 @@ export async function POST(req: NextRequest) {
     await authCheck(req);
     const requestData = await req.json();
     const form = cloneDeep(requestData);
+
+    const status = form.status;
+
+    if (status === "ACCEPT") {
+      await prisma.user.update({
+        data: {
+          level: 2,
+        },
+        where: {
+          uid: form.userUid,
+        },
+      });
+    }
+
+    if (status === "REJECT") {
+      await prisma.user.update({
+        data: {
+          level: 3,
+        },
+        where: {
+          uid: form.userUid,
+        },
+      });
+    }
+
     await prisma.writerApplication.create({
       data: form,
     });
