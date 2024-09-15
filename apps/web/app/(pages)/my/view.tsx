@@ -36,18 +36,20 @@ export default function View() {
             </div>
           </div>
         )}
-        <section className="mt-10">
-          <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-            내 포스트
-          </h3>
-          <div className="flex flex-wrap gap-10 mt-10">
-            {postList?.map((post) => (
-              <span className="scroll-m-20 text-xl font-semibold tracking-tight">
-                {post.title}
-              </span>
-            ))}
-          </div>
-        </section>
+        {postList && postList.length > 0 && (
+          <section className="mt-10">
+            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+              내 포스트
+            </h3>
+            <div className="flex flex-wrap gap-10 mt-10">
+              {postList?.map((post) => (
+                <span className="scroll-m-20 text-xl font-semibold tracking-tight">
+                  {post.title}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );
