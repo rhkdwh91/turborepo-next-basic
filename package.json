@@ -4,6 +4,7 @@
   "scripts": {
     "build": "git submodule update --recursive --remote && turbo build --filter web",
     "dev": "turbo --filter web dev",
+    "dev:admin": "turbo --filter admin dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\","
   },
