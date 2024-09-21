@@ -1,21 +1,24 @@
 import { signJWT } from "utils/signJWT";
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "prisma/client";
 import bcrypt from "bcryptjs";
+import { connectDb } from "@/db";
+import { FieldPacket } from "mysql2/promise";
 
 export async function POST(req: NextRequest) {
   try {
     const requestData = await req.json();
+    console.log("HIHI");
     if (!requestData.username && !requestData.password) {
       return NextResponse.json({ message: "Invalid Value" }, { status: 400 });
     }
 
-    const user = await prisma.user.findFirst({
-      where: {
-        username: requestData.username,
-      },
-    });
-    if (!user?.password) {
+    const connection = await connectDb();
+    const [rows]: [any, FieldPacket[]] = (await connection.execute(
+      "SELECT * FROM User WHERE username = ?",
+      [requestData.username],
+    )) as [any, FieldPacket[]];
+
+    if (!rows[0]?.password) {
       return NextResponse.json(
         { message: "The ID is incorrect or incorrect." },
         { status: 400 },
@@ -23,7 +26,7 @@ export async function POST(req: NextRequest) {
     }
     const isPasswordCorrect = await bcrypt.compare(
       requestData.password,
-      user.password,
+      rows[0]?.password,
     );
     if (!isPasswordCorrect) {
       return NextResponse.json(
@@ -33,20 +36,20 @@ export async function POST(req: NextRequest) {
     }
 
     const token = await signJWT({
-      uid: user.uid,
-      username: user.username,
-      email: user.email,
-      profileImage: user.profileImage,
-      level: user.level,
+      uid: rows[0]?.uid,
+      username: rows[0]?.username,
+      email: rows[0]?.email,
+      profileImage: rows[0]?.profileImage,
+      level: rows[0]?.level,
     });
 
     return NextResponse.json(
       {
-        uid: user.uid,
-        username: user.username,
-        email: user.email,
-        level: user.level,
-        profileImage: user.profileImage,
+        uid: rows[0]?.uid,
+        username: rows[0]?.username,
+        email: rows[0]?.email,
+        level: rows[0]?.level,
+        profileImage: rows[0]?.profileImage,
         accessToken: token.accessToken,
         refreshToken: token.refreshToken,
       },

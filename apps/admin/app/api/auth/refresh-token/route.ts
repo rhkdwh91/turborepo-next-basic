@@ -1,7 +1,9 @@
 import { signJWT, verifyRefreshToken } from "utils/signJWT";
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "prisma/client";
-import { errorHandler } from "@/utils/apiErrorHandler";
+import { errorHandler } from "utils/apiErrorHandler";
+import { connectDb } from "db";
+import { User } from "types/user";
+import { FieldPacket } from "mysql2/promise";
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,15 +24,17 @@ export async function POST(req: NextRequest) {
       );
     }
     const { username } = payload;
-    const user = await prisma.user.findFirst({
-      where: {
-        username: username,
-      },
-    });
-    console.log(user, "SERVER");
-    if (!user) {
+    const connection = await connectDb();
+    const [rows]: [User[], FieldPacket[]] = (await connection.execute(
+      "SELECT * FROM User WHERE username = ?",
+      [username],
+    )) as [User[], FieldPacket[]];
+
+    if (!rows[0]) {
       return NextResponse.json({ message: "not user" }, { status: 403 });
     }
+
+    const user = rows[0];
 
     const token = await signJWT({
       uid: user.uid,
