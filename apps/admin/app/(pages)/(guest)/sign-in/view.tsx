@@ -8,8 +8,7 @@ import { Button } from "@ui/src/components/atom/Button";
 
 import useUserMutation from "@/hooks/service/mutations/useUserMutation";
 
-import styles from "./page.module.css";
-import { UserForm } from "types/user";
+import { UserForm } from "@/types/user";
 import { toast } from "kyz-toast";
 
 export default function View() {

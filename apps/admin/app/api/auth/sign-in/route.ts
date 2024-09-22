@@ -7,7 +7,6 @@ import { FieldPacket } from "mysql2/promise";
 export async function POST(req: NextRequest) {
   try {
     const requestData = await req.json();
-    console.log("HIHI");
     if (!requestData.username && !requestData.password) {
       return NextResponse.json({ message: "Invalid Value" }, { status: 400 });
     }
@@ -41,6 +40,16 @@ export async function POST(req: NextRequest) {
       email: rows[0]?.email,
       profileImage: rows[0]?.profileImage,
       level: rows[0]?.level,
+    });
+
+    console.log({
+      uid: rows[0]?.uid,
+      username: rows[0]?.username,
+      email: rows[0]?.email,
+      level: rows[0]?.level,
+      profileImage: rows[0]?.profileImage,
+      accessToken: token.accessToken,
+      refreshToken: token.refreshToken,
     });
 
     return NextResponse.json(
