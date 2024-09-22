@@ -6,7 +6,7 @@ export async function connectDb() {
   if (conn) return conn;
   conn = await mysql.createConnection({
     host: `${process.env.HOST}`,
-    port: `${process.env.PORT}`,
+    port: Number(`${process.env.PORT}`),
     user: `${process.env.USER}`,
     password: `${process.env.PASSWORD}`,
     database: `${process.env.DATABASE}`,
