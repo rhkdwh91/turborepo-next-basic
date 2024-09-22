@@ -5,11 +5,11 @@ let conn: mysql.Connection;
 export async function connectDb() {
   if (conn) return conn;
   conn = await mysql.createConnection({
-    host: "3.36.119.147",
-    port: 3306,
-    user: "root",
-    password: "vlzkcb12!@",
-    database: "klog",
+    host: `${process.env.HOST}`,
+    port: `${process.env.PORT}`,
+    user: `${process.env.USER}`,
+    password: `${process.env.PASSWORD}`,
+    database: `${process.env.DATABASE}`,
   });
   return conn;
 }
