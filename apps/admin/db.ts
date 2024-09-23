@@ -10,6 +10,9 @@ export async function connectDb() {
     user: `${process.env.USER}`,
     password: `${process.env.PASSWORD}`,
     database: `${process.env.DATABASE}`,
+    connectTimeout: 60000, // 60초
   });
+
+  console.log(conn);
   return conn;
 }

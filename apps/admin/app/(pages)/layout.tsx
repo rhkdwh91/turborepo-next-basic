@@ -1,6 +1,7 @@
 import ReactQueryProvider from "@ui/src/providers/ReactQueryProvider";
 
 import "@repo/tailwind-config/globals.css";
+import ThemeProvider from "components/providers/ThemeProvider";
 
 export default function RootLayout({
   children,
@@ -10,7 +11,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ReactQueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
