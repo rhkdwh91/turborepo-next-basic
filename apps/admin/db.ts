@@ -4,15 +4,15 @@ let conn: mysql.Connection;
 
 export async function connectDb() {
   if (conn) return conn;
+
   conn = await mysql.createConnection({
-    host: `${process.env.HOST}`,
-    port: Number(`${process.env.PORT}`),
-    user: `${process.env.USER}`,
-    password: `${process.env.PASSWORD}`,
-    database: `${process.env.DATABASE}`,
+    host: process.env.MYSQL_HOST,
+    port: Number(process.env.MYSQL_PORT ?? 3306),
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
     connectTimeout: 60000, // 60초
   });
 
-  console.log(conn);
   return conn;
 }

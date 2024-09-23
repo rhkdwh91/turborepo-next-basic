@@ -11,11 +11,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Invalid Value" }, { status: 400 });
     }
 
+    console.log("HIHI1");
+
     const connection = await connectDb();
+    console.log("HIHI2");
     const [rows]: [any, FieldPacket[]] = (await connection.execute(
       "SELECT * FROM User WHERE username = ?",
       [requestData.username],
     )) as [any, FieldPacket[]];
+
+    console.log("HIHI3");
 
     if (!rows[0]?.password) {
       return NextResponse.json(
