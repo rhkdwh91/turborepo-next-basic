@@ -11,16 +11,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Invalid Value" }, { status: 400 });
     }
 
-    console.log("HIHI1");
-
     const connection = await connectDb();
-    console.log("HIHI2");
     const [rows]: [any, FieldPacket[]] = (await connection.execute(
       "SELECT * FROM User WHERE username = ?",
       [requestData.username],
     )) as [any, FieldPacket[]];
-
-    console.log("HIHI3");
 
     if (!rows[0]?.password) {
       return NextResponse.json(
@@ -45,16 +40,6 @@ export async function POST(req: NextRequest) {
       email: rows[0]?.email,
       profileImage: rows[0]?.profileImage,
       level: rows[0]?.level,
-    });
-
-    console.log({
-      uid: rows[0]?.uid,
-      username: rows[0]?.username,
-      email: rows[0]?.email,
-      level: rows[0]?.level,
-      profileImage: rows[0]?.profileImage,
-      accessToken: token.accessToken,
-      refreshToken: token.refreshToken,
     });
 
     return NextResponse.json(
