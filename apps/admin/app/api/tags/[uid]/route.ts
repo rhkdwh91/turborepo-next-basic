@@ -32,7 +32,7 @@ export async function PUT(
     const requestData = await req.json();
     const form = cloneDeep(requestData);
     const connection = await connectDb();
-    await connection.execute(`UPDATE tag SET ? WHERE uid = ?`, [
+    await connection.execute(`UPDATE Tag SET ? WHERE uid = ?`, [
       form,
       Number(params.uid),
     ]);
@@ -52,7 +52,7 @@ export async function DELETE(
   try {
     await authCheck(req);
     const connection = await connectDb();
-    await connection.execute(`DELETE FROM tag WHERE name = ?`, [params.name]);
+    await connection.execute(`DELETE FROM Tag WHERE name = ?`, [params.name]);
     return NextResponse.json(
       { message: "delete Successfully!" },
       { status: 201 },

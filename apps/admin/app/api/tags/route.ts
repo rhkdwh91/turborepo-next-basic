@@ -12,7 +12,7 @@ export async function GET() {
     const connection = await connectDb();
     const [tags]: [Tag[], FieldPacket[]] = (await connection.execute(
       `SELECT uid, name, value 
-       FROM tag 
+       FROM Tag 
        ORDER BY createdAt DESC 
        LIMIT 10`,
     )) as [Tag[], FieldPacket[]];
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     const requestData = await req.json();
     const form = cloneDeep(requestData);
     const connection = await connectDb();
-    await connection.execute(`INSERT INTO tag SET ?`, form);
+    await connection.execute(`INSERT INTO Tag SET ?`, form);
     return NextResponse.json(
       { message: "tags updated successful!" },
       { status: 201 },

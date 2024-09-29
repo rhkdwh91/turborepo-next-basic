@@ -20,7 +20,7 @@ export async function PUT(
 
     const updates = keys.map((key) => `${key} = ?`).join(", ");
 
-    const sql = `UPDATE tag SET ${updates} WHERE uid = ?`;
+    const sql = `UPDATE Tag SET ${updates} WHERE uid = ?`;
 
     const connection = await connectDb();
 
