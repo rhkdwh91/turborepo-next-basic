@@ -3,6 +3,8 @@ import { mergeQueryKeys } from "@lukemorales/query-key-factory";
 import { QueryClient } from "@tanstack/react-query";
 import { cache } from "react";
 import userKeys from "./userKeys";
+import tagKeys from "@/queryKeys/tagKeys";
+import categoryKey from "@/queryKeys/categoryKey";
 
 export const getQueryClient = cache(
   () =>
@@ -18,4 +20,4 @@ export const getQueryClient = cache(
     }),
 );
 
-export const queryKeys = mergeQueryKeys(userKeys);
+export const queryKeys = mergeQueryKeys(userKeys, tagKeys, categoryKey);

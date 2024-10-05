@@ -13,7 +13,7 @@ export async function GET() {
     const [tags]: [Tag[], FieldPacket[]] = (await connection.execute(
       `SELECT uid, name, value 
        FROM Tag 
-       ORDER BY createdAt DESC 
+       ORDER BY createAt DESC 
        LIMIT 10`,
     )) as [Tag[], FieldPacket[]];
 

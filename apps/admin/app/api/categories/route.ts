@@ -4,27 +4,48 @@ import { cloneDeep } from "lodash";
 import authCheck from "utils/authCheck";
 import { errorHandler } from "@/utils/apiErrorHandler";
 import { connectDb } from "@/db";
-import { FieldPacket } from "mysql2/promise";
 
 export async function GET() {
   try {
     const connection = await connectDb();
 
-    const [categories]: [any, FieldPacket[]] = await connection.execute(
-      `SELECT categories.*, tags.* FROM categories 
-     LEFT JOIN tags ON categories.id = tags.categoryId 
-     ORDER BY categories.createAt DESC 
-     LIMIT 10`,
+    const [rows]: [any, any] = await connection.execute(
+      `SELECT 
+    Category.uid, Category.name, Category.value,
+    Tag.uid as tag_uid, Tag.name as tag_name, Tag.value as tag_value
+   FROM Category 
+   LEFT JOIN Tag ON Category.uid = Tag.categoryUid 
+   ORDER BY Category.createAt DESC`,
     );
-    return NextResponse.json(
-      categories.map((category: any) => ({
-        uid: category.uid,
-        name: category.name,
-        value: category.value,
-        tags: category.tags,
-      })),
-      { status: 200 },
-    );
+
+    // 결과 처리
+    const categoriesMap = new Map<
+      number,
+      { uid: number; name: string; value: string; tags: any[] }
+    >();
+
+    rows.forEach((row: any) => {
+      if (!categoriesMap.has(row.uid)) {
+        categoriesMap.set(row.uid, {
+          uid: row.uid,
+          name: row.name,
+          value: row.value,
+          tags: [],
+        });
+      }
+
+      if (row.tag_uid) {
+        categoriesMap.get(row.uid)!.tags.push({
+          uid: row.tag_uid,
+          name: row.tag_name,
+          value: row.tag_value,
+        });
+      }
+    });
+
+    const categories = Array.from(categoriesMap.values());
+
+    return NextResponse.json(categories, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: error }, { status: 500 });
   }
