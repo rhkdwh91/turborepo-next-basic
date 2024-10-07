@@ -5,6 +5,7 @@ import { cache } from "react";
 import userKeys from "./userKeys";
 import tagKeys from "@/queryKeys/tagKeys";
 import categoryKey from "@/queryKeys/categoryKey";
+import writerApplicationKeys from "@/queryKeys/writerApplicationKeys";
 
 export const getQueryClient = cache(
   () =>
@@ -20,4 +21,9 @@ export const getQueryClient = cache(
     }),
 );
 
-export const queryKeys = mergeQueryKeys(userKeys, tagKeys, categoryKey);
+export const queryKeys = mergeQueryKeys(
+  userKeys,
+  tagKeys,
+  categoryKey,
+  writerApplicationKeys,
+);

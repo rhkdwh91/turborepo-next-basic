@@ -23,13 +23,34 @@ export async function GET(req: NextRequest) {
 
     const [writerApplicationUsers]: [any, FieldPacket[]] =
       await connection.execute(
-        `SELECT user.uid, user.username, user.email, user.level, user.profileImage, user.createAt, user.updateAt
-  FROM writerApplicationUsers INNER JOIN user ON writerApplicationUsers.id = user.id
-  ORDER BY user.uid DESC LIMIT ? OFFSET ?`,
+        `SELECT 
+  WriterApplicationUsers.createAt,
+  WriterApplicationUsers.userUid AS uid,
+  WriterApplicationUsers.updateAt,
+  JSON_OBJECT(
+    'uid', User.uid,
+    'username', User.username,
+    'email', User.email,
+    'level', User.level,
+    'profileImage', User.profileImage,
+    'createAt', User.createAt,
+    'updateAt', User.updateAt
+  ) AS user
+FROM WriterApplicationUsers 
+INNER JOIN User ON WriterApplicationUsers.userUid = User.uid
+ORDER BY WriterApplicationUsers.userUid DESC 
+LIMIT ? OFFSET ?`,
         [take, skip],
       );
 
-    return NextResponse.json(writerApplicationUsers, { status: 201 });
+    const formattedApplicationUsers = writerApplicationUsers.map(
+      (row: any) => ({
+        ...row,
+        user: JSON.parse(row.user),
+      }),
+    );
+
+    return NextResponse.json(formattedApplicationUsers, { status: 201 });
   } catch (error) {
     return errorHandler(error);
   }
