@@ -7,7 +7,6 @@ import { FieldPacket } from "mysql2/promise";
 
 export async function GET(req: NextRequest) {
   try {
-    const user = await authCheck(req);
     const searchParams = req.nextUrl.searchParams;
     const take = searchParams.get("take");
     const skip = searchParams.get("skip");
