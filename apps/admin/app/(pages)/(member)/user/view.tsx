@@ -128,6 +128,10 @@ export default function View() {
                     />
                   ) : (
                     <>
+                      회원 등급: {user.level === 1 && "최고 관리자"}{" "}
+                      {user.level === 2 && "작가"}
+                      {user.level === 3 && "회원"}
+                      {" / "}
                       {user.level}
                       <div>
                         <Button
