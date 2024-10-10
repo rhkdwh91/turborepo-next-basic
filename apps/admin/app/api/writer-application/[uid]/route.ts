@@ -21,7 +21,7 @@ export async function GET(
     let userData = [];
 
     if (userUid) {
-      whereClause = "WHERE userUid = ?";
+      whereClause = "WHERE userUid = ? ";
       userData.push(userUid);
     }
 
