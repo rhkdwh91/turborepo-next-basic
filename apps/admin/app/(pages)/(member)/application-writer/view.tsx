@@ -17,7 +17,7 @@ export default function View() {
           <Link
             key={application.uid}
             className="my-8 border-t border-b py-4 flex flex-col gap-2"
-            href={`/admin/application-writer/${application.user.uid}`}
+            href={`/application-writer/${application.user.uid}`}
           >
             <p>{application.user.username}</p>
             <p>
