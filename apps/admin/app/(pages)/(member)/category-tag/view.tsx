@@ -259,19 +259,21 @@ function TagManage() {
         </form>
       </FormProvider>
       <article className="my-2 p-5">
-        <h3 className="text-xl font-bold">태그 리스트</h3>
-        {tags?.map((tag) => (
-          <Badge key={tag.name}>
-            ({tag.uid}) {tag.value}
-            <Button
-              variant="ghost"
-              className="ml-2"
-              onClick={() => handleClickDelete(tag.name)}
-            >
-              제거
-            </Button>
-          </Badge>
-        ))}
+        <h3 className="text-xl font-bold mb-3">태그 리스트</h3>
+        <div className="flex flex-wrap gap-2.5">
+          {tags?.map((tag) => (
+            <Badge key={tag.name}>
+              ({tag.uid}) {tag.value}
+              <Button
+                variant="ghost"
+                className="ml-2"
+                onClick={() => handleClickDelete(tag.name)}
+              >
+                제거
+              </Button>
+            </Badge>
+          ))}
+        </div>
       </article>
     </section>
   );
