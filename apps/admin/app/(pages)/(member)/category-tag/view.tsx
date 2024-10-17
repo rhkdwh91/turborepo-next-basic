@@ -94,7 +94,7 @@ function CategoryManage() {
         <form onSubmit={handleSubmit(handleClickCreate)}>
           <article className="my-2 p-5">
             <h3 className="text-xl font-bold">카테고리 생성</h3>
-            <label className="my-1 block">
+            <label className="my-4 block">
               <span className="block">Name</span>
               <input
                 {...register("name", { required: "This is required." })}
@@ -110,7 +110,7 @@ function CategoryManage() {
                 )}
               />
             </label>
-            <label className="my-1 block">
+            <label className="my-4 block">
               <span className="block">Value</span>
               <input
                 {...register("value", { required: "This is required." })}
@@ -131,9 +131,9 @@ function CategoryManage() {
         </form>
       </FormProvider>
       <article className="my-2 p-5">
-        <h3 className="text-xl font-bold">카테고리 리스트</h3>
+        <h3 className="text-xl font-bold mb-5">카테고리 리스트</h3>
         {categories?.map((category) => (
-          <>
+          <div>
             <Badge key={category.name}>
               {category.value}
               <Button
@@ -144,7 +144,7 @@ function CategoryManage() {
                 제거
               </Button>
             </Badge>
-            <div>
+            <div className="flex my-3 gap-2 items-center">
               <input
                 placeholder="please enter a value"
                 className="border-2 border-gray-400 block rounded py-2 px-4"
@@ -159,7 +159,7 @@ function CategoryManage() {
               </Button>
             </div>
             {category.tags.map((tag) => tag.name).join(", ")}
-          </>
+          </div>
         ))}
       </article>
     </section>
@@ -222,7 +222,7 @@ function TagManage() {
         <form onSubmit={handleSubmit(handleClickCreate)}>
           <article className="my-2 p-5">
             <h3 className="text-xl font-bold">태그 생성</h3>
-            <label className="my-1 block">
+            <label className="my-5 block">
               <span className="block">Name</span>
               <input
                 {...register("name", { required: "This is required." })}
@@ -238,7 +238,7 @@ function TagManage() {
                 )}
               />
             </label>
-            <label className="my-1 block">
+            <label className="my-5 block">
               <span className="block">Value</span>
               <input
                 {...register("value", { required: "This is required." })}
@@ -254,16 +254,18 @@ function TagManage() {
                 )}
               />
             </label>
-            <Button type="submit">생성</Button>
+            <Button className="mt-2" type="submit">
+              생성
+            </Button>
           </article>
         </form>
       </FormProvider>
-      <article className="my-2 p-5">
+      <article className="my-5 p-5">
         <h3 className="text-xl font-bold mb-3">태그 리스트</h3>
         <div className="flex flex-wrap gap-2.5">
           {tags?.map((tag) => (
             <Badge key={tag.name}>
-              ({tag.uid}) {tag.value}
+              (UID: {tag.uid}) {tag.value}
               <Button
                 variant="ghost"
                 className="ml-2"
