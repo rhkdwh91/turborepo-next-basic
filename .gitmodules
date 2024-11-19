@@ -1,3 +1,6 @@
 [submodule "packages"]
 	path = packages
 	url = https://github.com/rhkdwh91/packages.git
+[submodule "apps/layout-blog"]
+	path = apps/layout-blog
+	url = https://github.com/rhkdwh91/layout-blog.git
