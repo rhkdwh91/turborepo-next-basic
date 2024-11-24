@@ -63,15 +63,15 @@ export default function PostCard({ post }: PostCardProps) {
         </p>
       </CardContent>
       <CardFooter>
-        <div className="w-full">
+        <div className="w-full flex flex-col gap-4">
           <div
-            className="flex items-center"
+            className="flex items-center border-b border-gray-700 pb-4"
             onClick={(e) => handleClickProfile(e, post.user?.username)}
           >
             <ProfileImage src={post.user?.profileImage ?? ""} />
             <span>{post.user?.username}</span>
           </div>
-          <div className="flex items-center gap-6 justify-between mt-5 pt-5 border-t border-gray-700 w-full">
+          <div className="flex items-center gap-6 justify-between mt-2 w-full">
             <span>{post.postView?.count ?? 0} views</span>
             <span>{dayjs(post.createAt).format("YYYY-MM-DD")}</span>
           </div>

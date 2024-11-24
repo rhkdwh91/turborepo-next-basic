@@ -6,7 +6,7 @@ import { queryKeys } from "queryKeys";
 import { Post } from "types/post";
 import useInfiniteScroll from "hooks/useInfiniteScroll";
 
-import PostCard from "components/ui/organism/PostCard";
+import PostCard from "../../entities/post/ui/PostCard";
 import { Badge } from "@ui/src/components/atom/Badge";
 import PostsSkeleton from "@/components/ui/skeleton/PostsSkeleton";
 
@@ -22,7 +22,7 @@ function createTagArray(searchTags: string[] | string) {
 export default function View() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const searchTags = searchParams.getAll("tag");
+  const searchTags = searchParams ? searchParams.getAll("tag") : [];
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage, isLoading } =
     useInfiniteQuery<Post[]>({
       ...queryKeys.infinityPosts.list({
@@ -45,6 +45,7 @@ export default function View() {
   });
 
   const handleClickTag = (tagName: string) => {
+    if (!searchParams) return;
     const params = new URLSearchParams(searchParams.toString());
     if (searchTags.includes(tagName)) {
       params.delete("tag", tagName);
@@ -56,6 +57,7 @@ export default function View() {
   };
 
   const handleClickReset = () => {
+    if (!searchParams) return;
     const params = new URLSearchParams(searchParams.toString());
     params.delete("tag");
     router.push("?" + params.toString());

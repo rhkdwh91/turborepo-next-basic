@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import ProfileImage from "@ui/src/components/atom/ProfileImage";
-import { usePostListQuery } from "@/hooks/service/queries/usePostQuery";
+import { usePostListQuery } from "@/entities/post/model/usePostQuery";
 
 export default function View() {
   const { data } = useSession();

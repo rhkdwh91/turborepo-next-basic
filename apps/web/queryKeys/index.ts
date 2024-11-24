@@ -3,7 +3,7 @@ import { mergeQueryKeys } from "@lukemorales/query-key-factory";
 import { QueryClient } from "@tanstack/react-query";
 import { cache } from "react";
 
-import postsKeys, { infinityPostskeys } from "./postsKeys";
+import postsKeys, { infinityPostskeys } from "../entities/post/api/postsKeys";
 import tagsKeys from "./tagKeys";
 import categoryKey from "./categoryKey";
 import profileKeys from "./profileKeys";

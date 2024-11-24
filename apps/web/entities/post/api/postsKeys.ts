@@ -1,6 +1,6 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import axiosInstance from "axiosInstance";
-import { Post, PostParams } from "types/post";
+import axiosInstance from "@/axiosInstance";
+import { Post, PostParams } from "@/types/post";
 import qs from "qs";
 
 export const infinityPostskeys = createQueryKeys("infinityPosts", {

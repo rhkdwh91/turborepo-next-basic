@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthorQuery } from "hooks/service/queries/useAuthorQuery";
-import { usePostListQuery } from "hooks/service/queries/usePostQuery";
+import { usePostListQuery } from "@/entities/post/model/usePostQuery";
 import ProfileImage from "@repo/ui/components/atom/ProfileImage";
 
 interface PostListProps {
