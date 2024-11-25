@@ -1,6 +1,6 @@
 "use client";
 
-import LexicalEditor from "components/ui/organism/LexicalEditor";
+import LexicalEditor from "@/entities/post/ui/LexicalEditor";
 
 export default function Page() {
   return (

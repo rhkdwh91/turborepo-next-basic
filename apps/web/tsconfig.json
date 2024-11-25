@@ -16,7 +16,7 @@
       ],
       "@ui/*": [
         "../../packages/ui/*"
-      ]
+      ],
     },
     "strictNullChecks": true
   },

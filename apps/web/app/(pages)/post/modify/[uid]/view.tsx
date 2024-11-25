@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "queryKeys";
 import { redirect } from "next/navigation";
-import LexicalEditor from "components/ui/organism/LexicalEditor";
+import LexicalEditor from "@/entities/post/ui/LexicalEditor";
 
 interface ViewProps {
   uid: number;
