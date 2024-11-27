@@ -1,6 +1,6 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import axiosInstance from "axiosInstance";
-import { Category } from "types/tag";
+import axiosInstance from "@/axiosInstance";
+import { Category } from "@/types/tag";
 
 const tagsKeys = createQueryKeys("categories", {
   list: () => ({

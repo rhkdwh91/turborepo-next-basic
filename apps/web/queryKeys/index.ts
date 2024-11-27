@@ -5,7 +5,7 @@ import { cache } from "react";
 
 import postsKeys, { infinityPostskeys } from "../entities/post/api/postsKeys";
 import tagsKeys from "./tagKeys";
-import categoryKey from "./categoryKey";
+import categoryKey from "../entities/category/api/categoryKey";
 import profileKeys from "./profileKeys";
 import userKeys from "./userKeys";
 import authorKeys from "./authorKey";
