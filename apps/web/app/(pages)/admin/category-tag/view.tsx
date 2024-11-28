@@ -7,7 +7,7 @@ import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import {
   useCategoryCreateMutation,
   useCategoryDeleteMutation,
-} from "@/hooks/service/mutations/useCategoryMutation";
+} from "@/entities/category/model/useCategoryMutation";
 import {
   useTagCreateMutation,
   useTagDeleteMutation,
