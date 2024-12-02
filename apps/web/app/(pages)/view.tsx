@@ -8,7 +8,7 @@ import useInfiniteScroll from "hooks/useInfiniteScroll";
 
 import PostCard from "../../entities/post/ui/PostCard";
 import { Badge } from "@ui/src/components/atom/Badge";
-import PostsSkeleton from "@/components/ui/skeleton/PostsSkeleton";
+import PostsSkeleton from "entities/post/ui/PostsSkeleton";
 
 function createTagArray(searchTags: string[] | string) {
   if (Array.isArray(searchTags)) {

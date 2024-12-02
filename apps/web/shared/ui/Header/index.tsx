@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import LogoutButton from "components/ui/atom/LogoutButton";
+import LogoutButton from "@/shared/ui/LogoutButton";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 

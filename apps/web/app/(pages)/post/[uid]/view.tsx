@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { queryKeys } from "queryKeys";
 import { useSession } from "next-auth/react";
-import CommentGroup from "components/ui/organism/CommentGroup";
+import CommentGroup from "features/comment/ui/CommentGroup";
 import { useDeletePostMutation } from "@/entities/post/model/usePostMutation";
 import useCommentMutation from "hooks/service/mutations/useCommentMutation";
 import { Button } from "@repo/ui/components/atom/Button";

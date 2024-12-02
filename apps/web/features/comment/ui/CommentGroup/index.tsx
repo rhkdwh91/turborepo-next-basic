@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import CommentTextButton from "components/ui/molecule/CommentTextButton";
-import CommentList from "components/ui/molecule/CommentList";
+import CommentTextButton from "features/comment/ui/CommentTextButton";
+import CommentList from "features/comment/ui/CommentList";
 
 interface CommentGroupProps {
   children: ReactNode;

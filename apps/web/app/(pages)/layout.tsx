@@ -5,8 +5,8 @@ import ReactQueryProvider from "@repo/ui/providers/ReactQueryProvider";
 import SessionProvider from "providers/SessionProvider";
 import ToastProvider from "@repo/ui/providers/ToastProvider";
 import ThemeProvider from "providers/ThemeProvider";
-import Header from "components/ui/organism/Header";
-import Footer from "components/ui/organism/Footer";
+import Header from "shared/ui/Header";
+import Footer from "shared/ui/Footer";
 import { getServerSession } from "next-auth";
 import authOptions from "auth.config";
 
