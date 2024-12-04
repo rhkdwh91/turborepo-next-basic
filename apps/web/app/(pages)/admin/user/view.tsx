@@ -2,7 +2,7 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
-import { useUserLevelMutation } from "@/hooks/service/mutations/useUserMutation";
+import { useUserLevelMutation } from "@/entities/user/api/useUserMutation";
 import { useCallback, useState } from "react";
 import { queryKeys } from "@/queryKeys";
 import { ErrorMessage } from "@hookform/error-message";

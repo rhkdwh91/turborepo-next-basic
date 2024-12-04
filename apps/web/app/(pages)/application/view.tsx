@@ -5,7 +5,7 @@ import { Button } from "@ui/src/components/atom/Button";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/queryKeys";
 import { useCallback } from "react";
-import { useReceiptWriterApplication } from "@/hooks/service/mutations/useWriterApplication";
+import { useReceiptWriterApplication } from "@/features/writer-application/api/useWriterApplication";
 
 function ApplicationForm() {
   const methods = useForm();

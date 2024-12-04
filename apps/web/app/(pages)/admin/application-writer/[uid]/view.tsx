@@ -9,7 +9,7 @@ import {
   useAcceptingWriterApplication,
   useAcceptWriterApplication,
   useRejectWriterApplication,
-} from "@/hooks/service/mutations/useWriterApplication";
+} from "@/features/writer-application/api/useWriterApplication";
 
 interface ViewProps {
   uid: number;

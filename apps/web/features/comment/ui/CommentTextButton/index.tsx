@@ -1,7 +1,7 @@
 import { Button } from "@ui/src/components/atom/Button";
 import { Input } from "@ui/src/components/atom/Input";
 import React, { ChangeEvent, useState, memo } from "react";
-import useCommentMutation from "@/hooks/service/mutations/useCommentMutation";
+import useCommentMutation from "@/features/comment/api/useCommentMutation";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 

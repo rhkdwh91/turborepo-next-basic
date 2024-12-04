@@ -12,7 +12,7 @@ import {
   useTagCreateMutation,
   useTagDeleteMutation,
   useTagUpdateCategoryMutation,
-} from "@/hooks/service/mutations/useTagMutation";
+} from "@/features/tag/api/useTagMutation";
 import { confirmModal } from "@ui/src/components/organism/ConfirmModal";
 import { Tag } from "@/types/tag";
 import { ErrorMessage } from "@hookform/error-message";

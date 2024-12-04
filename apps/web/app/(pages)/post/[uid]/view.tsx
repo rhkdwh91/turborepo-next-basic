@@ -9,7 +9,7 @@ import { queryKeys } from "queryKeys";
 import { useSession } from "next-auth/react";
 import CommentGroup from "features/comment/ui/CommentGroup";
 import { useDeletePostMutation } from "@/entities/post/model/usePostMutation";
-import useCommentMutation from "hooks/service/mutations/useCommentMutation";
+import useCommentMutation from "@/features/comment/api/useCommentMutation";
 import { Button } from "@repo/ui/components/atom/Button";
 import { Badge } from "@repo/ui/components/atom/Badge";
 
