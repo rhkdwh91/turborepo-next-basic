@@ -10,7 +10,7 @@ import Footer from "shared/ui/Footer";
 import { getServerSession } from "next-auth";
 import authOptions from "auth.config";
 
-import "../globals.css";
+import "@repo/tailwind-config/globals.css";
 
 export const metadata: Metadata = {
   title: "Cho's BLOG",

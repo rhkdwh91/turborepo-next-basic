@@ -62,7 +62,7 @@ export default function LexicalEditor({ uid, data }: TextEditorProps) {
   };
 
   return (
-    <div className="w-[600px] mx-auto min-h-screen">
+    <div className="mx-auto min-h-screen max-w-6xl mt-4">
       <Input
         ref={fileRef}
         type="file"
