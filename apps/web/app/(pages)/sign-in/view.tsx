@@ -14,7 +14,7 @@ import { toast } from "kyz-toast";
 
 export default function View() {
   const router = useRouter();
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
   const [form, setForm] = useState<UserForm>({
     username: "",
     password: "",
