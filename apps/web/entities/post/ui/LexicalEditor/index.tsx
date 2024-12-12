@@ -3,7 +3,7 @@ import { Input } from "@ui/src/components/atom/Input";
 import { Editor, EditorState, initialState } from "kyz-editor";
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { useSavePostMutation } from "@/entities/post/model/usePostMutation";
-import useS3ImageEditor from "@/hooks/useS3ImageEditor";
+import useS3ImageEditor from "@/shared/lib/hooks/useS3ImageEditor";
 import { Tag as ITag } from "@/types/tag";
 import { cloneDeep } from "lodash";
 import { Post } from "@/types/post";

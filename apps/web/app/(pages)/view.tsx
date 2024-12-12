@@ -4,7 +4,7 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useSearchParams, useRouter } from "next/navigation";
 import { queryKeys } from "queryKeys";
 import { Post } from "types/post";
-import useInfiniteScroll from "hooks/useInfiniteScroll";
+import useInfiniteScroll from "@/shared/lib/hooks/useInfiniteScroll";
 
 import PostCard from "../../entities/post/ui/PostCard";
 import { Badge } from "@ui/src/components/atom/Badge";
