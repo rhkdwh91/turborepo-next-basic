@@ -1,3 +1,1 @@
-import componentConfig from "@repo/tailwind-config/component";
-
-export default componentConfig;
+module.exports = require("@repo/tailwind-config/component");

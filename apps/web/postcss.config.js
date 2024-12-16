@@ -1,3 +1,1 @@
-import postcssConfig from "@repo/tailwind-config/postcss.config";
-
-export default postcssConfig;
+module.exports = require("@repo/tailwind-config/postcss.config");

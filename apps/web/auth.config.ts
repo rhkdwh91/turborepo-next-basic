@@ -1,31 +1,8 @@
-import { AuthOptions, getServerSession } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
-const postRefreshToken: any = async () => {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) {
-    return null;
-  }
-
-  const res = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/auth/refresh-token`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: session.user.refreshToken,
-      },
-    },
-  );
-  const result = await res.json();
-  if (result?.username) {
-    return result;
-  }
-  return null;
-};
-
-const authOptions = {
+const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/sign-in",
     error: "/sign-in",
@@ -53,7 +30,22 @@ const authOptions = {
       },
       async authorize(credentials, req) {
         if (req.body?.refresh === "true") {
-          return await postRefreshToken();
+          const refreshToken = req.body.refreshToken;
+          const res = await fetch(
+            `${process.env.NEXTAUTH_URL}/api/auth/refresh-token`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: refreshToken,
+              },
+            },
+          );
+          const result = await res.json();
+          if (result?.username) {
+            return result;
+          }
+          return null;
         }
 
         const res = await fetch(
@@ -117,11 +109,13 @@ const authOptions = {
       }
       return params.token;
     },
-    session: async function (params) {
+    async session(params) {
       params.session.user = params.token.user as any;
       return params.session;
     },
   },
-} satisfies AuthOptions;
+};
 
-export default authOptions;
+export default async function getAuthOptions() {
+  return authOptions;
+}

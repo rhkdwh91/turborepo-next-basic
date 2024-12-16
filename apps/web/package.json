@@ -29,7 +29,7 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.418.0",
     "next": "^15.1.0",
-    "next-auth": "^4.24.7",
+    "next-auth": "^5.0.0-beta.25",
     "next-themes": "^0.3.0",
     "qs": "^6.12.1",
     "react": "^19.0.0",

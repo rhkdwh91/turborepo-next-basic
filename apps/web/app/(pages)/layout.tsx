@@ -7,10 +7,10 @@ import ToastProvider from "@repo/ui/providers/ToastProvider";
 import ThemeProvider from "@/shared/ui/providers/ThemeProvider";
 import Header from "shared/ui/Header";
 import Footer from "shared/ui/Footer";
-import { getServerSession } from "next-auth";
-import authOptions from "auth.config";
+import { auth } from "@/auth";
 
 import "@repo/tailwind-config/globals.css";
+import authOptions from "auth.config";
 
 export const metadata: Metadata = {
   title: "Cho's BLOG",
@@ -22,12 +22,12 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   return (
     <html>
       <body className="font-PretendardRegular">
-        <SessionProvider>
-          <ReactQueryProvider>
+        <ReactQueryProvider>
+          <SessionProvider>
             <ThemeProvider
               attribute="class"
               defaultTheme="dark"
@@ -40,8 +40,8 @@ export default async function RootLayout({
                 <Footer />
               </ToastProvider>
             </ThemeProvider>
-          </ReactQueryProvider>
-        </SessionProvider>
+          </SessionProvider>
+        </ReactQueryProvider>
         <SpeedInsights />
         <div id={"modal-root"} />
       </body>
