@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/axiosInstance/axios-client";
+import axiosInstance from "@/shared/lib/axiosInstance/axios-client";
 import { PostForm } from "@/types/post";
 import { toast } from "kyz-toast";
 

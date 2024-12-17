@@ -1,6 +1,5 @@
 import axios from "axios";
-import { getServerSession } from "next-auth";
-import AuthConfig from "auth.config";
+import { auth } from "@/auth";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -9,7 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   async (config) => {
-    const session = await getServerSession(AuthConfig);
+    const session = await auth();
 
     if (!session) {
       config.headers.accessToken = null;
@@ -42,7 +41,7 @@ instance.interceptors.response.use(
     if (status === 401 && error.response.data.message !== "expired") {
       return Promise.reject(error);
     }
-    const session = await getServerSession(AuthConfig);
+    const session = await auth();
     if (!session?.user) {
       return Promise.reject(error);
     }

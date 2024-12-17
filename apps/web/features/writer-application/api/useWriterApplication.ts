@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "@/axiosInstance";
+import axiosInstance from "shared/lib/axiosInstance";
 import { toast } from "kyz-toast";
 
 export const useReceiptWriterApplication = () => {

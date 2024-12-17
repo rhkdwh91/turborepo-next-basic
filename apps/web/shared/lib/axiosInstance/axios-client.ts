@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { getSession } from "next-auth/react";
+import { auth } from "@/auth";
 import refreshAuthorize from "./refreshAuthorize";
 
 const instance = axios.create({
@@ -11,7 +11,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   async (config) => {
-    const session = await getSession();
+    const session = await auth();
 
     if (!session) {
       config.headers.accessToken = null;
@@ -47,7 +47,7 @@ instance.interceptors.response.use(
     }
 
     await refreshAuthorize();
-    const session = await getSession();
+    const session = await auth();
     if (!session?.user) {
       return Promise.reject(error);
     }

@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef } from "react";
-import axiosInstance from "../../../axiosInstance/axios-client";
+import axiosInstance from "@/shared/lib/axiosInstance/axios-client";
 import { setImage } from "kyz-editor";
 
 const useS3ImageEditor = () => {

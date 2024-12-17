@@ -1,7 +1,7 @@
 import View from "./view";
 import { getQueryClient, queryKeys } from "queryKeys";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import axiosInstance from "@/axiosInstance";
+import axiosInstance from "shared/lib/axiosInstance";
 
 interface PageProps {
   params: {
