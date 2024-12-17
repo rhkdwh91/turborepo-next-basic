@@ -1,4 +1,4 @@
-import ReactQueryProvider from "@ui/src/providers/ReactQueryProvider";
+import ReactQueryProvider from "web/shared/ui/providers/ReactQueryProvider";
 
 import "@repo/tailwind-config/globals.css";
 import ThemeProvider from "components/providers/ThemeProvider";

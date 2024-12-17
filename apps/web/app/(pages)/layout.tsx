@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import ReactQueryProvider from "@repo/ui/providers/ReactQueryProvider";
+import ReactQueryProvider from "@/shared/ui/providers/ReactQueryProvider";
 import SessionProvider from "@/shared/ui/providers/SessionProvider";
 import ToastProvider from "@repo/ui/providers/ToastProvider";
 import ThemeProvider from "@/shared/ui/providers/ThemeProvider";
@@ -10,7 +10,6 @@ import Footer from "shared/ui/Footer";
 import { auth } from "@/auth";
 
 import "@repo/tailwind-config/globals.css";
-import authOptions from "auth.config";
 
 export const metadata: Metadata = {
   title: "Cho's BLOG",

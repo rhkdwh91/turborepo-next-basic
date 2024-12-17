@@ -25,10 +25,7 @@ export default function View() {
   const searchTags = searchParams ? searchParams.getAll("tag") : [];
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage, isLoading } =
     useInfiniteQuery<Post[]>({
-      ...queryKeys.infinityPosts.list({
-        tag: createTagArray(searchTags),
-      }),
-      queryKey: ["list", { tag: createTagArray(searchTags) }],
+      queryKey: ["posts", { tag: createTagArray(searchTags) }], // queryKey 하나만 사용
       initialPageParam: 0,
       getNextPageParam: (prevPage, allPages) => {
         const isLastPage = prevPage.length < 8;
