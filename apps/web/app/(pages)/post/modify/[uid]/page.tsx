@@ -1,9 +1,8 @@
 import View from "./view";
 import { getQueryClient, queryKeys } from "queryKeys";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { getServerSession } from "next-auth";
-import authOptions from "@/auth.config";
 import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 
 interface PageProps {
   params: {
@@ -12,7 +11,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (session?.user?.level && session.user.level > 2) return redirect("/");
   const uid = Number(params.uid);
   const queryClient = getQueryClient();

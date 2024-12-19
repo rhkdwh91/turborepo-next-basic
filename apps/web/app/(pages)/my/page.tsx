@@ -2,11 +2,10 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { getQueryClient, queryKeys } from "queryKeys";
 
 import View from "./view";
-import { getServerSession } from "next-auth";
-import authOptions from "@/auth.config";
+import { auth } from "@/auth";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const queryClient = getQueryClient();
   await Promise.all([
     queryClient.prefetchQuery({

@@ -1,10 +1,9 @@
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import View from "./view";
-import authOptions from "auth.config";
+import { auth } from "@/auth";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (session?.user?.level !== 1) return redirect("/");
   return <View />;
 }

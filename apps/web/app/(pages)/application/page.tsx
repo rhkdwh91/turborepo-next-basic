@@ -1,13 +1,11 @@
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import View from "./view";
-import authOptions from "auth.config";
 import { getQueryClient, queryKeys } from "@/queryKeys";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { auth } from "@/auth";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
-  console.log(session);
+  const session = await auth();
   if ((session?.user?.level && session.user.level < 2) || !session)
     return redirect("/");
 
