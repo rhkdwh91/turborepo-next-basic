@@ -5,14 +5,15 @@ import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
     const user = await authCheck(req);
     const searchParams = req.nextUrl.searchParams;
     const take = searchParams.get("take");
     const skip = searchParams.get("skip");
-    const userUid = Number(params.uid);
+    const { uid } = await params;
+    const userUid = Number(uid);
 
     const where: any = {};
 

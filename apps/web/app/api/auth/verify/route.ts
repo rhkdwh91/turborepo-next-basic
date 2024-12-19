@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyJWT } from "utils/signJWT";
-import { auth } from "@/auth";
+import { auth } from "@/auth.config";
 
 export async function GET(req: NextRequest) {
   try {

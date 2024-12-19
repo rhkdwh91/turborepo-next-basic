@@ -7,7 +7,7 @@ import ToastProvider from "@repo/ui/providers/ToastProvider";
 import ThemeProvider from "@/shared/ui/providers/ThemeProvider";
 import Header from "shared/ui/Header";
 import Footer from "shared/ui/Footer";
-import { auth } from "@/auth";
+import { auth } from "@/auth.config";
 
 import "@repo/tailwind-config/globals.css";
 

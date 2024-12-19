@@ -1,9 +1,9 @@
 import View from "./view";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     uid: string;
-  };
+  }>;
 }
 
 export default async function Page({ params }: PageProps) {

@@ -1,8 +1,8 @@
-import { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth, { NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-const authOptions: NextAuthOptions = {
+const config = {
   pages: {
     signIn: "/sign-in",
     error: "/sign-in",
@@ -29,8 +29,8 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials, req) {
-        if (req.body?.refresh === "true") {
-          const refreshToken = req.body.refreshToken;
+        if ((req.body as any)?.refresh === "true") {
+          const refreshToken = (req.body as any).refreshToken;
           const res = await fetch(
             `${process.env.NEXTAUTH_URL}/api/auth/refresh-token`,
             {
@@ -114,8 +114,13 @@ const authOptions: NextAuthOptions = {
       return params.session;
     },
   },
-};
+} as NextAuthConfig;
 
-export default async function getAuthOptions() {
-  return authOptions;
-}
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth(config);
+
+export default config;

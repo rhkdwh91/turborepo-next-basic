@@ -7,10 +7,11 @@ import { cloneDeep } from "lodash";
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
     const user = await authCheck(req);
+    const { uid } = await params;
     if (user?.level && user.level > 1) {
       new AuthError(403, "권한이 부족합니다.");
     }
@@ -20,7 +21,7 @@ export async function PUT(
     await prisma.user.update({
       data: { level: Number(form.level) },
       where: {
-        uid: Number(params.uid),
+        uid: Number(uid),
       },
     });
     return NextResponse.json(

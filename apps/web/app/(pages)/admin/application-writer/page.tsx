@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import View from "./view";
-import { auth } from "@/auth";
+import { auth } from "@/auth.config";
 
 export default async function Page() {
   const session = await auth();

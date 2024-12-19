@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import View from "./view";
 import { getQueryClient, queryKeys } from "@/queryKeys";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { auth } from "@/auth";
+import { auth } from "@/auth.config";
 
 export default async function Page() {
   const session = await auth();

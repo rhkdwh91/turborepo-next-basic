@@ -6,17 +6,18 @@ import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
     await authCheck(req);
 
     const requestData = await req.json();
     const form = cloneDeep(requestData);
+    const { uid } = await params;
     await prisma.category.update({
       data: form,
       where: {
-        uid: Number(params.uid),
+        uid: Number(uid),
       },
     });
     return NextResponse.json(

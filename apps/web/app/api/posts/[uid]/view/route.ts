@@ -5,7 +5,7 @@ import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function PUT(
   _: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
     const { uid } = await params;

@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { getQueryClient, queryKeys } from "queryKeys";
 
 import View from "./view";
-import { auth } from "@/auth";
+import { auth } from "@/auth.config";
 
 export default async function Page() {
   const session = await auth();

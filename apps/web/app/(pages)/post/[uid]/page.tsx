@@ -4,9 +4,9 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import axiosInstance from "shared/lib/axiosInstance";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     uid: string;
-  };
+  }>;
 }
 
 export default async function Page({ params }: PageProps) {

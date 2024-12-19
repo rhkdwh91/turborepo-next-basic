@@ -5,12 +5,13 @@ import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { username: string } },
+  { params }: { params: Promise<{ username: string }> },
 ) {
   try {
+    const { username } = await params;
     const user = await prisma.user.findUnique({
       where: {
-        username: params.username,
+        username: username,
       },
     });
     const level = user?.level ?? null;

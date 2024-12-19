@@ -7,12 +7,13 @@ import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
+    const { uid } = await params;
     const comment = await prisma.comment.findUnique({
       where: {
-        uid: Number(params.uid),
+        uid: Number(uid),
       },
     });
     return NextResponse.json(comment, { status: 200 });
@@ -23,17 +24,19 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
     await authCheck(req);
+
+    const { uid } = await params;
 
     const requestData = await req.json();
     const form = cloneDeep(requestData);
     await prisma.comment.update({
       data: form,
       where: {
-        uid: Number(params.uid),
+        uid: Number(uid),
       },
     });
     return NextResponse.json(
@@ -47,14 +50,16 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
     await authCheck(req);
 
+    const { uid } = await params;
+
     await prisma.comment.delete({
       where: {
-        uid: Number(params.uid),
+        uid: Number(uid),
       },
     });
     return NextResponse.json(

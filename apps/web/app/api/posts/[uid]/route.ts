@@ -7,7 +7,7 @@ import { errorHandler } from "@/utils/apiErrorHandler";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
     const { uid } = await params;
@@ -53,7 +53,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
     const user = await authCheck(req);
@@ -78,7 +78,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { uid: string } },
+  { params }: { params: Promise<{ uid: string }> },
 ) {
   try {
     await authCheck(req);
