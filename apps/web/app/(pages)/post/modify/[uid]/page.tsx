@@ -13,16 +13,16 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
   const session = await auth();
   if (session?.user?.level && session.user.level > 2) return redirect("/");
-  const uid = Number(params.uid);
+  const { uid } = params;
   const queryClient = getQueryClient();
   await Promise.all([
-    queryClient.prefetchQuery(queryKeys.posts.detail(uid)),
+    queryClient.prefetchQuery(queryKeys.posts.detail(Number(uid))),
     queryClient.prefetchQuery(queryKeys.tags.list()),
   ]);
   const dehydratedState = dehydrate(queryClient);
   return (
     <HydrationBoundary state={dehydratedState}>
-      <View uid={uid} />
+      <View uid={Number(uid)} />
     </HydrationBoundary>
   );
 }

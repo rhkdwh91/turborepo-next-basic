@@ -7,5 +7,6 @@ interface PageProps {
 }
 
 export default function Page({ params }: PageProps) {
-  return <View name={params.name} />;
+  const { name } = await params;
+  return <View name={name} />;
 }

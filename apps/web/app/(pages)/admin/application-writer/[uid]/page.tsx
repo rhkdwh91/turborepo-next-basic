@@ -7,6 +7,6 @@ interface PageProps {
 }
 
 export default function Page({ params }: PageProps) {
-  const uid = Number(params.uid);
-  return <View uid={uid} />;
+  const { uid } = await params;
+  return <View uid={Number(uid)} />;
 }
