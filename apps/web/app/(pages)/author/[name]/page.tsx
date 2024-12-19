@@ -6,7 +6,7 @@ interface PageProps {
   };
 }
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: PageProps) {
   const { name } = await params;
   return <View name={name} />;
 }
