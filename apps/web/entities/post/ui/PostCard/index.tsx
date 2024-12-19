@@ -54,13 +54,13 @@ export default function PostCard({ post }: PostCardProps) {
         <CardDescription>{content}...</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>
+        <div>
           {post.tags?.map((tag) => (
             <Badge variant="outline" key={tag.name}>
               {tag.value}
             </Badge>
           ))}
-        </p>
+        </div>
       </CardContent>
       <CardFooter>
         <div className="w-full flex flex-col gap-4">
