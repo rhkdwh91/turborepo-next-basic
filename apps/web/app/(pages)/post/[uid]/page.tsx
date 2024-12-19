@@ -10,14 +10,14 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const uid = Number(params.uid);
+  const { uid } = await params;
   const queryClient = getQueryClient();
-  await queryClient.prefetchQuery(queryKeys.posts.detail(uid));
+  await queryClient.prefetchQuery(queryKeys.posts.detail(Number(uid)));
   const dehydratedState = dehydrate(queryClient);
   await axiosInstance.put(`/api/posts/${uid}/view`);
   return (
     <HydrationBoundary state={dehydratedState}>
-      <View uid={uid} />
+      <View uid={Number(uid)} />
     </HydrationBoundary>
   );
 }

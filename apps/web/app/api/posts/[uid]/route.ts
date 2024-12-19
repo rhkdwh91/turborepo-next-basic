@@ -10,9 +10,10 @@ export async function GET(
   { params }: { params: { uid: string } },
 ) {
   try {
+    const { uid } = await params;
     const post = await prisma.post.findUnique({
       where: {
-        uid: Number(params.uid),
+        uid: Number(uid),
       },
       include: {
         comments: {
@@ -59,10 +60,11 @@ export async function PUT(
     const requestData = await req.json();
     const form = cloneDeep(requestData);
     form.userUid = user.uid;
+    const { uid } = await params;
     await prisma.post.update({
       data: form,
       where: {
-        uid: Number(params.uid),
+        uid: Number(uid),
       },
     });
     return NextResponse.json(
@@ -80,9 +82,10 @@ export async function DELETE(
 ) {
   try {
     await authCheck(req);
+    const { uid } = await params;
     await prisma.post.delete({
       where: {
-        uid: Number(params.uid),
+        uid: Number(uid),
       },
     });
     return NextResponse.json(

@@ -8,9 +8,10 @@ export async function PUT(
   { params }: { params: { uid: string } },
 ) {
   try {
+    const { uid } = await params;
     await prisma.postView.upsert({
       where: {
-        postUid: Number(params.uid),
+        postUid: Number(uid),
       },
       update: {
         count: {
@@ -18,7 +19,7 @@ export async function PUT(
         },
       },
       create: {
-        postUid: Number(params.uid),
+        postUid: Number(uid),
         count: 1,
       },
     });
