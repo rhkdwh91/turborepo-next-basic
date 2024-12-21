@@ -1,6 +1,6 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import axiosInstance from "shared/lib/axiosInstance";
-import { User } from "types/user";
+import axiosInstance from "@/shared/lib/axiosInstance";
+import { User } from "@/types/user";
 
 const profileKeys = createQueryKeys("profile", {
   detail: () => ({

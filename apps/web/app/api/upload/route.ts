@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { fileRenamer, uploadS3 } from "utils/s3-uploader";
+import { fileRenamer, uploadS3 } from "@/shared/lib/utils/s3-uploader";
 import { auth } from "@/auth.config";
 
 export async function POST(req: NextRequest) {

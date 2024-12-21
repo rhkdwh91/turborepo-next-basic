@@ -1,7 +1,7 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import axiosInstance from "shared/lib/axiosInstance";
-import { WriterApplication } from "types/writer-application";
-import { ApplicationUserData } from "types/user";
+import axiosInstance from "@/shared/lib/axiosInstance";
+import { WriterApplication } from "@/types/writer-application";
+import { ApplicationUserData } from "@/types/user";
 
 const writerApplicationKeys = createQueryKeys("writerApplication", {
   list: () => ({

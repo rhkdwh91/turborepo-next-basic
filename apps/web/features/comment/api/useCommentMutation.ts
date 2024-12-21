@@ -4,7 +4,7 @@ import axiosInstance from "@/shared/lib/axiosInstance/axios-client";
 import { toast } from "kyz-toast";
 import { alertModal } from "@ui/src/components/organism/AlertModal";
 import { CommentForm } from "@/types/comment";
-import { queryKeys } from "@/queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 
 const useCommentMutation = () => {
   const queryClient = useQueryClient();

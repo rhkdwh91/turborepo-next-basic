@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { Button } from "@ui/src/components/atom/Button";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "@/queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 import {
   useAcceptingWriterApplication,
   useAcceptWriterApplication,

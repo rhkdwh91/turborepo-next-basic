@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cloneDeep } from "lodash";
 import prisma from "prisma/client";
-import authCheck from "@/utils/authCheck";
-import { errorHandler } from "@/utils/apiErrorHandler";
+import authCheck from "@/shared/lib/utils/authCheck";
+import { errorHandler } from "@/shared/lib/utils/apiErrorHandler";
 
 export async function POST(req: NextRequest) {
   try {

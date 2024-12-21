@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Editor } from "kyz-editor";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { queryKeys } from "queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 import { useSession } from "next-auth/react";
 import CommentGroup from "features/comment/ui/CommentGroup";
 import { useDeletePostMutation } from "@/entities/post/model/usePostMutation";

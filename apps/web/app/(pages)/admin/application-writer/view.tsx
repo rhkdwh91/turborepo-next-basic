@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 import Link from "next/link";
 import dayjs from "dayjs";
 

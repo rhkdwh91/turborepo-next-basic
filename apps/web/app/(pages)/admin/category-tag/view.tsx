@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "@/queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import {
   useCategoryCreateMutation,

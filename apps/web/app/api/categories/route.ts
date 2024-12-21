@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import prisma from "prisma/client";
 import { cloneDeep } from "lodash";
-import authCheck from "utils/authCheck";
-import { errorHandler } from "@/utils/apiErrorHandler";
+import authCheck from "@/shared/lib/utils/authCheck";
+import { errorHandler } from "@/shared/lib/utils/apiErrorHandler";
 
 export async function GET() {
   try {

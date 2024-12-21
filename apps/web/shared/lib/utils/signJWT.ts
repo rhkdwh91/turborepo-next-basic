@@ -1,5 +1,5 @@
 import { jwtVerify, SignJWT } from "jose";
-import { UserToken } from "types/user";
+import { UserToken } from "@/types/user";
 
 export const signJWT = async (payload: UserToken) => {
   const iat = Math.floor(Date.now() / 1000);

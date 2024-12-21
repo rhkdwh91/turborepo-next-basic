@@ -1,4 +1,4 @@
-import { signJWT } from "utils/signJWT";
+import { signJWT } from "@/shared/lib/utils/signJWT";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "prisma/client";
 

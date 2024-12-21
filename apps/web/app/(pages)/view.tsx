@@ -2,7 +2,7 @@
 
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useSearchParams, useRouter } from "next/navigation";
-import { queryKeys } from "queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 import { Post } from "types/post";
 import useInfiniteScroll from "@/shared/lib/hooks/useInfiniteScroll";
 

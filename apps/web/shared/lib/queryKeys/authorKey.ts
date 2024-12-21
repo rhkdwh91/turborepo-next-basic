@@ -1,5 +1,5 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import axiosInstance from "shared/lib/axiosInstance";
+import axiosInstance from "@/shared/lib/axiosInstance";
 import { User } from "next-auth";
 
 const authorKeys = createQueryKeys("author", {

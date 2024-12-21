@@ -9,7 +9,7 @@ import { cloneDeep } from "lodash";
 import { Post } from "@/types/post";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "@/queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 import clsx from "clsx";
 
 interface TextEditorProps {

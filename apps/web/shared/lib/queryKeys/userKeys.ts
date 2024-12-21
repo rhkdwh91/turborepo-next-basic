@@ -1,5 +1,5 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import axiosInstance from "shared/lib/axiosInstance";
+import axiosInstance from "@/shared/lib/axiosInstance";
 import qs from "qs";
 import { User } from "next-auth";
 

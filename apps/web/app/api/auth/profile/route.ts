@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "prisma/client";
-import { errorHandler } from "utils/apiErrorHandler";
-import authCheck from "@/utils/authCheck";
+import { errorHandler } from "@/shared/lib/utils/apiErrorHandler";
+import authCheck from "@/shared/lib/utils/authCheck";
 
 export async function GET(req: NextRequest) {
   try {

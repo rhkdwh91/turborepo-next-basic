@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useUserLevelMutation } from "@/entities/user/api/useUserMutation";
 import { useCallback, useState } from "react";
-import { queryKeys } from "@/queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 import { ErrorMessage } from "@hookform/error-message";
 import { Button } from "@ui/src/components/atom/Button";
 import { Input } from "@ui/src/components/atom/Input";

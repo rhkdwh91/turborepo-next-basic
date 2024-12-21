@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 import { redirect } from "next/navigation";
 import LexicalEditor from "@/entities/post/ui/LexicalEditor";
 

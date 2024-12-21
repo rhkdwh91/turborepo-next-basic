@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { verifyJWT } from "./signJWT";
-import { UserToken } from "types/user";
+import { UserToken } from "@/types/user";
 
 export class AuthError extends Error {
   status: number;

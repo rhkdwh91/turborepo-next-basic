@@ -3,7 +3,7 @@
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { Button } from "@ui/src/components/atom/Button";
 import { useQuery } from "@tanstack/react-query";
-import { queryKeys } from "@/queryKeys";
+import { queryKeys } from "shared/lib/queryKeys";
 import { useCallback } from "react";
 import { useReceiptWriterApplication } from "@/features/writer-application/api/useWriterApplication";
 
