@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import prisma from "@/shared/lib/prisma/client";
+import prisma from "@/prisma/client";
 import authCheck from "@/shared/lib/utils/authCheck";
 import { errorHandler } from "@/shared/lib/utils/apiErrorHandler";
 

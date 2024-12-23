@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import authCheck from "@/shared/lib/utils/authCheck";
 import { cloneDeep } from "lodash";
-import prisma from "@/shared/lib/prisma/client";
+import prisma from "@/prisma/client";
 import { errorHandler } from "@/shared/lib/utils/apiErrorHandler";
 
 export async function PUT(

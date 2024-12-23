@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/shared/lib/prisma/client";
+import prisma from "@/prisma/client";
 import { errorHandler } from "@/shared/lib/utils/apiErrorHandler";
 import authCheck from "@/shared/lib/utils/authCheck";
 
