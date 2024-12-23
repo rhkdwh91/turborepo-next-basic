@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cloneDeep } from "lodash";
-import prisma from "prisma/client";
+import prisma from "@/shared/lib/prisma/client";
 import authCheck from "@/shared/lib/utils/authCheck";
 import { errorHandler } from "@/shared/lib/utils/apiErrorHandler";
 

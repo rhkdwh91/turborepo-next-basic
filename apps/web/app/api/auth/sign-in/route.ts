@@ -1,6 +1,6 @@
 import { signJWT } from "@/shared/lib/utils/signJWT";
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "prisma/client";
+import prisma from "@/shared/lib/prisma/client";
 import bcrypt from "bcryptjs";
 
 export async function POST(req: NextRequest) {
