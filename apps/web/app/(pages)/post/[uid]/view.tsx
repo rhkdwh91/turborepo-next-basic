@@ -95,7 +95,7 @@ function View({ uid }: ViewProps) {
           {data && data.comments.length > 0 ? (
             data.comments.map((comment) => (
               <CommentGroup.CommentList.Item key={comment.uid}>
-                <div className="flex items-center w-1/6">
+                <div className="flex items-center">
                   {comment.user?.profileImage && (
                     <ProfileImage src={comment.user?.profileImage} />
                   )}

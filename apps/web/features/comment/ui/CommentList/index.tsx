@@ -6,7 +6,7 @@ interface CommentItemProps {
 
 function Item({ children }: CommentItemProps) {
   return (
-    <div className="flex flex-wrap text-center border-b  border-zinc-700 border-solid py-5 justify-start w-full items-center">
+    <div className="flex flex-wrap text-center border-b border-zinc-700 border-solid py-4 justify-start w-full items-center">
       {children}
     </div>
   );
