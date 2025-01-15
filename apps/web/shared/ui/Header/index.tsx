@@ -13,7 +13,7 @@ export default function Header({ session }: HeaderProps) {
   const { data, status } = useSession();
   return (
     <div className="text-white">
-      <div className="flex items-center justify-between max-w-6xl mx-auto py-3">
+      <div className="flex items-center justify-between max-w-6xl mx-auto py-4">
         <Link href={"/"} className="text-2xl">
           <img
             width={80}
